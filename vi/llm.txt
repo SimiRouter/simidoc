@@ -1,0 +1,143 @@
+# SimiRouter — Toàn bộ tài liệu (vi)
+
+> SimiRouter — Mục lục tài liệu có thể đọc bằng máy.
+
+## Tham chiếu nhanh API
+- URL gốc: https://api.dwchainless.com
+- Xác thực: `Authorization: Bearer <API_KEY>`
+- Các endpoint chính:
+  - `POST /v1/chat/completions` — Chat Completions
+  - `POST /v1/responses` — Responses
+  - `POST /v1/messages` — Claude Messages
+  - `POST /v1beta/models/{model}:generateContent` — Gemini
+  - `GET /v1/models` — Models
+
+## Nguồn ưu tiên
+- [Toàn bộ tài liệu](https://simirouter.github.io/simidoc/vi/llms-full.txt): Toàn bộ tài liệu trong một tệp.
+
+## Trang
+- [Cấu hình ứng dụng](https://simirouter.github.io/simidoc/vi/llms.mdx/apps.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps
+- [Tham khảo API](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api
+- [Tích hợp API bằng script](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api-script.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api-script
+- [Âm thanh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/audio.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/audio
+- [Tổng hợp giọng nói Gemini](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/audio/gemini.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/audio/gemini
+- [Hiểu âm thanh Gemini](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/audio/gemini-understanding.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/audio/gemini-understanding
+- [Tích hợp âm thanh MiMo](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/audio/mimo-audio.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/audio/mimo-audio
+- [Định dạng âm thanh OpenAI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/audio/openai.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/audio/openai
+- [Văn bản thành giọng](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/audio/speech.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/audio/speech
+- [Chép âm thanh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/audio/transcriptions.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/audio/transcriptions
+- [Dịch âm thanh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/audio/translations.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/audio/translations
+- [Trò chuyện và sinh nội dung](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/chat.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/chat
+- [Claude Messages](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/chat/claude.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/chat/claude
+- [Hiểu phương tiện Gemini](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/chat/gemini-media.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/chat/gemini-media
+- [Sinh văn bản Gemini](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/chat/gemini-text.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/chat/gemini-text
+- [Chat Completions](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/chat/openai-chat.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/chat/openai-chat
+- [Bổ sung văn bản cũ](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/chat/openai-completions.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/chat/openai-completions
+- [Responses API](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/chat/openai-responses.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/chat/openai-responses
+- [Hình ảnh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images
+- [Gọi ảnh bằng tác tử đã tích hợp vào tài liệu giao thức](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/agents.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/agents
+- [Tạo ảnh BFL FLUX](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/flux.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/flux
+- [API hình ảnh Gemini](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/gemini.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/gemini
+- [Chỉnh ảnh và ảnh thành ảnh Gemini](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/gemini/edits.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/gemini/edits
+- [Tạo ảnh Gemini](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/gemini/generate.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/gemini/generate
+- [Tạo ảnh xAI Grok](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/grok.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/grok
+- [Jimeng / Tạo ảnh Volcengine Ark](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/jimeng.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/jimeng
+- [API hình ảnh định dạng OpenAI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/openai.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/openai
+- [Tạo ảnh hội thoại](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/openai/chat-format.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/openai/chat-format
+- [Chỉnh ảnh và ảnh thành ảnh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/openai/edits.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/openai/edits
+- [Tạo ảnh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/openai/generations.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/openai/generations
+- [Hiểu ảnh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/openai/vision.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/openai/vision
+- [API hình ảnh gốc Qwen](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/qwen.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/qwen
+- [Chỉnh ảnh Qwen](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/qwen/edits.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/qwen/edits
+- [Tạo ảnh Qwen](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/qwen/generations.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/qwen/generations
+- [Ví dụ gọi ảnh đã được sắp xếp theo giao thức](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/images/scripts.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/images/scripts
+- [Danh sách mô hình](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/models.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/models
+- [Danh sách mô hình định dạng Gemini](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/models/gemini.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/models/gemini
+- [Danh sách mô hình định dạng OpenAI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/models/openai.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/models/openai
+- [Âm nhạc (không hỗ trợ)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/music.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/music
+- [Tạo nhạc Google Lyria](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/music/lyria.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/music/lyria
+- [Nhạc Lyria RealTime](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/music/realtime.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/music/realtime
+- [Khả năng khác và tham khảo chờ tích hợp](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending
+- [Nhúng (không hỗ trợ)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/embeddings.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/embeddings
+- [Nhúng Gemini](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/embeddings/gemini.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/embeddings/gemini
+- [Nhúng OpenAI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/embeddings/openai.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/embeddings/openai
+- [Files API (không hỗ trợ)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/files.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/files
+- [Lấy nội dung tệp](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/files/content.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/files/content
+- [Xóa tệp](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/files/delete.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/files/delete
+- [Liệt kê tệp](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/files/list.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/files/list
+- [Lấy thông tin tệp](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/files/retrieve.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/files/retrieve
+- [Tải tệp](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/files/upload.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/files/upload
+- [Tinh chỉnh (không hỗ trợ)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/fine-tuning.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/fine-tuning
+- [Hủy tinh chỉnh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/fine-tuning/cancel.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/fine-tuning/cancel
+- [Tạo tinh chỉnh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/fine-tuning/create.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/fine-tuning/create
+- [Lấy sự kiện tinh chỉnh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/fine-tuning/events.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/fine-tuning/events
+- [Liệt kê tinh chỉnh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/fine-tuning/list.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/fine-tuning/list
+- [Lấy chi tiết tinh chỉnh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/fine-tuning/retrieve.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/fine-tuning/retrieve
+- [Kiểm duyệt nội dung](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/moderations.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/moderations
+- [OpenAI Realtime API](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/realtime.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/realtime
+- [Xếp hạng lại tài liệu](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/pending/rerank.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/pending/rerank
+- [Gọi công cụ](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/tools.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/tools
+- [Gọi công cụ hàm](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/tools/function-call.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/tools/function-call
+- [Công cụ tìm kiếm web](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/tools/web-search.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/tools/web-search
+- [Tệp và hiểu nội dung](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/upload.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/upload
+- [Hiểu nội dung tệp](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/upload/file-recognition.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/upload/file-recognition
+- [Video](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video
+- [Tạo video DashScope (Wan / HappyHorse)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/dashscope-video.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/dashscope-video
+- [Video Grok Imagine](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/grok-imagine.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/grok-imagine
+- [Video Jimeng (chờ tích hợp)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/jimeng.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/jimeng
+- [Gửi video Jimeng (chờ tích hợp)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/jimeng/create.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/jimeng/create
+- [Truy vấn kết quả Jimeng (chờ tích hợp)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/jimeng/status.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/jimeng/status
+- [Video Kling](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/kling.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/kling
+- [Kling ảnh thành video](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/kling/image-create.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/kling/image-create
+- [Truy vấn Kling ảnh thành video](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/kling/image-status.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/kling/image-status
+- [Kling chữ thành video](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/kling/text-create.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/kling/text-create
+- [Truy vấn Kling chữ thành video](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/kling/text-status.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/kling/text-status
+- [Video PixVerse](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/pixverse.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/pixverse
+- [Video Seedance](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/seedance.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/seedance
+- [Tạo tác vụ Seedance](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/seedance/create.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/seedance/create
+- [Truy vấn Seedance](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/seedance/status.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/seedance/status
+- [Video Sora (API chính thức đã đóng)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/sora.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/sora
+- [Tải Sora (API chính thức đã đóng)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/sora/content.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/sora/content
+- [Tạo Sora (API chính thức đã đóng)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/sora/create.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/sora/create
+- [Truy vấn Sora (API chính thức đã đóng)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/sora/status.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/sora/status
+- [Hiểu video](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/understanding.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/understanding
+- [Hiểu video Dots](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/understanding/dots.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/understanding/dots
+- [Hiểu video Gemini](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/understanding/gemini.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/understanding/gemini
+- [Hiểu video Kimi](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/understanding/kimi.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/understanding/kimi
+- [Video Veo (mô hình xem trước trên Gemini API đã ngừng)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/api/video/veo.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/api/video/veo
+- [Cấu hình AstrBot](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/astrbot.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/astrbot
+- [Cấu hình CC Switch](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/cc-switch.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/cc-switch
+- [Cấu hình Chatbox AI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/chatbox.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/chatbox
+- [Cấu hình Cherry Studio](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/cherry-studio.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/cherry-studio
+- [Cấu hình Claude CLI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/claude-config.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/claude-config
+- [Thiết lập Claude Desktop](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/claude-desktop.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/claude-desktop
+- [Cấu hình Codex CLI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/codex-config.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/codex-config
+- [Thiết lập ứng dụng Codex trên máy tính](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/codex-desktop.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/codex-desktop
+- [Cấu hình DeepChat](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/deepchat.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/deepchat
+- [Cài đặt DeepSeek Harness](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/deepseek-harness.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/deepseek-harness
+- [Cài đặt và cấu hình Factory Droid CLI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/factory-droid-cli.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/factory-droid-cli
+- [Cấu hình FluentRead](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/fluent-read.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/fluent-read
+- [Cấu hình Gemini CLI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/gemini-config.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/gemini-config
+- [Tạo khóa SimiRouter](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/getting-started.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/getting-started
+- [Cấu hình Grok CLI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/grok-config.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/grok-config
+- [Cấu hình Hermes](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/hermers.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/hermers
+- [Cài Claude Code CLI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/installation/claude-code.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/installation/claude-code
+- [Cài đặt ứng dụng Codex dành cho máy tính](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/installation/codex-app.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/installation/codex-app
+- [Cài Codex CLI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/installation/codex-cli.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/installation/codex-cli
+- [Cài đặt Gemini CLI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/installation/gemini.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/installation/gemini
+- [Cấu hình LangBot](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/langbot.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/langbot
+- [Cấu hình LunaTranslator](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/luna-translator.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/luna-translator
+- [Cấu hình Memoh](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/memoh.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/memoh
+- [Cấu hình OpenClaw](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/openclaw.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/openclaw
+- [Cấu hình OpenCode CLI](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/opencode-config.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/opencode-config
+- [Cấu hình tiện ích bên thứ ba (VS Code Roo)](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/roo-code.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/roo-code
+- [Hướng dẫn WorkBuddy](https://simirouter.github.io/simidoc/vi/llms.mdx/apps/workbuddy.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/apps/workbuddy
+- [Liên hệ và hỗ trợ](https://simirouter.github.io/simidoc/vi/llms.mdx/contact.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/contact
+- [Chính sách hoàn tiền](https://simirouter.github.io/simidoc/vi/llms.mdx/contact/refund-policy.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/contact/refund-policy
+- [Quyền nhật ký sử dụng và nhật ký kiểm toán](https://simirouter.github.io/simidoc/vi/llms.mdx/guide/usage-logs-permissions.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/guide/usage-logs-permissions
+- [Nhật ký thay đổi](https://simirouter.github.io/simidoc/vi/llms.mdx/guide/wiki/changelog.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/guide/wiki/changelog
+- [Giá dịch vụ](https://simirouter.github.io/simidoc/vi/llms.mdx/pricing.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/pricing
+- [Ba ưu đãi ra mắt](https://simirouter.github.io/simidoc/vi/llms.mdx/promotion/launch-benefits.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/promotion/launch-benefits
+- [Hướng dẫn giới thiệu dài hạn](https://simirouter.github.io/simidoc/vi/llms.mdx/promotion/promotion-guide.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/promotion/promotion-guide
+- [Quy định hoa hồng giới thiệu](https://simirouter.github.io/simidoc/vi/llms.mdx/promotion/rebate-details.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/promotion/rebate-details
+- [Nạp tiền](https://simirouter.github.io/simidoc/vi/llms.mdx/recharge.md): Trang chuẩn https://simirouter.github.io/simidoc/vi/recharge

@@ -1,0 +1,8 @@
+:HL["/simidoc/_next/static/chunks/29--_xkit9eal.css","style"]
+:HC["/",""]
+:HL["/simidoc/_next/static/chunks/2gs3drdnc84hp.css","style"]
+4:[["children",{"s":"__PAGE__","h":160}]]
+3:[["children",{"s":{"n":"slug","t":"oc","k":"apps/api/video/kling/text-status","s":["llm-full.txt","llm.txt","llms-full.txt","llms.mdx","llms.txt","search-index.json"]},"h":65600,"c":"$Q4"}]]
+2:[["children",{"s":"(docs)","h":131072,"c":"$Q3"}]]
+1:[["children",{"s":{"n":"lang","t":"d","k":"fr","s":["llm-full.txt","llm.txt","llms-full.txt","llms.txt","og"]},"h":196656,"c":"$Q2"}]]
+0:{"b":"0K9ZuT3sJA4sXcVSgvwXa","t":{"t":{"s":"","h":131152,"c":"$Q1"}}}

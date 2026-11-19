@@ -1,0 +1,143 @@
+# SimiRouter — 完整文档 (zh)
+
+> SimiRouter — 机器可读的文档索引.
+
+## API 基础
+- 基础地址: https://api.dwchainless.com
+- 鉴权: `Authorization: Bearer <API_KEY>`
+- 主要端点:
+  - `POST /v1/chat/completions` — Chat Completions
+  - `POST /v1/responses` — Responses
+  - `POST /v1/messages` — Claude Messages
+  - `POST /v1beta/models/{model}:generateContent` — Gemini
+  - `GET /v1/models` — Models
+
+## 优先使用的来源
+- [完整文档](https://simirouter.github.io/simidoc/zh/llms-full.txt): 单个文件中的完整文档。
+
+## 页面
+- [客户端配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps
+- [API 参考](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api
+- [API 脚本接入](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api-script.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api-script
+- [音频](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/audio.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/audio
+- [Gemini 语音合成](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/audio/gemini.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/audio/gemini
+- [Gemini 音频理解](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/audio/gemini-understanding.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/audio/gemini-understanding
+- [MiMo 音频接入](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/audio/mimo-audio.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/audio/mimo-audio
+- [OpenAI 音频格式](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/audio/openai.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/audio/openai
+- [文本转语音](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/audio/speech.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/audio/speech
+- [音频转录](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/audio/transcriptions.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/audio/transcriptions
+- [音频翻译](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/audio/translations.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/audio/translations
+- [聊天与内容生成](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/chat.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/chat
+- [Claude Messages](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/chat/claude.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/chat/claude
+- [Gemini 媒体理解](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/chat/gemini-media.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/chat/gemini-media
+- [Gemini 文本生成](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/chat/gemini-text.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/chat/gemini-text
+- [Chat Completions](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/chat/openai-chat.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/chat/openai-chat
+- [传统文本补全](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/chat/openai-completions.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/chat/openai-completions
+- [Responses API](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/chat/openai-responses.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/chat/openai-responses
+- [画图](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images
+- [智能体图片调用已合并到协议文档](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/agents.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/agents
+- [BFL FLUX 图片生成](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/flux.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/flux
+- [Gemini 图片接口](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/gemini.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/gemini
+- [Gemini 图片编辑与以图生图](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/gemini/edits.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/gemini/edits
+- [Gemini 图片生成](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/gemini/generate.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/gemini/generate
+- [xAI Grok 图片生成](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/grok.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/grok
+- [即梦 / 火山方舟图片生成](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/jimeng.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/jimeng
+- [OpenAI 格式图片接口](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/openai.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/openai
+- [对话式图片生成](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/openai/chat-format.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/openai/chat-format
+- [图片编辑与以图生图](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/openai/edits.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/openai/edits
+- [图片生成](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/openai/generations.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/openai/generations
+- [图片理解](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/openai/vision.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/openai/vision
+- [Qwen 原生图片接口](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/qwen.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/qwen
+- [Qwen 图像编辑](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/qwen/edits.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/qwen/edits
+- [Qwen 图像生成](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/qwen/generations.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/qwen/generations
+- [图片调用示例已按协议整理](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/images/scripts.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/images/scripts
+- [模型列表](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/models.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/models
+- [Gemini 格式模型列表](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/models/gemini.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/models/gemini
+- [OpenAI 格式模型列表](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/models/openai.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/models/openai
+- [音乐（不支持）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/music.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/music
+- [Google Lyria 音乐生成](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/music/lyria.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/music/lyria
+- [Lyria RealTime 实时音乐](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/music/realtime.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/music/realtime
+- [其他能力与待接入参考](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending
+- [嵌入（不支持）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/embeddings.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/embeddings
+- [Gemini 嵌入](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/embeddings/gemini.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/embeddings/gemini
+- [OpenAI 嵌入](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/embeddings/openai.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/embeddings/openai
+- [Files API（不支持）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/files.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/files
+- [获取文件内容](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/files/content.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/files/content
+- [删除文件](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/files/delete.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/files/delete
+- [列出文件](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/files/list.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/files/list
+- [获取文件信息](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/files/retrieve.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/files/retrieve
+- [上传文件](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/files/upload.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/files/upload
+- [微调（不支持）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/fine-tuning.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/fine-tuning
+- [取消微调任务](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/fine-tuning/cancel.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/fine-tuning/cancel
+- [创建微调任务](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/fine-tuning/create.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/fine-tuning/create
+- [获取微调任务事件](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/fine-tuning/events.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/fine-tuning/events
+- [列出微调任务](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/fine-tuning/list.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/fine-tuning/list
+- [获取微调任务详情](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/fine-tuning/retrieve.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/fine-tuning/retrieve
+- [内容审核](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/moderations.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/moderations
+- [OpenAI Realtime API](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/realtime.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/realtime
+- [文档重排序](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/pending/rerank.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/pending/rerank
+- [工具调用](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/tools.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/tools
+- [函数工具调用](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/tools/function-call.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/tools/function-call
+- [网络搜索工具](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/tools/web-search.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/tools/web-search
+- [文件与内容识别](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/upload.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/upload
+- [文件内容识别](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/upload/file-recognition.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/upload/file-recognition
+- [视频](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video
+- [DashScope 视频生成（Wan / HappyHorse）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/dashscope-video.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/dashscope-video
+- [Grok Imagine 视频](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/grok-imagine.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/grok-imagine
+- [即梦视频（待接入）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/jimeng.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/jimeng
+- [提交即梦视频任务（待接入）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/jimeng/create.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/jimeng/create
+- [查询即梦视频结果（待接入）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/jimeng/status.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/jimeng/status
+- [Kling 视频](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/kling.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/kling
+- [Kling 图生视频](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/kling/image-create.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/kling/image-create
+- [查询 Kling 图生视频任务](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/kling/image-status.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/kling/image-status
+- [Kling 文生视频](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/kling/text-create.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/kling/text-create
+- [查询 Kling 文生视频任务](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/kling/text-status.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/kling/text-status
+- [PixVerse 视频](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/pixverse.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/pixverse
+- [Seedance 视频](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/seedance.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/seedance
+- [创建 Seedance 视频任务](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/seedance/create.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/seedance/create
+- [查询 Seedance 视频任务](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/seedance/status.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/seedance/status
+- [Sora 视频（官方接口已关闭）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/sora.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/sora
+- [下载 Sora 内容（官方接口已关闭）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/sora/content.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/sora/content
+- [创建 Sora 视频（官方接口已关闭）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/sora/create.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/sora/create
+- [查询 Sora 任务（官方接口已关闭）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/sora/status.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/sora/status
+- [视频理解](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/understanding.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/understanding
+- [Dots 视频理解](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/understanding/dots.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/understanding/dots
+- [Gemini 视频理解](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/understanding/gemini.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/understanding/gemini
+- [Kimi 视频理解](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/understanding/kimi.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/understanding/kimi
+- [Veo 视频（Gemini API 预览模型已停用）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/api/video/veo.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/api/video/veo
+- [AstrBot配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/astrbot.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/astrbot
+- [CC Switch配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/cc-switch.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/cc-switch
+- [Chatbox AI 配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/chatbox.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/chatbox
+- [Cherry Studio配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/cherry-studio.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/cherry-studio
+- [Claude CLI 配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/claude-config.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/claude-config
+- [Claude Desktop 设置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/claude-desktop.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/claude-desktop
+- [Codex CLI 配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/codex-config.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/codex-config
+- [CodexApp桌面端设置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/codex-desktop.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/codex-desktop
+- [DeepChat配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/deepchat.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/deepchat
+- [DeepSeek Harness 设置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/deepseek-harness.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/deepseek-harness
+- [Factory Droid CLI 安装及配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/factory-droid-cli.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/factory-droid-cli
+- [FluentRead配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/fluent-read.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/fluent-read
+- [Gemini CLI 配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/gemini-config.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/gemini-config
+- [注册 SimiRouter Key](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/getting-started.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/getting-started
+- [Grok CLI 配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/grok-config.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/grok-config
+- [Hermes 配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/hermers.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/hermers
+- [Claude Code CLI 安装](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/installation/claude-code.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/installation/claude-code
+- [Codex 桌面端安装](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/installation/codex-app.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/installation/codex-app
+- [Codex CLI 安装](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/installation/codex-cli.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/installation/codex-cli
+- [Gemini CLI 安装](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/installation/gemini.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/installation/gemini
+- [LangBot配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/langbot.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/langbot
+- [LunaTranslator配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/luna-translator.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/luna-translator
+- [Memoh配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/memoh.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/memoh
+- [OpenClaw 配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/openclaw.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/openclaw
+- [OpenCode CLI 配置](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/opencode-config.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/opencode-config
+- [第三方插件配置（VS Code Roo）](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/roo-code.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/roo-code
+- [WorkBuddy 教程](https://simirouter.github.io/simidoc/zh/llms.mdx/apps/workbuddy.md): 规范页面 https://simirouter.github.io/simidoc/zh/apps/workbuddy
+- [联系与支持](https://simirouter.github.io/simidoc/zh/llms.mdx/contact.md): 规范页面 https://simirouter.github.io/simidoc/zh/contact
+- [退款说明](https://simirouter.github.io/simidoc/zh/llms.mdx/contact/refund-policy.md): 规范页面 https://simirouter.github.io/simidoc/zh/contact/refund-policy
+- [使用日志与审计日志权限](https://simirouter.github.io/simidoc/zh/llms.mdx/guide/usage-logs-permissions.md): 规范页面 https://simirouter.github.io/simidoc/zh/guide/usage-logs-permissions
+- [更新日志](https://simirouter.github.io/simidoc/zh/llms.mdx/guide/wiki/changelog.md): 规范页面 https://simirouter.github.io/simidoc/zh/guide/wiki/changelog
+- [定价](https://simirouter.github.io/simidoc/zh/llms.mdx/pricing.md): 规范页面 https://simirouter.github.io/simidoc/zh/pricing
+- [新站上线三重福利](https://simirouter.github.io/simidoc/zh/llms.mdx/promotion/launch-benefits.md): 规范页面 https://simirouter.github.io/simidoc/zh/promotion/launch-benefits
+- [长期推广说明](https://simirouter.github.io/simidoc/zh/llms.mdx/promotion/promotion-guide.md): 规范页面 https://simirouter.github.io/simidoc/zh/promotion/promotion-guide
+- [推广返利说明](https://simirouter.github.io/simidoc/zh/llms.mdx/promotion/rebate-details.md): 规范页面 https://simirouter.github.io/simidoc/zh/promotion/rebate-details
+- [充值](https://simirouter.github.io/simidoc/zh/llms.mdx/recharge.md): 规范页面 https://simirouter.github.io/simidoc/zh/recharge

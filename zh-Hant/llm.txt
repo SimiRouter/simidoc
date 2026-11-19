@@ -1,0 +1,143 @@
+# SimiRouter — 完整文件 (zh-Hant)
+
+> SimiRouter — 機器可讀的文件索引.
+
+## API 基礎
+- 基礎位址: https://api.dwchainless.com
+- 驗證: `Authorization: Bearer <API_KEY>`
+- 主要端點:
+  - `POST /v1/chat/completions` — Chat Completions
+  - `POST /v1/responses` — Responses
+  - `POST /v1/messages` — Claude Messages
+  - `POST /v1beta/models/{model}:generateContent` — Gemini
+  - `GET /v1/models` — Models
+
+## 優先使用的來源
+- [完整文件](https://simirouter.github.io/simidoc/zh-Hant/llms-full.txt): 單一檔案中的完整文件。
+
+## 頁面
+- [用戶端設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps
+- [API 參考](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api
+- [API 指令碼串接](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api-script.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api-script
+- [音訊](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/audio.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/audio
+- [Gemini 語音合成](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/audio/gemini.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/audio/gemini
+- [Gemini 音訊理解](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/audio/gemini-understanding.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/audio/gemini-understanding
+- [MiMo 音訊串接](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/audio/mimo-audio.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/audio/mimo-audio
+- [OpenAI 音訊格式](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/audio/openai.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/audio/openai
+- [文字轉語音](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/audio/speech.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/audio/speech
+- [音訊轉錄](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/audio/transcriptions.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/audio/transcriptions
+- [音訊翻譯](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/audio/translations.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/audio/translations
+- [聊天與內容生成](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/chat.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/chat
+- [Claude Messages](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/chat/claude.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/chat/claude
+- [Gemini 媒體理解](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/chat/gemini-media.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/chat/gemini-media
+- [Gemini 文字生成](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/chat/gemini-text.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/chat/gemini-text
+- [Chat Completions](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/chat/openai-chat.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/chat/openai-chat
+- [傳統文字補全](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/chat/openai-completions.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/chat/openai-completions
+- [Responses API](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/chat/openai-responses.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/chat/openai-responses
+- [畫圖](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images
+- [智慧代理圖片呼叫已合併到協議文件](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/agents.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/agents
+- [BFL FLUX 圖片生成](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/flux.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/flux
+- [Gemini 圖片介面](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/gemini.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/gemini
+- [Gemini 圖片編輯與以圖生圖](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/gemini/edits.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/gemini/edits
+- [Gemini 圖片生成](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/gemini/generate.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/gemini/generate
+- [xAI Grok 圖片生成](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/grok.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/grok
+- [即夢 / 火山方舟圖片生成](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/jimeng.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/jimeng
+- [OpenAI 格式圖片介面](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/openai.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/openai
+- [對話式圖片生成](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/openai/chat-format.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/openai/chat-format
+- [圖片編輯與以圖生圖](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/openai/edits.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/openai/edits
+- [圖片生成](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/openai/generations.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/openai/generations
+- [圖片理解](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/openai/vision.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/openai/vision
+- [Qwen 原生圖片介面](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/qwen.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/qwen
+- [Qwen 圖像編輯](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/qwen/edits.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/qwen/edits
+- [Qwen 圖像生成](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/qwen/generations.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/qwen/generations
+- [圖片呼叫範例已按協議整理](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/images/scripts.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/images/scripts
+- [模型清單](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/models.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/models
+- [Gemini 格式模型清單](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/models/gemini.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/models/gemini
+- [OpenAI 格式模型清單](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/models/openai.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/models/openai
+- [音樂（不支援）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/music.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/music
+- [Google Lyria 音樂生成](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/music/lyria.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/music/lyria
+- [Lyria RealTime 即時音樂](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/music/realtime.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/music/realtime
+- [其他能力與待串接參考](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending
+- [嵌入（不支援）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/embeddings.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/embeddings
+- [Gemini 嵌入](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/embeddings/gemini.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/embeddings/gemini
+- [OpenAI 嵌入](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/embeddings/openai.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/embeddings/openai
+- [Files API（不支援）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/files.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/files
+- [取得檔案內容](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/files/content.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/files/content
+- [刪除檔案](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/files/delete.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/files/delete
+- [列出檔案](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/files/list.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/files/list
+- [取得檔案資訊](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/files/retrieve.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/files/retrieve
+- [上傳檔案](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/files/upload.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/files/upload
+- [微調（不支援）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/fine-tuning.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/fine-tuning
+- [取消微調任務](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/fine-tuning/cancel.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/fine-tuning/cancel
+- [建立微調任務](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/fine-tuning/create.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/fine-tuning/create
+- [取得微調任務事件](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/fine-tuning/events.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/fine-tuning/events
+- [列出微調任務](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/fine-tuning/list.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/fine-tuning/list
+- [取得微調任務詳情](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/fine-tuning/retrieve.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/fine-tuning/retrieve
+- [內容審核](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/moderations.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/moderations
+- [OpenAI Realtime API](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/realtime.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/realtime
+- [文件重新排序](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/pending/rerank.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/pending/rerank
+- [工具呼叫](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/tools.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/tools
+- [函式工具呼叫](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/tools/function-call.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/tools/function-call
+- [網路搜尋工具](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/tools/web-search.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/tools/web-search
+- [檔案與內容識別](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/upload.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/upload
+- [檔案內容識別](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/upload/file-recognition.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/upload/file-recognition
+- [影片](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video
+- [DashScope 影片生成（Wan / HappyHorse）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/dashscope-video.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/dashscope-video
+- [Grok Imagine 影片](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/grok-imagine.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/grok-imagine
+- [即夢影片（待串接）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/jimeng.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/jimeng
+- [提交即夢影片任務（待串接）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/jimeng/create.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/jimeng/create
+- [查詢即夢影片結果（待串接）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/jimeng/status.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/jimeng/status
+- [Kling 影片](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/kling.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/kling
+- [Kling 圖生影片](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/kling/image-create.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/kling/image-create
+- [查詢 Kling 圖生影片任務](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/kling/image-status.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/kling/image-status
+- [Kling 文生影片](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/kling/text-create.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/kling/text-create
+- [查詢 Kling 文生影片任務](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/kling/text-status.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/kling/text-status
+- [PixVerse 影片](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/pixverse.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/pixverse
+- [Seedance 影片](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/seedance.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/seedance
+- [建立 Seedance 影片任務](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/seedance/create.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/seedance/create
+- [查詢 Seedance 影片任務](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/seedance/status.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/seedance/status
+- [Sora 影片（官方介面已關閉）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/sora.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/sora
+- [下載 Sora 內容（官方介面已關閉）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/sora/content.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/sora/content
+- [建立 Sora 影片（官方介面已關閉）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/sora/create.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/sora/create
+- [查詢 Sora 任務（官方介面已關閉）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/sora/status.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/sora/status
+- [影片理解](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/understanding.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/understanding
+- [Dots 影片理解](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/understanding/dots.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/understanding/dots
+- [Gemini 影片理解](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/understanding/gemini.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/understanding/gemini
+- [Kimi 影片理解](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/understanding/kimi.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/understanding/kimi
+- [Veo 影片（Gemini API 預覽模型已停用）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/api/video/veo.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/api/video/veo
+- [AstrBot設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/astrbot.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/astrbot
+- [CC Switch設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/cc-switch.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/cc-switch
+- [Chatbox AI 設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/chatbox.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/chatbox
+- [Cherry Studio設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/cherry-studio.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/cherry-studio
+- [Claude CLI 設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/claude-config.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/claude-config
+- [Claude Desktop 設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/claude-desktop.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/claude-desktop
+- [Codex CLI 設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/codex-config.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/codex-config
+- [CodexApp桌面版設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/codex-desktop.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/codex-desktop
+- [DeepChat設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/deepchat.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/deepchat
+- [DeepSeek Harness 設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/deepseek-harness.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/deepseek-harness
+- [Factory Droid CLI 安裝及設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/factory-droid-cli.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/factory-droid-cli
+- [FluentRead設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/fluent-read.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/fluent-read
+- [Gemini CLI 設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/gemini-config.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/gemini-config
+- [註冊 SimiRouter Key](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/getting-started.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/getting-started
+- [Grok CLI 設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/grok-config.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/grok-config
+- [Hermes 設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/hermers.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/hermers
+- [Claude Code CLI 安裝](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/installation/claude-code.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/installation/claude-code
+- [Codex 桌面版安裝](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/installation/codex-app.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/installation/codex-app
+- [Codex CLI 安裝](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/installation/codex-cli.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/installation/codex-cli
+- [Gemini CLI 安裝](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/installation/gemini.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/installation/gemini
+- [LangBot設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/langbot.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/langbot
+- [LunaTranslator設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/luna-translator.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/luna-translator
+- [Memoh設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/memoh.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/memoh
+- [OpenClaw 設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/openclaw.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/openclaw
+- [OpenCode CLI 設定](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/opencode-config.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/opencode-config
+- [第三方外掛程式設定（VS Code Roo）](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/roo-code.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/roo-code
+- [WorkBuddy 教學](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/apps/workbuddy.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/apps/workbuddy
+- [聯繫與支援](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/contact.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/contact
+- [退款說明](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/contact/refund-policy.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/contact/refund-policy
+- [使用記錄與稽核記錄權限](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/guide/usage-logs-permissions.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/guide/usage-logs-permissions
+- [更新記錄](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/guide/wiki/changelog.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/guide/wiki/changelog
+- [定價](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/pricing.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/pricing
+- [新站上線三重福利](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/promotion/launch-benefits.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/promotion/launch-benefits
+- [長期推廣說明](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/promotion/promotion-guide.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/promotion/promotion-guide
+- [推廣回饋說明](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/promotion/rebate-details.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/promotion/rebate-details
+- [儲值](https://simirouter.github.io/simidoc/zh-Hant/llms.mdx/recharge.md): 標準頁面 https://simirouter.github.io/simidoc/zh-Hant/recharge

@@ -1,0 +1,23 @@
+3:"$Sreact.fragment"
+4:"/simidoc/_next/static/chunks/0linjmclwo396.js"
+5:"/simidoc/_next/static/chunks/1l144uh20ott9.js"
+6:"DocumentationEntry"
+7:I[263423,["$4","$5"],"$6"]
+8:"/simidoc/_next/static/chunks/05pucszwujjk_.js"
+9:I[897367,["$8"],"OutletBoundary"]
+a:"$Sreact.suspense"
+e:"ViewportBoundary"
+f:I[897367,["$8"],"$e"]
+10:"MetadataBoundary"
+11:I[897367,["$8"],"$10"]
+d:X
+2:[["children",{"s":"__PAGE__","h":128,"d":{"r":["$","$3","c",{"children":[["$","main",null,{"className":"docs-entry","children":[["$","$L7",null,{}],["$","h1",null,{"children":"SimiRouter"}],["$","nav",null,{"aria-label":"Documentation language","children":[["$","a","zh",{"href":"/simidoc/zh/apps","hrefLang":"zh-Hans","children":"简体中文"}],["$","a","zh-Hant",{"href":"/simidoc/zh-Hant/apps","hrefLang":"zh-Hant","children":"繁體中文"}],["$","a","en",{"href":"/simidoc/en/apps","hrefLang":"en","children":"English"}],["$","a","fr",{"href":"/simidoc/fr/apps","hrefLang":"fr","children":"Français"}],["$","a","ru",{"href":"/simidoc/ru/apps","hrefLang":"ru","children":"Русский"}],["$","a","ja",{"href":"/simidoc/ja/apps","hrefLang":"ja","children":"日本語"}],["$","a","vi",{"href":"/simidoc/vi/apps","hrefLang":"vi","children":"Tiếng Việt"}]]}]]}],[["$","script","script-0",{"src":"/simidoc/_next/static/chunks/1l144uh20ott9.js","async":true}]],["$","$L9",null,{"children":["$","$a",null,{"name":"Next.MetadataOutlet","children":"$@b"}]}]]}],"p":"$@c","v":null,"s":"$d"}}]]
+1:[["children",{"s":"(entry)","h":48,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$Lf",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#0A0A0A","media":"(prefers-color-scheme: dark)"}],["$","meta","3",{"name":"theme-color","content":"#fff","media":"(prefers-color-scheme: light)"}]]}],["$","$L11",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$a",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Documentation | SimiRouter"}],["$","meta","1",{"name":"description","content":"Installation, API and operations documentation for SimiRouter."}],["$","meta","2",{"name":"keywords","content":"AI API,OpenAI API,ChatGPT API,LLM API,multimodal API,API gateway,AI API documentation,SimiRouter"}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@12","v":null,"s":"$d"}},"a":"$@13","u":"$@14","b":"0K9ZuT3sJA4sXcVSgvwXa"}
+b:null
+14:true
+d:300
+d:C
+13:0
+12:"$undefined"
+c:"$undefined"

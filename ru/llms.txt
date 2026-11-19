@@ -1,0 +1,143 @@
+# SimiRouter — Полная документация (ru)
+
+> SimiRouter — Машиночитаемый индекс документации.
+
+## Краткая справка по API
+- Базовый URL: https://api.dwchainless.com
+- Аутентификация: `Authorization: Bearer <API_KEY>`
+- Основные эндпоинты:
+  - `POST /v1/chat/completions` — Chat Completions
+  - `POST /v1/responses` — Responses
+  - `POST /v1/messages` — Claude Messages
+  - `POST /v1beta/models/{model}:generateContent` — Gemini
+  - `GET /v1/models` — Models
+
+## Рекомендуемые источники
+- [Полная документация](https://simirouter.github.io/simidoc/ru/llms-full.txt): Вся документация в одном файле.
+
+## Страницы
+- [Настройка клиентов](https://simirouter.github.io/simidoc/ru/llms.mdx/apps.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps
+- [Справочник API](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api
+- [Скрипты API](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api-script.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api-script
+- [Аудио](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/audio.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/audio
+- [Синтез речи Gemini](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/audio/gemini.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/audio/gemini
+- [Понимание аудио Gemini](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/audio/gemini-understanding.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/audio/gemini-understanding
+- [Интеграция аудио MiMo](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/audio/mimo-audio.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/audio/mimo-audio
+- [Формат аудио OpenAI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/audio/openai.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/audio/openai
+- [Текст в речь](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/audio/speech.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/audio/speech
+- [Транскрипция аудио](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/audio/transcriptions.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/audio/transcriptions
+- [Перевод аудио](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/audio/translations.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/audio/translations
+- [Чат и генерация содержимого](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/chat.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/chat
+- [Claude Messages](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/chat/claude.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/chat/claude
+- [Понимание медиа Gemini](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/chat/gemini-media.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/chat/gemini-media
+- [Генерация текста Gemini](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/chat/gemini-text.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/chat/gemini-text
+- [Chat Completions](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/chat/openai-chat.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/chat/openai-chat
+- [Устаревшее текстовое дополнение](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/chat/openai-completions.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/chat/openai-completions
+- [Responses API](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/chat/openai-responses.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/chat/openai-responses
+- [Изображения](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images
+- [Вызовы изображений агентом перенесены в протоколы](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/agents.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/agents
+- [Генерация изображений BFL FLUX](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/flux.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/flux
+- [API изображений Gemini](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/gemini.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/gemini
+- [Редактирование Gemini и изображение по изображению](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/gemini/edits.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/gemini/edits
+- [Генерация изображений Gemini](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/gemini/generate.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/gemini/generate
+- [Генерация изображений xAI Grok](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/grok.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/grok
+- [Jimeng / генерация изображений Volcano Ark](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/jimeng.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/jimeng
+- [API изображений в формате OpenAI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/openai.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/openai
+- [Генерация изображений в диалоге](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/openai/chat-format.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/openai/chat-format
+- [Редактирование и генерация по изображению](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/openai/edits.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/openai/edits
+- [Генерация изображений](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/openai/generations.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/openai/generations
+- [Понимание изображений](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/openai/vision.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/openai/vision
+- [Нативный интерфейс изображений Qwen](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/qwen.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/qwen
+- [Редактирование изображений Qwen](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/qwen/edits.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/qwen/edits
+- [Генерация изображений Qwen](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/qwen/generations.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/qwen/generations
+- [Примеры изображений сгруппированы по протоколам](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/images/scripts.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/images/scripts
+- [Список моделей](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/models.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/models
+- [Список моделей в формате Gemini](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/models/gemini.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/models/gemini
+- [Список моделей в формате OpenAI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/models/openai.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/models/openai
+- [Музыка (не поддерживается)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/music.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/music
+- [Генерация музыки Google Lyria](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/music/lyria.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/music/lyria
+- [Музыка Lyria RealTime](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/music/realtime.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/music/realtime
+- [Другие возможности и справочник по планируемым интеграциям](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending
+- [Эмбеддинги (не поддерживаются)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/embeddings.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/embeddings
+- [Эмбеддинги Gemini](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/embeddings/gemini.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/embeddings/gemini
+- [Эмбеддинги OpenAI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/embeddings/openai.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/embeddings/openai
+- [Files API (не поддерживается)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/files.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/files
+- [Получить содержимое файла](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/files/content.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/files/content
+- [Удалить файл](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/files/delete.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/files/delete
+- [Список файлов](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/files/list.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/files/list
+- [Получить информацию о файле](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/files/retrieve.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/files/retrieve
+- [Загрузить файл](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/files/upload.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/files/upload
+- [Дообучение (не поддерживается)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/fine-tuning.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/fine-tuning
+- [Отменить задачу дообучения](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/fine-tuning/cancel.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/fine-tuning/cancel
+- [Создать задачу дообучения](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/fine-tuning/create.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/fine-tuning/create
+- [Получить события дообучения](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/fine-tuning/events.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/fine-tuning/events
+- [Список задач дообучения](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/fine-tuning/list.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/fine-tuning/list
+- [Получить сведения о дообучении](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/fine-tuning/retrieve.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/fine-tuning/retrieve
+- [Модерация](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/moderations.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/moderations
+- [OpenAI Realtime API](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/realtime.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/realtime
+- [Реранжирование документов](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/pending/rerank.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/pending/rerank
+- [Вызов инструментов](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/tools.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/tools
+- [Вызов функций-инструментов](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/tools/function-call.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/tools/function-call
+- [Инструмент веб-поиска](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/tools/web-search.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/tools/web-search
+- [Файлы и распознавание содержимого](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/upload.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/upload
+- [Распознавание содержимого файлов](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/upload/file-recognition.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/upload/file-recognition
+- [Видео](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video
+- [Генерация видео DashScope (Wan / HappyHorse)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/dashscope-video.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/dashscope-video
+- [Видео Grok Imagine](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/grok-imagine.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/grok-imagine
+- [Видео Jimeng (планируется подключение)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/jimeng.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/jimeng
+- [Отправить видеозадачу Jimeng (планируется подключение)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/jimeng/create.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/jimeng/create
+- [Получить результат видео Jimeng (планируется подключение)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/jimeng/status.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/jimeng/status
+- [Видео Kling](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/kling.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/kling
+- [Изображение в видео Kling](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/kling/image-create.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/kling/image-create
+- [Проверить задачу Kling изображения в видео](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/kling/image-status.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/kling/image-status
+- [Текст в видео Kling](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/kling/text-create.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/kling/text-create
+- [Проверить задачу Kling текста в видео](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/kling/text-status.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/kling/text-status
+- [Видео PixVerse](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/pixverse.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/pixverse
+- [Видео Seedance](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/seedance.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/seedance
+- [Создать видеозадачу Seedance](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/seedance/create.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/seedance/create
+- [Проверить видеозадачу Seedance](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/seedance/status.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/seedance/status
+- [Видео Sora (официальный интерфейс закрыт)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/sora.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/sora
+- [Скачать содержимое Sora (официальный интерфейс закрыт)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/sora/content.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/sora/content
+- [Создать видео Sora (официальный интерфейс закрыт)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/sora/create.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/sora/create
+- [Проверить задачу Sora (официальный интерфейс закрыт)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/sora/status.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/sora/status
+- [Понимание видео](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/understanding.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/understanding
+- [Понимание видео Dots](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/understanding/dots.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/understanding/dots
+- [Понимание видео Gemini](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/understanding/gemini.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/understanding/gemini
+- [Понимание видео Kimi](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/understanding/kimi.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/understanding/kimi
+- [Veo видео (предпросмотр-модели Gemini API отключены)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/api/video/veo.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/api/video/veo
+- [Настройка AstrBot](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/astrbot.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/astrbot
+- [Настройка CC Switch](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/cc-switch.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/cc-switch
+- [Настройка Chatbox AI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/chatbox.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/chatbox
+- [Настройка Cherry Studio](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/cherry-studio.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/cherry-studio
+- [Настройка Claude CLI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/claude-config.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/claude-config
+- [Настройка Claude Desktop](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/claude-desktop.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/claude-desktop
+- [Настройка Codex CLI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/codex-config.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/codex-config
+- [Настройка настольного Codex](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/codex-desktop.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/codex-desktop
+- [Настройка DeepChat](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/deepchat.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/deepchat
+- [Настройка DeepSeek Harness](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/deepseek-harness.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/deepseek-harness
+- [Установка и настройка Factory Droid CLI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/factory-droid-cli.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/factory-droid-cli
+- [Настройка FluentRead](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/fluent-read.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/fluent-read
+- [Настройка Gemini CLI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/gemini-config.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/gemini-config
+- [Создание ключа SimiRouter](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/getting-started.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/getting-started
+- [Настройка Grok CLI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/grok-config.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/grok-config
+- [Настройка Hermes](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/hermers.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/hermers
+- [Установка Claude Code CLI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/installation/claude-code.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/installation/claude-code
+- [Установка настольного Codex](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/installation/codex-app.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/installation/codex-app
+- [Установка Codex CLI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/installation/codex-cli.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/installation/codex-cli
+- [Установка Gemini CLI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/installation/gemini.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/installation/gemini
+- [Настройка LangBot](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/langbot.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/langbot
+- [Настройка LunaTranslator](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/luna-translator.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/luna-translator
+- [Настройка Memoh](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/memoh.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/memoh
+- [Настройка OpenClaw](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/openclaw.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/openclaw
+- [Настройка OpenCode CLI](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/opencode-config.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/opencode-config
+- [Настройка стороннего расширения (VS Code Roo)](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/roo-code.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/roo-code
+- [Руководство WorkBuddy](https://simirouter.github.io/simidoc/ru/llms.mdx/apps/workbuddy.md): Каноническая страница https://simirouter.github.io/simidoc/ru/apps/workbuddy
+- [Контакты и поддержка](https://simirouter.github.io/simidoc/ru/llms.mdx/contact.md): Каноническая страница https://simirouter.github.io/simidoc/ru/contact
+- [Правила возврата](https://simirouter.github.io/simidoc/ru/llms.mdx/contact/refund-policy.md): Каноническая страница https://simirouter.github.io/simidoc/ru/contact/refund-policy
+- [Права доступа к журналам использования и аудита](https://simirouter.github.io/simidoc/ru/llms.mdx/guide/usage-logs-permissions.md): Каноническая страница https://simirouter.github.io/simidoc/ru/guide/usage-logs-permissions
+- [История изменений](https://simirouter.github.io/simidoc/ru/llms.mdx/guide/wiki/changelog.md): Каноническая страница https://simirouter.github.io/simidoc/ru/guide/wiki/changelog
+- [Цены](https://simirouter.github.io/simidoc/ru/llms.mdx/pricing.md): Каноническая страница https://simirouter.github.io/simidoc/ru/pricing
+- [Три бонуса запуска платформы](https://simirouter.github.io/simidoc/ru/llms.mdx/promotion/launch-benefits.md): Каноническая страница https://simirouter.github.io/simidoc/ru/promotion/launch-benefits
+- [Долгосрочная реферальная программа](https://simirouter.github.io/simidoc/ru/llms.mdx/promotion/promotion-guide.md): Каноническая страница https://simirouter.github.io/simidoc/ru/promotion/promotion-guide
+- [Правила реферальных вознаграждений](https://simirouter.github.io/simidoc/ru/llms.mdx/promotion/rebate-details.md): Каноническая страница https://simirouter.github.io/simidoc/ru/promotion/rebate-details
+- [Пополнение](https://simirouter.github.io/simidoc/ru/llms.mdx/recharge.md): Каноническая страница https://simirouter.github.io/simidoc/ru/recharge

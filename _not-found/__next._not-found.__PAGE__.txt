@@ -1,0 +1,139 @@
+1:"$Sreact.fragment"
+2:"/simidoc/_next/static/chunks/421c_el12128q.js"
+3:I[339756,["$2"],"default"]
+4:I[837457,["$2"],"default"]
+5:Tc8a,(() => {
+  const value = {"keys":{"preset":"theme_preset","font":"theme_font","radius":"theme_radius","scale":"theme_scale","contentLayout":"theme_content_layout"},"allowed":{"preset":["default","anthropic","simple-large","underground","rose-garden","lake-view","sunset-glow","forest-whisper","ocean-breeze","lavender-dream"],"font":["default","sans","serif"],"radius":["default","none","sm","md","lg","xl"],"scale":["default","sm","lg","xl"],"contentLayout":["full","centered"]},"defaults":{"preset":"default","font":"default","radius":"default","scale":"default","contentLayout":"full"},"fonts":{"default":"sans","anthropic":"serif","simple-large":"sans","underground":"sans","rose-garden":"sans","lake-view":"sans","sunset-glow":"sans","forest-whisper":"sans","ocean-breeze":"sans","lavender-dream":"sans"},"modeKey":"vite-ui-theme"};
+  const cookies = new Map(document.cookie.split(';').map((entry) => {
+    const index = entry.indexOf('=');
+    return [entry.slice(0, index).trim(), entry.slice(index + 1)];
+  }));
+  const root = document.documentElement;
+  let mode = cookies.get(value.modeKey);
+  if (mode === undefined) {
+    try { mode = localStorage.getItem(value.modeKey) ?? 'system'; }
+    catch { mode = 'system'; }
+  }
+  if (mode !== 'light' && mode !== 'dark' && mode !== 'system') mode = 'system';
+  // Mirror the validated cookie-first choice for next-themes' React state.
+  // Its separate inline script is inert; restricted storage must not block paint.
+  try {
+    if (localStorage.getItem(value.modeKey) !== mode) localStorage.setItem(value.modeKey, mode);
+  } catch { /* The cookie-first bootstrap and hydration guard still apply. */ }
+  const dark = mode === 'dark' ||
+    (mode !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  root.classList.remove('light', 'dark');
+  root.classList.add(dark ? 'dark' : 'light');
+  root.style.colorScheme = dark ? 'dark' : 'light';
+  const attrs = {};
+  // Keep stored customizations intact while this product uses one brand preset.
+  const preset = value.defaults.preset;
+  const fontValue = cookies.get(value.keys.font);
+  const font = value.allowed.font.includes(fontValue) ? fontValue : value.defaults.font;
+  attrs['data-theme-font'] = font === 'default' ? value.fonts[preset] : font;
+  for (const key of ['radius', 'scale', 'contentLayout']) {
+    const saved = cookies.get(value.keys[key]);
+    const selected = value.allowed[key].includes(saved) ? saved : value.defaults[key];
+    const attribute = 'data-theme-' + (key === 'contentLayout' ? 'content-layout' : key);
+    if (key === 'contentLayout' || selected !== value.defaults[key]) attrs[attribute] = selected;
+  }
+  const apply = () => {
+    if (!document.body) return;
+    for (const key of ['preset', 'font', 'radius', 'scale', 'content-layout']) {
+      const attribute = 'data-theme-' + key;
+      if (attrs[attribute]) document.body.setAttribute(attribute, attrs[attribute]);
+      else document.body.removeAttribute(attribute);
+    }
+  };
+  if (document.body) apply();
+  else {
+    const observer = new MutationObserver(() => {
+      if (document.body) { apply(); observer.disconnect(); }
+    });
+    observer.observe(root, { childList: true });
+  }
+})();a:X
+e:X
+e:C
+f:[["children",{"s":"__PAGE__","h":160,"d":{"r":"$L10","p":"$@11","v":null,"s":"$a"}}]]
+b:[["children",{"s":"/_not-found","h":96,"d":{"r":"$Lc","p":"$@d","v":"$e","s":"$a"},"c":"$Qf"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/simidoc/_next/static/chunks/421c_el12128q.js","async":true}]],["$","html",null,{"children":["$","body",null,{"children":["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}],"notFound":[[["$","script",null,{"dangerouslySetInnerHTML":{"__html":"$5"}}],"$L6","$L7"],["$L8"]]}]}]}]]}],"p":"$@9","v":null,"s":"$a"},"c":"$Qb"},"h":{"r":"$L12","p":"$@13","v":null,"s":"$a"}},"a":"$@14","u":"$@15","b":"0K9ZuT3sJA4sXcVSgvwXa"}
+16:"/simidoc/_next/static/chunks/028rl_ugmj189.js"
+17:I[988442,["$2","$16"],"NotFoundView"]
+1e:"ViewportBoundary"
+1f:I[897367,["$2"],"$1e"]
+20:"MetadataBoundary"
+21:I[897367,["$2"],"$20"]
+22:"$Sreact.suspense"
+:HL["/simidoc/_next/static/chunks/29--_xkit9eal.css","style"]
+6:["$","script",null,{"dangerouslySetInnerHTML":{"__html":"(() => {\n  const base = \"/simidoc\";\n  const pathname = base && location.pathname.startsWith(base + '/') ? location.pathname.slice(base.length) : location.pathname;\n  const candidate = pathname.split('/').filter(Boolean)[0];\n  const languages = ['zh-Hant', 'zh', 'en', 'fr', 'ru', 'ja', 'vi'];\n  if (languages.includes(candidate)) {\n    document.documentElement.lang = candidate === 'zh' ? 'zh-Hans' : candidate;\n  } else if (!document.documentElement.lang) {\n    document.documentElement.lang = 'en';\n  }\n})();"}}]
+7:["$","$L17",null,{}]
+8:["$","link","0",{"rel":"stylesheet","href":"/simidoc/_next/static/chunks/29--_xkit9eal.css","precedence":"next"}]
+c:["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]]}]
+18:Tc8a,(() => {
+  const value = {"keys":{"preset":"theme_preset","font":"theme_font","radius":"theme_radius","scale":"theme_scale","contentLayout":"theme_content_layout"},"allowed":{"preset":["default","anthropic","simple-large","underground","rose-garden","lake-view","sunset-glow","forest-whisper","ocean-breeze","lavender-dream"],"font":["default","sans","serif"],"radius":["default","none","sm","md","lg","xl"],"scale":["default","sm","lg","xl"],"contentLayout":["full","centered"]},"defaults":{"preset":"default","font":"default","radius":"default","scale":"default","contentLayout":"full"},"fonts":{"default":"sans","anthropic":"serif","simple-large":"sans","underground":"sans","rose-garden":"sans","lake-view":"sans","sunset-glow":"sans","forest-whisper":"sans","ocean-breeze":"sans","lavender-dream":"sans"},"modeKey":"vite-ui-theme"};
+  const cookies = new Map(document.cookie.split(';').map((entry) => {
+    const index = entry.indexOf('=');
+    return [entry.slice(0, index).trim(), entry.slice(index + 1)];
+  }));
+  const root = document.documentElement;
+  let mode = cookies.get(value.modeKey);
+  if (mode === undefined) {
+    try { mode = localStorage.getItem(value.modeKey) ?? 'system'; }
+    catch { mode = 'system'; }
+  }
+  if (mode !== 'light' && mode !== 'dark' && mode !== 'system') mode = 'system';
+  // Mirror the validated cookie-first choice for next-themes' React state.
+  // Its separate inline script is inert; restricted storage must not block paint.
+  try {
+    if (localStorage.getItem(value.modeKey) !== mode) localStorage.setItem(value.modeKey, mode);
+  } catch { /* The cookie-first bootstrap and hydration guard still apply. */ }
+  const dark = mode === 'dark' ||
+    (mode !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  root.classList.remove('light', 'dark');
+  root.classList.add(dark ? 'dark' : 'light');
+  root.style.colorScheme = dark ? 'dark' : 'light';
+  const attrs = {};
+  // Keep stored customizations intact while this product uses one brand preset.
+  const preset = value.defaults.preset;
+  const fontValue = cookies.get(value.keys.font);
+  const font = value.allowed.font.includes(fontValue) ? fontValue : value.defaults.font;
+  attrs['data-theme-font'] = font === 'default' ? value.fonts[preset] : font;
+  for (const key of ['radius', 'scale', 'contentLayout']) {
+    const saved = cookies.get(value.keys[key]);
+    const selected = value.allowed[key].includes(saved) ? saved : value.defaults[key];
+    const attribute = 'data-theme-' + (key === 'contentLayout' ? 'content-layout' : key);
+    if (key === 'contentLayout' || selected !== value.defaults[key]) attrs[attribute] = selected;
+  }
+  const apply = () => {
+    if (!document.body) return;
+    for (const key of ['preset', 'font', 'radius', 'scale', 'content-layout']) {
+      const attribute = 'data-theme-' + key;
+      if (attrs[attribute]) document.body.setAttribute(attribute, attrs[attribute]);
+      else document.body.removeAttribute(attribute);
+    }
+  };
+  if (document.body) apply();
+  else {
+    const observer = new MutationObserver(() => {
+      if (document.body) { apply(); observer.disconnect(); }
+    });
+    observer.observe(root, { childList: true });
+  }
+})();10:["$","$1","c",{"children":[[["$","script",null,{"dangerouslySetInnerHTML":{"__html":"$18"}}],"$L19","$L1a"],["$L1b","$L1c"],"$L1d"]}]
+12:["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L1f",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L21",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$22",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"404 | SimiRouter"}],["$","meta","1",{"name":"description","content":"This documentation page does not exist or has moved."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+23:I[897367,["$2"],"OutletBoundary"]
+19:["$","script",null,{"dangerouslySetInnerHTML":{"__html":"(() => {\n  const base = \"/simidoc\";\n  const pathname = base && location.pathname.startsWith(base + '/') ? location.pathname.slice(base.length) : location.pathname;\n  const candidate = pathname.split('/').filter(Boolean)[0];\n  const languages = ['zh-Hant', 'zh', 'en', 'fr', 'ru', 'ja', 'vi'];\n  if (languages.includes(candidate)) {\n    document.documentElement.lang = candidate === 'zh' ? 'zh-Hans' : candidate;\n  } else if (!document.documentElement.lang) {\n    document.documentElement.lang = 'en';\n  }\n})();"}}]
+1a:["$","$L17",null,{}]
+1b:["$","link","0",{"rel":"stylesheet","href":"/simidoc/_next/static/chunks/29--_xkit9eal.css","precedence":"next"}]
+1c:["$","script","script-0",{"src":"/simidoc/_next/static/chunks/028rl_ugmj189.js","async":true}]
+1d:["$","$L23",null,{"children":["$","$22",null,{"name":"Next.MetadataOutlet","children":"$@24"}]}]
+15:true
+a:300
+24:null
+a:C
+14:0
+d:"$undefined"
+13:"$undefined"
+9:"$undefined"
+11:"$undefined"

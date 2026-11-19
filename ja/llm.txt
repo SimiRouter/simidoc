@@ -1,0 +1,143 @@
+# SimiRouter — 全ドキュメント (ja)
+
+> SimiRouter — 機械可読ドキュメント索引.
+
+## API クイックリファレンス
+- ベース URL: https://api.dwchainless.com
+- 認証: `Authorization: Bearer <API_KEY>`
+- 主なエンドポイント:
+  - `POST /v1/chat/completions` — Chat Completions
+  - `POST /v1/responses` — Responses
+  - `POST /v1/messages` — Claude Messages
+  - `POST /v1beta/models/{model}:generateContent` — Gemini
+  - `GET /v1/models` — Models
+
+## 推奨ソース
+- [全ドキュメント](https://simirouter.github.io/simidoc/ja/llms-full.txt): すべてのドキュメントを1つのファイルにまとめたもの。
+
+## ページ
+- [クライアント設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps
+- [API リファレンス](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api
+- [API スクリプトによる接続](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api-script.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api-script
+- [音声](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/audio.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/audio
+- [Gemini 音声合成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/audio/gemini.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/audio/gemini
+- [Gemini 音声理解](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/audio/gemini-understanding.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/audio/gemini-understanding
+- [MiMo 音声の接続](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/audio/mimo-audio.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/audio/mimo-audio
+- [OpenAI 音声形式](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/audio/openai.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/audio/openai
+- [テキスト読み上げ](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/audio/speech.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/audio/speech
+- [音声文字起こし](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/audio/transcriptions.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/audio/transcriptions
+- [音声翻訳](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/audio/translations.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/audio/translations
+- [チャットとコンテンツ生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/chat.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/chat
+- [Claude Messages](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/chat/claude.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/chat/claude
+- [Gemini メディア理解](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/chat/gemini-media.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/chat/gemini-media
+- [Gemini テキスト生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/chat/gemini-text.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/chat/gemini-text
+- [Chat Completions](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/chat/openai-chat.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/chat/openai-chat
+- [従来のテキスト補完](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/chat/openai-completions.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/chat/openai-completions
+- [Responses API](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/chat/openai-responses.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/chat/openai-responses
+- [画像](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images
+- [エージェントの画像呼び出しは各プロトコルへ統合されました](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/agents.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/agents
+- [BFL FLUX 画像生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/flux.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/flux
+- [Gemini 画像 API](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/gemini.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/gemini
+- [Gemini 画像編集・画像から画像生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/gemini/edits.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/gemini/edits
+- [Gemini 画像生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/gemini/generate.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/gemini/generate
+- [xAI Grok 画像生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/grok.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/grok
+- [即夢 / Volcengine Ark 画像生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/jimeng.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/jimeng
+- [OpenAI 形式の画像 API](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/openai.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/openai
+- [会話形式の画像生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/openai/chat-format.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/openai/chat-format
+- [画像編集・画像から画像生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/openai/edits.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/openai/edits
+- [画像生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/openai/generations.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/openai/generations
+- [画像理解](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/openai/vision.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/openai/vision
+- [Qwen ネイティブ画像 API](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/qwen.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/qwen
+- [Qwen 画像編集](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/qwen/edits.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/qwen/edits
+- [Qwen 画像生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/qwen/generations.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/qwen/generations
+- [画像呼び出し例はプロトコル別に整理されました](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/images/scripts.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/images/scripts
+- [モデル一覧](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/models.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/models
+- [Gemini 形式のモデル一覧](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/models/gemini.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/models/gemini
+- [OpenAI 形式のモデル一覧](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/models/openai.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/models/openai
+- [音楽（未対応）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/music.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/music
+- [Google Lyria 音楽生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/music/lyria.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/music/lyria
+- [Lyria RealTime リアルタイム音楽](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/music/realtime.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/music/realtime
+- [その他の機能と今後の接続参考](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending
+- [埋め込み（未対応）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/embeddings.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/embeddings
+- [Gemini 埋め込み](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/embeddings/gemini.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/embeddings/gemini
+- [OpenAI 埋め込み](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/embeddings/openai.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/embeddings/openai
+- [Files API（未対応）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/files.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/files
+- [ファイル内容の取得](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/files/content.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/files/content
+- [ファイル削除](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/files/delete.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/files/delete
+- [ファイル一覧](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/files/list.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/files/list
+- [ファイル情報の取得](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/files/retrieve.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/files/retrieve
+- [ファイルのアップロード](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/files/upload.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/files/upload
+- [ファインチューニング（未対応）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/fine-tuning.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/fine-tuning
+- [ファインチューニングのキャンセル](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/fine-tuning/cancel.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/fine-tuning/cancel
+- [ファインチューニング作成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/fine-tuning/create.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/fine-tuning/create
+- [学習イベントの取得](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/fine-tuning/events.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/fine-tuning/events
+- [学習タスク一覧](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/fine-tuning/list.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/fine-tuning/list
+- [学習タスク詳細](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/fine-tuning/retrieve.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/fine-tuning/retrieve
+- [コンテンツモデレーション](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/moderations.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/moderations
+- [OpenAI Realtime API](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/realtime.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/realtime
+- [文書の再ランキング](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/pending/rerank.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/pending/rerank
+- [ツール呼び出し](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/tools.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/tools
+- [関数ツール呼び出し](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/tools/function-call.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/tools/function-call
+- [Web 検索ツール](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/tools/web-search.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/tools/web-search
+- [ファイルと内容認識](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/upload.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/upload
+- [ファイル内容の認識](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/upload/file-recognition.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/upload/file-recognition
+- [動画](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video
+- [DashScope 動画生成（Wan / HappyHorse）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/dashscope-video.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/dashscope-video
+- [Grok Imagine 動画](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/grok-imagine.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/grok-imagine
+- [Jimeng 動画（接続予定）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/jimeng.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/jimeng
+- [Jimeng 動画タスクの送信（接続予定）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/jimeng/create.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/jimeng/create
+- [Jimeng 動画の結果照会（接続予定）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/jimeng/status.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/jimeng/status
+- [Kling 動画](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/kling.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/kling
+- [Kling 画像から動画生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/kling/image-create.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/kling/image-create
+- [Kling 画像から動画生成タスクの照会](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/kling/image-status.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/kling/image-status
+- [Kling テキストから動画生成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/kling/text-create.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/kling/text-create
+- [Kling テキストから動画生成タスクの照会](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/kling/text-status.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/kling/text-status
+- [PixVerse 動画](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/pixverse.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/pixverse
+- [Seedance 動画](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/seedance.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/seedance
+- [Seedance 動画タスクの作成](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/seedance/create.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/seedance/create
+- [Seedance 動画タスクの照会](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/seedance/status.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/seedance/status
+- [Sora 動画（公式 API は提供終了）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/sora.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/sora
+- [Sora コンテンツのダウンロード（公式 API は提供終了）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/sora/content.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/sora/content
+- [Sora 動画の作成（公式 API は提供終了）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/sora/create.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/sora/create
+- [Sora タスクの照会（公式 API は提供終了）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/sora/status.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/sora/status
+- [動画理解](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/understanding.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/understanding
+- [Dots 動画理解](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/understanding/dots.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/understanding/dots
+- [Gemini 動画理解](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/understanding/gemini.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/understanding/gemini
+- [Kimi 動画理解](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/understanding/kimi.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/understanding/kimi
+- [Veo 動画（Gemini API プレビューモデルは提供終了）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/api/video/veo.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/api/video/veo
+- [AstrBot の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/astrbot.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/astrbot
+- [CC Switch の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/cc-switch.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/cc-switch
+- [Chatbox AI の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/chatbox.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/chatbox
+- [Cherry Studio の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/cherry-studio.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/cherry-studio
+- [Claude CLI の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/claude-config.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/claude-config
+- [Claude Desktop の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/claude-desktop.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/claude-desktop
+- [Codex CLI の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/codex-config.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/codex-config
+- [CodexApp デスクトップ版の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/codex-desktop.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/codex-desktop
+- [DeepChat の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/deepchat.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/deepchat
+- [DeepSeek Harness の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/deepseek-harness.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/deepseek-harness
+- [Factory Droid CLI のインストールと設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/factory-droid-cli.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/factory-droid-cli
+- [FluentRead の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/fluent-read.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/fluent-read
+- [Gemini CLI の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/gemini-config.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/gemini-config
+- [SimiRouter Key の登録](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/getting-started.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/getting-started
+- [Grok CLI の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/grok-config.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/grok-config
+- [Hermes の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/hermers.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/hermers
+- [Claude Code CLI のインストール](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/installation/claude-code.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/installation/claude-code
+- [Codex デスクトップ版のインストール](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/installation/codex-app.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/installation/codex-app
+- [Codex CLI のインストール](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/installation/codex-cli.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/installation/codex-cli
+- [Gemini CLI のインストール](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/installation/gemini.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/installation/gemini
+- [LangBot の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/langbot.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/langbot
+- [LunaTranslator の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/luna-translator.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/luna-translator
+- [Memoh の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/memoh.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/memoh
+- [OpenClaw の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/openclaw.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/openclaw
+- [OpenCode CLI の設定](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/opencode-config.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/opencode-config
+- [サードパーティープラグイン設定（VS Code Roo）](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/roo-code.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/roo-code
+- [WorkBuddy チュートリアル](https://simirouter.github.io/simidoc/ja/llms.mdx/apps/workbuddy.md): 正規ページ https://simirouter.github.io/simidoc/ja/apps/workbuddy
+- [お問い合わせとサポート](https://simirouter.github.io/simidoc/ja/llms.mdx/contact.md): 正規ページ https://simirouter.github.io/simidoc/ja/contact
+- [返金について](https://simirouter.github.io/simidoc/ja/llms.mdx/contact/refund-policy.md): 正規ページ https://simirouter.github.io/simidoc/ja/contact/refund-policy
+- [使用ログと監査ログの権限](https://simirouter.github.io/simidoc/ja/llms.mdx/guide/usage-logs-permissions.md): 正規ページ https://simirouter.github.io/simidoc/ja/guide/usage-logs-permissions
+- [更新履歴](https://simirouter.github.io/simidoc/ja/llms.mdx/guide/wiki/changelog.md): 正規ページ https://simirouter.github.io/simidoc/ja/guide/wiki/changelog
+- [料金](https://simirouter.github.io/simidoc/ja/llms.mdx/pricing.md): 正規ページ https://simirouter.github.io/simidoc/ja/pricing
+- [新サイト公開記念の 3 大特典](https://simirouter.github.io/simidoc/ja/llms.mdx/promotion/launch-benefits.md): 正規ページ https://simirouter.github.io/simidoc/ja/promotion/launch-benefits
+- [継続的な紹介プログラム](https://simirouter.github.io/simidoc/ja/llms.mdx/promotion/promotion-guide.md): 正規ページ https://simirouter.github.io/simidoc/ja/promotion/promotion-guide
+- [紹介還元の説明](https://simirouter.github.io/simidoc/ja/llms.mdx/promotion/rebate-details.md): 正規ページ https://simirouter.github.io/simidoc/ja/promotion/rebate-details
+- [チャージ](https://simirouter.github.io/simidoc/ja/llms.mdx/recharge.md): 正規ページ https://simirouter.github.io/simidoc/ja/recharge

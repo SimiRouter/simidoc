@@ -1,0 +1,143 @@
+# SimiRouter — Full documentation (en)
+
+> SimiRouter — Machine-readable documentation index.
+
+## API quick reference
+- Base URL: https://api.dwchainless.com
+- Authentication: `Authorization: Bearer <API_KEY>`
+- Main endpoints:
+  - `POST /v1/chat/completions` — Chat Completions
+  - `POST /v1/responses` — Responses
+  - `POST /v1/messages` — Claude Messages
+  - `POST /v1beta/models/{model}:generateContent` — Gemini
+  - `GET /v1/models` — Models
+
+## Preferred sources
+- [Full documentation](https://simirouter.github.io/simidoc/en/llms-full.txt): Full documentation in one file.
+
+## Pages
+- [Client configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps.md): Canonical page https://simirouter.github.io/simidoc/en/apps
+- [API reference](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api
+- [API Script Integration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api-script.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api-script
+- [Audio](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/audio.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/audio
+- [Gemini speech synthesis](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/audio/gemini.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/audio/gemini
+- [Gemini audio understanding](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/audio/gemini-understanding.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/audio/gemini-understanding
+- [MiMo audio integration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/audio/mimo-audio.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/audio/mimo-audio
+- [OpenAI audio format](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/audio/openai.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/audio/openai
+- [Text to speech](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/audio/speech.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/audio/speech
+- [Audio transcription](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/audio/transcriptions.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/audio/transcriptions
+- [Audio translation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/audio/translations.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/audio/translations
+- [Chat and content generation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/chat.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/chat
+- [Claude Messages](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/chat/claude.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/chat/claude
+- [Gemini media understanding](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/chat/gemini-media.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/chat/gemini-media
+- [Gemini text generation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/chat/gemini-text.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/chat/gemini-text
+- [Chat Completions](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/chat/openai-chat.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/chat/openai-chat
+- [Legacy text completions](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/chat/openai-completions.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/chat/openai-completions
+- [Responses API](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/chat/openai-responses.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/chat/openai-responses
+- [Images](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images
+- [Agent image calls are now included in protocol documentation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/agents.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/agents
+- [BFL FLUX image generation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/flux.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/flux
+- [Gemini image interfaces](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/gemini.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/gemini
+- [Gemini image editing and image-to-image](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/gemini/edits.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/gemini/edits
+- [Gemini image generation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/gemini/generate.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/gemini/generate
+- [xAI Grok image generation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/grok.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/grok
+- [Jimeng / Volcengine Ark image generation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/jimeng.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/jimeng
+- [OpenAI-format image interfaces](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/openai.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/openai
+- [Conversational image generation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/openai/chat-format.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/openai/chat-format
+- [Image editing and image-to-image](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/openai/edits.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/openai/edits
+- [Image generation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/openai/generations.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/openai/generations
+- [Image understanding](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/openai/vision.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/openai/vision
+- [Qwen native image interfaces](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/qwen.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/qwen
+- [Qwen image editing](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/qwen/edits.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/qwen/edits
+- [Qwen image generation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/qwen/generations.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/qwen/generations
+- [Image calling examples are now organized by protocol](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/images/scripts.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/images/scripts
+- [Model lists](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/models.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/models
+- [Gemini-format model list](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/models/gemini.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/models/gemini
+- [OpenAI-format model list](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/models/openai.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/models/openai
+- [Music (unsupported)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/music.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/music
+- [Google Lyria music generation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/music/lyria.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/music/lyria
+- [Lyria RealTime music](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/music/realtime.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/music/realtime
+- [Other capabilities and integration references](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending
+- [Embeddings (unsupported)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/embeddings.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/embeddings
+- [Gemini embeddings](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/embeddings/gemini.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/embeddings/gemini
+- [OpenAI embeddings](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/embeddings/openai.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/embeddings/openai
+- [Files API (unsupported)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/files.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/files
+- [Retrieve file content](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/files/content.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/files/content
+- [Delete file](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/files/delete.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/files/delete
+- [List files](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/files/list.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/files/list
+- [Retrieve file information](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/files/retrieve.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/files/retrieve
+- [Upload file](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/files/upload.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/files/upload
+- [Fine-tuning (unsupported)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/fine-tuning.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/fine-tuning
+- [Cancel fine-tuning job](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/fine-tuning/cancel.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/fine-tuning/cancel
+- [Create fine-tuning job](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/fine-tuning/create.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/fine-tuning/create
+- [Retrieve fine-tuning job events](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/fine-tuning/events.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/fine-tuning/events
+- [List fine-tuning jobs](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/fine-tuning/list.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/fine-tuning/list
+- [Retrieve fine-tuning job details](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/fine-tuning/retrieve.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/fine-tuning/retrieve
+- [Content moderation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/moderations.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/moderations
+- [OpenAI Realtime API](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/realtime.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/realtime
+- [Document reranking](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/pending/rerank.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/pending/rerank
+- [Tool calling](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/tools.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/tools
+- [Function tool calling](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/tools/function-call.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/tools/function-call
+- [Web search tool](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/tools/web-search.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/tools/web-search
+- [Files and content understanding](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/upload.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/upload
+- [File content understanding](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/upload/file-recognition.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/upload/file-recognition
+- [Video](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video
+- [DashScope video generation (Wan / HappyHorse)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/dashscope-video.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/dashscope-video
+- [Grok Imagine video](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/grok-imagine.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/grok-imagine
+- [Jimeng video (integration pending)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/jimeng.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/jimeng
+- [Submit Jimeng video task (integration pending)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/jimeng/create.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/jimeng/create
+- [Query Jimeng video result (integration pending)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/jimeng/status.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/jimeng/status
+- [Kling video](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/kling.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/kling
+- [Kling image-to-video](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/kling/image-create.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/kling/image-create
+- [Query Kling image-to-video task](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/kling/image-status.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/kling/image-status
+- [Kling text-to-video](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/kling/text-create.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/kling/text-create
+- [Query Kling text-to-video task](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/kling/text-status.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/kling/text-status
+- [PixVerse video](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/pixverse.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/pixverse
+- [Seedance video](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/seedance.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/seedance
+- [Create Seedance video task](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/seedance/create.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/seedance/create
+- [Query Seedance video task](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/seedance/status.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/seedance/status
+- [Sora video (official API closed)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/sora.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/sora
+- [Download Sora content (official API closed)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/sora/content.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/sora/content
+- [Create Sora video (official API closed)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/sora/create.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/sora/create
+- [Query Sora task (official API closed)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/sora/status.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/sora/status
+- [Video understanding](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/understanding.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/understanding
+- [Dots video understanding](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/understanding/dots.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/understanding/dots
+- [Gemini video understanding](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/understanding/gemini.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/understanding/gemini
+- [Kimi video understanding](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/understanding/kimi.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/understanding/kimi
+- [Veo video (Gemini API preview models retired)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/api/video/veo.md): Canonical page https://simirouter.github.io/simidoc/en/apps/api/video/veo
+- [AstrBot configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/astrbot.md): Canonical page https://simirouter.github.io/simidoc/en/apps/astrbot
+- [CC Switch configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/cc-switch.md): Canonical page https://simirouter.github.io/simidoc/en/apps/cc-switch
+- [Chatbox AI configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/chatbox.md): Canonical page https://simirouter.github.io/simidoc/en/apps/chatbox
+- [Cherry Studio configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/cherry-studio.md): Canonical page https://simirouter.github.io/simidoc/en/apps/cherry-studio
+- [Claude CLI Configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/claude-config.md): Canonical page https://simirouter.github.io/simidoc/en/apps/claude-config
+- [Claude Desktop Setup](https://simirouter.github.io/simidoc/en/llms.mdx/apps/claude-desktop.md): Canonical page https://simirouter.github.io/simidoc/en/apps/claude-desktop
+- [Codex CLI Configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/codex-config.md): Canonical page https://simirouter.github.io/simidoc/en/apps/codex-config
+- [Codex Desktop Setup](https://simirouter.github.io/simidoc/en/llms.mdx/apps/codex-desktop.md): Canonical page https://simirouter.github.io/simidoc/en/apps/codex-desktop
+- [DeepChat configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/deepchat.md): Canonical page https://simirouter.github.io/simidoc/en/apps/deepchat
+- [DeepSeek Harness setup](https://simirouter.github.io/simidoc/en/llms.mdx/apps/deepseek-harness.md): Canonical page https://simirouter.github.io/simidoc/en/apps/deepseek-harness
+- [Factory Droid CLI installation and configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/factory-droid-cli.md): Canonical page https://simirouter.github.io/simidoc/en/apps/factory-droid-cli
+- [FluentRead configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/fluent-read.md): Canonical page https://simirouter.github.io/simidoc/en/apps/fluent-read
+- [Gemini CLI configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/gemini-config.md): Canonical page https://simirouter.github.io/simidoc/en/apps/gemini-config
+- [Create a SimiRouter key](https://simirouter.github.io/simidoc/en/llms.mdx/apps/getting-started.md): Canonical page https://simirouter.github.io/simidoc/en/apps/getting-started
+- [Grok CLI configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/grok-config.md): Canonical page https://simirouter.github.io/simidoc/en/apps/grok-config
+- [Hermes Configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/hermers.md): Canonical page https://simirouter.github.io/simidoc/en/apps/hermers
+- [Install Claude Code CLI](https://simirouter.github.io/simidoc/en/llms.mdx/apps/installation/claude-code.md): Canonical page https://simirouter.github.io/simidoc/en/apps/installation/claude-code
+- [Install Codex desktop](https://simirouter.github.io/simidoc/en/llms.mdx/apps/installation/codex-app.md): Canonical page https://simirouter.github.io/simidoc/en/apps/installation/codex-app
+- [Install Codex CLI](https://simirouter.github.io/simidoc/en/llms.mdx/apps/installation/codex-cli.md): Canonical page https://simirouter.github.io/simidoc/en/apps/installation/codex-cli
+- [Gemini CLI Installation](https://simirouter.github.io/simidoc/en/llms.mdx/apps/installation/gemini.md): Canonical page https://simirouter.github.io/simidoc/en/apps/installation/gemini
+- [LangBot configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/langbot.md): Canonical page https://simirouter.github.io/simidoc/en/apps/langbot
+- [LunaTranslator configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/luna-translator.md): Canonical page https://simirouter.github.io/simidoc/en/apps/luna-translator
+- [Memoh configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/memoh.md): Canonical page https://simirouter.github.io/simidoc/en/apps/memoh
+- [OpenClaw configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/openclaw.md): Canonical page https://simirouter.github.io/simidoc/en/apps/openclaw
+- [OpenCode CLI configuration](https://simirouter.github.io/simidoc/en/llms.mdx/apps/opencode-config.md): Canonical page https://simirouter.github.io/simidoc/en/apps/opencode-config
+- [Third-party plugin configuration (VS Code Roo)](https://simirouter.github.io/simidoc/en/llms.mdx/apps/roo-code.md): Canonical page https://simirouter.github.io/simidoc/en/apps/roo-code
+- [WorkBuddy guide](https://simirouter.github.io/simidoc/en/llms.mdx/apps/workbuddy.md): Canonical page https://simirouter.github.io/simidoc/en/apps/workbuddy
+- [Contact and Support](https://simirouter.github.io/simidoc/en/llms.mdx/contact.md): Canonical page https://simirouter.github.io/simidoc/en/contact
+- [Refund Policy](https://simirouter.github.io/simidoc/en/llms.mdx/contact/refund-policy.md): Canonical page https://simirouter.github.io/simidoc/en/contact/refund-policy
+- [Usage and audit log permissions](https://simirouter.github.io/simidoc/en/llms.mdx/guide/usage-logs-permissions.md): Canonical page https://simirouter.github.io/simidoc/en/guide/usage-logs-permissions
+- [Changelog](https://simirouter.github.io/simidoc/en/llms.mdx/guide/wiki/changelog.md): Canonical page https://simirouter.github.io/simidoc/en/guide/wiki/changelog
+- [Pricing](https://simirouter.github.io/simidoc/en/llms.mdx/pricing.md): Canonical page https://simirouter.github.io/simidoc/en/pricing
+- [Three launch benefits](https://simirouter.github.io/simidoc/en/llms.mdx/promotion/launch-benefits.md): Canonical page https://simirouter.github.io/simidoc/en/promotion/launch-benefits
+- [Long-term Referral Guide](https://simirouter.github.io/simidoc/en/llms.mdx/promotion/promotion-guide.md): Canonical page https://simirouter.github.io/simidoc/en/promotion/promotion-guide
+- [Referral Rebate Policy](https://simirouter.github.io/simidoc/en/llms.mdx/promotion/rebate-details.md): Canonical page https://simirouter.github.io/simidoc/en/promotion/rebate-details
+- [Top-ups](https://simirouter.github.io/simidoc/en/llms.mdx/recharge.md): Canonical page https://simirouter.github.io/simidoc/en/recharge

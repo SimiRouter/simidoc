@@ -1,0 +1,13 @@
+User-Agent: *
+Allow: /simidoc/
+Disallow: /simidoc/api/
+Disallow: /simidoc/search-index.json
+Disallow: /simidoc/zh/search-index.json
+Disallow: /simidoc/zh-Hant/search-index.json
+Disallow: /simidoc/en/search-index.json
+Disallow: /simidoc/fr/search-index.json
+Disallow: /simidoc/ru/search-index.json
+Disallow: /simidoc/ja/search-index.json
+Disallow: /simidoc/vi/search-index.json
+
+Sitemap: https://simirouter.github.io/simidoc/sitemap.xml
