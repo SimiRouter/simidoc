@@ -17,13 +17,15 @@
 
 リポジトリには Bash と PowerShell のスクリプトがあります。実行前に Codex CLI または Codex デスクトップ版をインストールして起動し、スクリプトをダウンロードして内容を確認してからローカルファイルを実行してください。
 
-* [Bash スクリプトをダウンロード](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
-* [PowerShell スクリプトをダウンロード](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Bash スクリプトをダウンロード（CDN）](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Bash スクリプトをダウンロード（GitHub Raw 予備）](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [PowerShell スクリプトをダウンロード（CDN）](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [PowerShell スクリプトをダウンロード（GitHub Raw 予備）](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
 
 macOS / Linux はターミナルで実行します。
 
 <Callout type="warn" title="">
-  以下の手順はドキュメントサイトからスクリプトを保存しますが、ネットワークの応答をそのまま実行しません。保存したファイルを確認してから実行してください。公開ファイルがない場合はリポジトリの `public/scripts/` にある同じファイル、または手動設定を使用します。
+  以下の手順は上記の CDN または GitHub Raw リンクからスクリプトを保存しますが、ネットワークの応答をそのまま実行しません。保存したローカルファイルを確認してから実行してください。
   スクリプトは API Key を `experimental_bearer_token`（`config.toml` 内）に書き込みます。`auth.json` は作成・変更しません。設定ファイルは平文の秘密情報として扱ってください。
 </Callout>
 

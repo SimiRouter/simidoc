@@ -17,13 +17,15 @@ Endpoint danh mục yêu cầu khóa hợp lệ. Mô hình và siêu dữ liệu
 
 Kho mã có script Bash và PowerShell. Hãy cài và chạy Codex CLI hoặc Codex Desktop trước; tải xuống và xem nội dung script trước khi chạy tệp cục bộ.
 
-* [Tải script Bash](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
-* [Tải script PowerShell](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Tải script Bash (CDN)](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Tải script Bash (dự phòng GitHub Raw)](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Tải script PowerShell (CDN)](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Tải script PowerShell (dự phòng GitHub Raw)](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
 
 Trên macOS / Linux, chạy trong terminal\:
 
 <Callout type="warn" title="">
-  Các bước này lưu script từ trang tài liệu nhưng không chuyển phản hồi mạng trực tiếp cho trình thông dịch. Hãy xem tệp đã lưu trước khi chạy. Nếu tệp đã xuất bản không có, hãy dùng tệp tương ứng trong `public/scripts/` của kho mã hoặc cấu hình thủ công bên dưới.
+  Các bước này lưu script từ một trong các liên kết CDN hoặc GitHub Raw ở trên nhưng không chuyển phản hồi mạng trực tiếp cho trình thông dịch. Hãy xem tệp cục bộ đã lưu trước khi chạy.
   Script ghi API Key vào `experimental_bearer_token` trong `config.toml`; không tạo hoặc sửa `auth.json`. Hãy coi tệp này là bí mật dạng văn bản rõ.
 </Callout>
 

@@ -633,13 +633,15 @@ The catalog endpoint requires a valid key. Available models and basic metadata s
 
 The repository includes Bash and PowerShell scripts. Install and launch Codex CLI or the desktop app first; download and review the script before running the local file.
 
-* [Download the Bash script](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
-* [Download the PowerShell script](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Download Bash script (CDN)](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Download Bash script (GitHub Raw fallback)](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Download PowerShell script (CDN)](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Download PowerShell script (GitHub Raw fallback)](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
 
 Run in a macOS or Linux terminal\:
 
 <Callout type="warn" title="">
-  These steps download a script from the docs site but do not pipe the network response directly to an interpreter. Review the saved file before running it. If the published file is unavailable, use the matching file in the repository's `public/scripts/` directory or use manual configuration below.
+  These steps download a script from one of the CDN or GitHub Raw links above but do not pipe the network response directly to an interpreter. Review the saved local file before running it.
   The script writes the API key to `experimental_bearer_token` in `config.toml`; it does not create or modify `auth.json`. Treat this file as a plaintext secret.
 </Callout>
 
@@ -1774,41 +1776,6 @@ For troubleshooting assistance, provide **WorkBuddy version, model ID, request t
 
 [WorkBuddy custom model configuration](https\://www.codebuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Model).
 
-# Usage and audit log permissions
-
-This guide explains role-based visibility in Usage Logs and Audit Logs, and how to identify the channel that actually handled a request.
-
-## Usage Logs
-
-### Super administrators
-
-Super administrators can view complete logs for all users. In [Usage Logs](https://api.dwchainless.com/usage-logs/common), choose **Only Errors** in the type filter to show error calls from every user. The filter keeps errors that occurred during retries, even when the final request succeeded.
-
-The channel column identifies the channel that actually handled the request. When investigating routing, use the actual channel, model, status, and request ID in the log rather than relying only on the model name shown by the client.
-
-### Administrators
-
-Administrators can view only their own request, recharge, management-operation, and error-call logs. Username, role, and URL parameters cannot expand this scope. Administrators do not get a global **Only Errors** filter, but their own error records remain visible according to their permissions.
-
-### Regular users
-
-Regular users can view only their own request, recharge, and administrator-operation logs. They cannot view error logs or another user's logs.
-
-## Audit Logs
-
-Super administrators can view audit events for all users and filter by username. Administrators and regular users are restricted to audit events belonging to the currently authenticated account; page parameters cannot expand this server-side scope.
-
-## Channel status updates
-
-The audit event `channel.status_update` means **channel status update**. It records a manual status operation on one channel. The current code accepts an enabled or manually disabled target status; `changed=false` means the request succeeded but the channel state did not change. Batch operations use `channel.status_update_batch`. Check the event details, operator, and timestamp for the specific operation.
-
-## Troubleshooting
-
-1. Confirm the time range and request ID.
-2. For a global error investigation, a super administrator should choose **Only Errors**.
-3. Check the actual channel, model, and status instead of relying only on the client label.
-4. For timeouts, 5xx responses, or interrupted streams, inspect existing logs and the request ID before retrying to avoid duplicate charges.
-
 # Contact and Support
 
 <ContactSupport locale="en" />
@@ -1914,6 +1881,53 @@ Support hours\: Daily, 9\:00 - 21\:00
 Support channel\: Sign in to the console and submit your refund request through online support.
 
 This policy applies to refunds for SimiRouter services. If platform rules change, the latest announcement or support explanation takes precedence.
+
+# Usage and audit log permissions
+
+This guide explains role-based visibility in Usage Logs and Audit Logs, and how to identify the channel that actually handled a request.
+
+## Usage Logs
+
+### Super administrators
+
+Super administrators can view complete logs for all users. In [Usage Logs](https://api.dwchainless.com/usage-logs/common), choose **Only Errors** in the type filter to show error calls from every user. The filter keeps errors that occurred during retries, even when the final request succeeded.
+
+The channel column identifies the channel that actually handled the request. When investigating routing, use the actual channel, model, status, and request ID in the log rather than relying only on the model name shown by the client.
+
+### Administrators
+
+Administrators can view only their own request, recharge, management-operation, and error-call logs. Username, role, and URL parameters cannot expand this scope. Administrators do not get a global **Only Errors** filter, but their own error records remain visible according to their permissions.
+
+### Regular users
+
+Regular users can view only their own request, recharge, and administrator-operation logs. They cannot view error logs or another user's logs.
+
+## Audit Logs
+
+Super administrators can view audit events for all users and filter by username. Administrators and regular users are restricted to audit events belonging to the currently authenticated account; page parameters cannot expand this server-side scope.
+
+## Channel status updates
+
+The audit event `channel.status_update` means **channel status update**. It records a manual status operation on one channel. The current code accepts an enabled or manually disabled target status; `changed=false` means the request succeeded but the channel state did not change. Batch operations use `channel.status_update_batch`. Check the event details, operator, and timestamp for the specific operation.
+
+## Troubleshooting
+
+1. Confirm the time range and request ID.
+2. For a global error investigation, a super administrator should choose **Only Errors**.
+3. Check the actual channel, model, and status instead of relying only on the client label.
+4. For timeouts, 5xx responses, or interrupted streams, inspect existing logs and the request ID before retrying to avoid duplicate charges.
+
+# Pricing
+
+## View current model prices
+
+Open [Model Square](https://api.dwchainless.com/en/pricing/), then select a model and group to inspect current pricing. Input, output, cache, and per-request charges may differ; the actual page and your group permissions take precedence.
+
+![Model pricing page\: after selecting a pricing group, the table lists model ID, spec, and price](/simidoc/assets/guide/pricing-2026-11.png)
+
+*Screenshot from the local deployment, updated 2026-11-17. It shows where the page sits, not a price commitment. Tap the image to open it full size.*
+
+A top-up amount or credited quota is not the model price itself. Start with a small request and check the actual charge in [Usage Logs](https://api.dwchainless.com/usage-logs/common).
 
 # Three launch benefits
 
@@ -2343,18 +2357,6 @@ A referrer may appeal within 7 business days of notice by submitting evidence su
 * Unauthorized top-ups, money laundering, stolen payments, or other unlawful participation;
 * Organizing or assisting malicious arbitrage;
 * Other breaches of fairness, good faith, user terms, or law.
-
-# Pricing
-
-## View current model prices
-
-Open [Model Square](https://api.dwchainless.com/en/pricing/), then select a model and group to inspect current pricing. Input, output, cache, and per-request charges may differ; the actual page and your group permissions take precedence.
-
-![Model pricing page\: after selecting a pricing group, the table lists model ID, spec, and price](/simidoc/assets/guide/pricing-2026-11.png)
-
-*Screenshot from the local deployment, updated 2026-11-17. It shows where the page sits, not a price commitment. Tap the image to open it full size.*
-
-A top-up amount or credited quota is not the model price itself. Start with a small request and check the actual charge in [Usage Logs](https://api.dwchainless.com/usage-logs/common).
 
 # Top-ups
 
@@ -5553,6 +5555,249 @@ The error body’s `error.message`, `error.type`, and `error.code` give more spe
 
 [OpenAI Create translation](https\://developers.openai.com/api/reference/resources/audio/subresources/translations/methods/create).
 
+# Agent image calls are now included in protocol documentation
+
+Agent tasks are now distributed across the three protocols. Each includes generation and editing templates, configuration, saving results, and failure handling, replacing a separate tutorial oriented toward OpenAI Images\:
+
+* [Agent calls in OpenAI format](/simidoc/en/apps/api/images/openai)\: Images generation, JSON editing, and final-event checks.
+* [Agent calls in Gemini native format](/simidoc/en/apps/api/images/gemini)\: GenerateContent image Parts, MIME types, and multi-turn context.
+* [Agent calls in Qwen native format](/simidoc/en/apps/api/images/qwen)\: regional Alibaba Cloud configuration, native synchronous calls, and image URL downloads.
+
+Agents still need local execution and response-inspection capabilities; these documents do not install remote Skills. Real requests may incur charges. Confirm the model, specifications, count, and output location before calling. Do not expose keys, overwrite files, or retry automatically. For interface, effect, and specification comparisons, see the [Image API overview](/simidoc/en/apps/api/images).
+
+# Images
+
+Choose the **API protocol**, decide on the **effect**, and then check the **dimensions, quality, format, and image count**. The protocol defines request and response structures, the model and prompt determine the effect, and specifications define the output requirements. These are separate decisions.
+
+Generation and editing return images; image understanding takes images and returns text or structured results. A text-only model does not gain image-generation capabilities when image parameters are added. Before calling, check the exact model ID, supported interfaces, billing group, and quota under [Models and pricing](https://api.dwchainless.com/en/pricing/). Real requests may incur charges.
+
+## Overview
+
+| What you want to do                   | Input                                    | Output                       | Typical endpoint              |
+| ------------------------------------- | ---------------------------------------- | ---------------------------- | ----------------------------- |
+| Generate an image from text           | Prompt                                   | A new image                  | `POST /v1/images/generations` |
+| Modify an existing image              | Prompt plus one or more reference images | The edited image             | `POST /v1/images/edits`       |
+| Generate images inside a conversation | Chat messages plus the image tool        | Mixed image and text results | `POST /v1/responses`          |
+| Have the model describe an image      | Image plus a question                    | Text, not a new image        | `POST /v1/chat/completions`   |
+
+## Core concepts
+
+Three kinds of numbers come first; the parameters and prices below only make sense once they are separated\:
+
+* **Pixel dimensions**\: the real width × height, such as `1024x1024`. It sets the actual resolution of the file, not the file size, and it is not a quality tier.
+* **Aspect ratio**\: ratios such as `1:1`, `16:9`, and `9:16` only determine the shape of the frame. One ratio can map to several pixel dimensions; naming a ratio does not specify the output size.
+* **Resolution tier**\: tiers such as `1K`, `2K`, and `4K`. Vendor-native tiers are defined by longest edge or product line, while this site's per-image billing tiers are classified by longest edge; the names match but the boundaries may not, so neither can be inferred from the other.
+
+There are also three common misconceptions\: `quality` controls rendering quality, not compression quality; PNG, JPEG, and WebP are file formats, and renaming an extension does not convert one to another; Base64 and URL are delivery methods, not resolutions. See section 4 below, "Image specifications and billing", for the itemized comparison.
+
+## 1. APIs\: choose a protocol
+
+Each of the three protocols has its own request parameters, response fields, and examples. Script calls, agent use, saving results, and failure handling are also explained within each protocol, so you do not need to start with a shared tutorial that only applies to OpenAI.
+
+| Protocol                | API / capability                                          | Request endpoint                                        | Main result                                                  | Documentation                                             |
+| ----------------------- | --------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------ | --------------------------------------------------------- |
+| OpenAI                  | Text-to-image                                             | `POST /v1/images/generations`                           | `data[].b64_json`; compatible models may also return URLs    | [Generation](/simidoc/en/apps/api/images/openai/generations)                        |
+| OpenAI                  | Image editing / image-to-image                            | `POST /v1/images/edits`                                 | Edited images                                                | [Editing](/simidoc/en/apps/api/images/openai/edits)                                 |
+| OpenAI                  | Conversational image generation                           | `POST /v1/responses`, using the `image_generation` tool | Image tool results in `output[]`                             | [Conversational generation](/simidoc/en/apps/api/images/openai/chat-format)         |
+| OpenAI                  | Image understanding                                       | `POST /v1/chat/completions`, with `image_url` input     | Text analysis, not generated images                          | [Image understanding](/simidoc/en/apps/api/images/openai/vision)                    |
+| Gemini                  | Text-to-image                                             | `POST /v1beta/models/{model}:generateContent`           | `candidates[].content.parts[].inlineData`                    | [Generation](/simidoc/en/apps/api/images/gemini/generate)                           |
+| Gemini                  | Image editing / multi-turn editing                        | Same endpoint, with mixed text and image input          | Images in the returned content parts                         | [Editing](/simidoc/en/apps/api/images/gemini/edits)                                 |
+| Gemini                  | Image understanding                                       | Same endpoint, using a model with vision input          | Text analysis                                                | [Media understanding](/simidoc/en/apps/api/chat/gemini-media)               |
+| Qwen                    | Text-to-image / image editing                             | `POST /v1/images/generations`, `POST /v1/images/edits`  | `data[].url` or `data[].b64_json`                            | [Generation](/simidoc/en/apps/api/images/qwen/generations), [Editing](/simidoc/en/apps/api/images/qwen/edits) |
+| Jimeng / Volcengine Ark | Text-to-image / reference-image generation                | `POST /api/v3/images/generations`                       | `data[].url` or `data[].b64_json`                            | [Generation](/simidoc/en/apps/api/images/jimeng)                                    |
+| xAI Grok                | Text-to-image / multiple images                           | `POST /v1/images/generations`                           | `data[].url` or `data[].b64_json`                            | [Generation](/simidoc/en/apps/api/images/grok)                                      |
+| BFL FLUX                | Text-to-image / reference-image generation (asynchronous) | `POST /v1/flux-pro-1.1` and others                      | Take `polling_url` first, then `result.sample` when complete | [Generation](/simidoc/en/apps/api/images/flux)                                      |
+
+**The Qwen section uses the native Qwen request body, called through this site's gateway `/v1/images/generations` and `/v1/images/edits`, and returns the uniform `data[]`.** Do not rewrite the request body into OpenAI's `prompt` field; model IDs must use the names actually provided by this site's channel. Jimeng uses the native Volcengine Ark request body; Grok uses the same paths as OpenAI Images, but its frame parameters are `aspect_ratio` and `resolution`; FLUX does not generate images synchronously and must submit a task and then poll `polling_url`. These three cannot copy each other's fields.
+
+Call modes also vary by protocol\: ordinary OpenAI Images requests wait for complete results, and only supported models offer image event streams; Gemini streams through `streamGenerateContent?alt=sse`; the Qwen and Jimeng examples in this directory use synchronous responses; Grok is synchronous by default and can use `deferred` to become a deferred task; FLUX is always asynchronous polling. None becomes a universal task queue simply by adding an “asynchronous” parameter. See [OpenAI](/simidoc/en/apps/api/images/openai), [Gemini](/simidoc/en/apps/api/images/gemini), [Qwen](/simidoc/en/apps/api/images/qwen), [Jimeng](/simidoc/en/apps/api/images/jimeng), [Grok](/simidoc/en/apps/api/images/grok), and [FLUX](/simidoc/en/apps/api/images/flux) for requests, outputs, and completion checks.
+
+## 2. Effects\: choose by your goal
+
+“Watercolor,” “replace the background,” and “product composition” are usually generation or editing tasks, not separate APIs. The following categories describe tasks, not capabilities guaranteed across all models. Check the relevant protocol and model documentation first.
+
+| Desired effect                                                              | Input and prompt focus                                                                        | Interface choice and limitations                                                                                           |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Create from scratch\: illustrations, covers, posters, photorealistic scenes | Describe the subject, composition, style, lighting, and text to render                        | Use text-to-image; check text and details                                                                                  |
+| Reference-image variations\: regenerate using a subject or composition      | Provide a reference and distinguish what to keep from what to change                          | Use image editing / image-to-image; pixel-perfect preservation is not guaranteed                                           |
+| Style transfer\: photo to watercolor, line art, and more                    | Provide a reference and target style; state whether to preserve the subject and layout        | Use an editing model that accepts reference images                                                                         |
+| Replace backgrounds, add or remove objects, or edit locally                 | Specify the area to change; provide a mask where supported                                    | Use editing; mask support and requirements vary by model                                                                   |
+| Combine images\: compose products, people, and scenes                       | Explain each reference image's role, the relationships between subjects, and the final layout | Use an editing model with multi-image input and check input-count limits                                                   |
+| Iterate over multiple turns\: continue editing a previous result            | Retain the history or references required by the protocol                                     | Use an interface supporting multi-turn image workflows; saving only text does not guarantee that image context is retained |
+| Transparent-background assets                                               | Request a real alpha channel, not a white background or a checkerboard drawn into the image   | Select transparency and a format that preserves it only when the model supports them                                       |
+| Image understanding, text extraction, chart questions                       | Supply the image and state the analysis goal                                                  | Use image understanding, which returns text rather than an edited image                                                    |
+
+For capabilities and limitations, see [OpenAI image generation](https\://developers.openai.com/api/docs/guides/image-generation), [Gemini image generation and editing](https\://ai.google.dev/gemini-api/docs/image-generation), and [Qwen image editing](https\://www.alibabacloud.com/help/en/model-studio/qwen-image-edit-api). Official examples do not establish that the current gateway channel exposes the same capabilities.
+
+## 3. Calling the API\: four steps to your first image
+
+Whichever protocol you choose, a call follows the same order\: confirm configuration, choose an endpoint, send a minimal request, then read and verify the result. The steps below describe only the general flow; the protocol page defines the exact fields.
+
+### 1. Confirm the request URL, key, and model
+
+* **Request URL**\: This site's gateway is `https://api.dwchainless.com`; the endpoint path varies by protocol and operation.
+* **Key**\: Create one under [API key management](https://api.dwchainless.com/keys) and send it as `Authorization: Bearer $API_KEY`; never put it in prompts, source code, screenshots, or Git.
+* **Model**\: Copy the complete model ID from [Models and pricing](https://api.dwchainless.com/en/pricing/) and confirm that it supports the target endpoint. Generation, editing, and image understanding may use different models.
+
+### 2. Choose an endpoint and request format
+
+Choose an endpoint from the protocol table above, then confirm the request body format\:
+
+| Operation                       | Endpoint (OpenAI format)      | Request format                   |
+| ------------------------------- | ----------------------------- | -------------------------------- |
+| Text-to-image                   | `POST /v1/images/generations` | JSON                             |
+| Image editing / image-to-image  | `POST /v1/images/edits`       | JSON `images[]` or multipart     |
+| Conversational image generation | `POST /v1/responses`          | JSON with the image tool enabled |
+| Image understanding             | `POST /v1/chat/completions`   | JSON with an `image_url` item    |
+
+Gemini, Qwen, Jimeng, Grok, and FLUX use their own native request fields; do not copy OpenAI fields directly into them.
+
+### 3. Send a minimal request
+
+For the first call, generate one image without streaming to confirm that authentication, the model, and the parameters are valid. The following uses OpenAI generation as an example\:
+
+```bash
+API_URL="https://api.dwchainless.com/v1/images/generations"
+API_KEY="PASTE_API_KEY_HERE"
+curl "$API_URL" \
+  -H "Authorization: Bearer $API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-image-2",
+    "prompt": "一只小机器人在图书馆阅读，水彩插画，不要文字。",
+    "n": 1,
+    "size": "1024x1024",
+    "output_format": "png"
+  }'
+```
+
+Once the response is normal, increase `n`, adjust the size, or enable streaming as needed. See [generation](/simidoc/en/apps/api/images/openai/generations) and [editing](/simidoc/en/apps/api/images/openai/edits) for complete multilingual examples.
+
+**Response shape (illustrative)**\: a real response contains a very long Base64 string, so only the beginning is kept here. On success, read `data[]` rather than relying on HTTP 200 alone.
+
+```json
+{
+  "created": 1763366400,
+  "data": [{ "b64_json": "iVBORw0KGgoAAAANSUhEUg..." }],
+  "usage": { "input_tokens": 28, "output_tokens": 4160, "total_tokens": 4188 }
+}
+```
+
+### 4. Read and verify the result
+
+1. **Check the status**\: Only 2xx means the request succeeded; for 4xx, check parameters and permissions; for 5xx or a timeout, first confirm whether the request executed.
+2. **Read the result**\: Take images from `data[]`; GPT Image returns `data[].b64_json`, while compatible models may return `data[].url`; do not assume a first item exists.
+3. **Save the image**\: Decode Base64 into binary and choose the extension from the actual MIME type; download URLs promptly and without the API key.
+4. **Verify**\: Check that the file opens, then confirm actual pixel dimensions, transparency, and content, and inspect usage logs. HTTP 200, an empty `data[]`, or a streaming preview does not mean the final image has been saved.
+
+## 4. Image specifications and billing
+
+### What each request specification controls
+
+| Specification          | Meaning and examples                                                                   | Common confusion                                                                                                                                         |
+| ---------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pixel dimensions       | Actual width × height, such as `1024x1024` or `1536x1024`                              | Not file size, and not automatically a quality tier                                                                                                      |
+| Aspect ratio           | `1:1` square, `16:9` landscape, `9:16` portrait                                        | The same ratio can have multiple resolutions; choosing a ratio alone does not specify exact pixel dimensions                                             |
+| Resolution tier        | Some models use native parameters such as `1K`, `2K`, and `4K`                         | Actual dimensions also depend on the model and aspect ratio; provider tiers should not be equated directly with this site's per-image billing boundaries |
+| Generation quality     | For example, OpenAI's `quality` selects rendering quality                              | Not `size`, or JPEG/WebP compression quality; other models may not have the same parameter                                                               |
+| File format            | PNG, JPEG, WebP, and others, according to the actual returned MIME type                | Base64 and URLs are delivery methods, not image formats; renaming an extension does not convert a file                                                   |
+| Transparent background | An alpha channel, useful for compositing assets                                        | Requires support from the model, parameters, and file format; asking for transparency does not guarantee an alpha channel                                |
+| Image count            | Number of generated images or candidates; fields and limits vary by protocol and model | Writing “generate three images” in the prompt is not the same as setting an API count; multiple inputs do not imply multiple outputs                     |
+
+At a fixed aspect ratio, doubling both edges produces four times as many pixels, but does not guarantee a proportional increase in detail or sharpness. Start with the intended use, then check model support, latency, and pricing rather than always choosing the highest tier.
+
+For fields, accepted values, and code examples, see [OpenAI request format](/simidoc/en/apps/api/images/openai/generations), [Gemini request format](/simidoc/en/apps/api/images/gemini/generate), [Qwen request format](/simidoc/en/apps/api/images/qwen/generations), [Jimeng request format](/simidoc/en/apps/api/images/jimeng), [Grok request format](/simidoc/en/apps/api/images/grok), and [FLUX request format](/simidoc/en/apps/api/images/flux). OpenAI's quality, format, and transparency settings are covered in the [official output options](https\://developers.openai.com/api/docs/guides/image-generation#customize-image-output); Qwen's dimension and output requirements are in the [official specifications](https\://www.alibabacloud.com/help/en/model-studio/qwen-image-api). Do not copy one protocol's parameters into another.
+
+### How this site's 1K, 2K, and 4K per-image billing tiers differ
+
+The table below applies only to models explicitly priced per image in three 1K / 2K / 4K tiers under [Model pricing](https://api.dwchainless.com/en/pricing/). Token-priced models and models with other fixed prices follow their own rules. An “image model” name alone does not determine how it is billed.
+
+| Billing tier | Longest edge                          | Example dimensions (pixels) |
+| ------------ | ------------------------------------- | --------------------------- |
+| 1K           | Both edges ≤ 1024 pixels              | 1024×1024                   |
+| 2K           | Longest edge > 1024 and ≤ 2048 pixels | 1280×720, 1536×1024         |
+| 4K           | Either edge > 2048 pixels             | 2560×1440, 3840×2160        |
+
+**Total price = per-image price for the current tier × billable image count.** Interfaces supporting settlement by completed results charge for the actual completed count; intermediate streaming previews are not completed images. Current model pricing and usage logs determine the unit price, group, and final charge. This page does not fix numerical prices.
+
+Under these three-tier per-image rules, omitting `size` or using `auto` defaults to 1K only when no other valid resolution tier has been specified. Explicit native resolution fields still determine the billing tier. Pixel dimensions are classified by the longest requested edge, not total pixel count. For example, `1280x720` is 2K and `2560x1440` is 4K.
+
+**A billing tier is not a promise of output dimensions.** Gemini's `generationConfig.imageConfig.imageSize` selects a native model resolution; confirm actual pixel dimensions against the model and aspect ratio. This site calculates billing tiers from supported request fields without promising uniform output dimensions. Do not send conflicting dimension fields, or apply these per-image rules to official direct calls or token-priced models.
+
+### Common ratios at a glance\: 14 ratios × 1K / 2K / 4K
+
+The table lists common 1K, 2K, and 4K preset dimensions by aspect ratio for quickly picking a frame. It is a size quick reference, not a model-support list\: available ratios, preset names, and per-side limits vary by model and gateway, so confirm against the model documentation or API error before requesting.
+
+A K tier here is a preset name, not this page's per-image billing tier. For some "1K" presets the longest edge already exceeds 1024 pixels, which this site classifies as 2K; for example, the 16\:9 1K preset `1536x864` is 2K. Billing always follows the requested dimensions and [Models and pricing](https://api.dwchainless.com/en/pricing/).
+
+| Ratio     | Common use                        | 1K size     | 2K size     | 4K size                 |
+| :-------- | :-------------------------------- | :---------- | :---------- | :---------------------- |
+| `1:1`     | Square avatar / product           | `1024x1024` | `2048x2048` | `3840x3840`             |
+| `4:3`     | Landscape illustration / display  | `1152x896`  | `2048x1536` | `3840x2880`             |
+| `3:4`     | Portrait poster / people          | `896x1152`  | `1536x2048` | `2880x3840`             |
+| `16:9`    | Landscape cover / slides          | `1536x864`  | `2048x1152` | `3840x2160`             |
+| `9:16`    | Vertical cover / phone background | `864x1536`  | `1152x2048` | `2160x3840`             |
+| `3:2`     | Landscape photography             | `1536x1024` | `2048x1360` | `3840x2560`             |
+| `2:3`     | Portrait photography              | `1024x1536` | `1360x2048` | `2560x3840`             |
+| `5:4`     | Landscape product display         | `1280x1024` | `2560x2048` | `3840x3072`             |
+| `4:5`     | Portrait product / social image   | `1024x1280` | `2048x2560` | `3072x3840`             |
+| `21:9`    | Wide scene / banner               | `1792x768`  | `2048x880`  | `3840x1648`             |
+| `1:4`     | Narrow vertical strip             | `512x2048`  | `768x3072`  | **Over per-side limit** |
+| `4:1`     | Narrow horizontal strip           | `2048x512`  | `3072x768`  | **Over per-side limit** |
+| `1.414:1` | Approx. A-series landscape paper  | `1440x1024` | `2048x1456` | `3840x2720`             |
+| `1:1.414` | Approx. A-series portrait paper   | `1024x1440` | `1456x2048` | `2720x3840`             |
+
+### Three correct ways to write size
+
+Some OpenAI-compatible gateways accept the following forms; whether a field takes effect depends on the model and gateway, so fall back to explicit pixels when unsupported.
+
+| Form                          | Request fragment                   | Purpose                                                               |
+| :---------------------------- | :--------------------------------- | :-------------------------------------------------------------------- |
+| Explicit pixels (recommended) | `{"size":"1536x2048"}`             | Most direct; avoids preset conversion differences                     |
+| Ratio + resolution            | `{"size":"3:4","resolution":"2k"}` | Converts using the 2K, 3\:4 preset                                    |
+| Automatic size                | `{"size":"auto"}`                  | The model chooses dimensions; fixed width and height are not promised |
+
+* Put the K tier in `resolution` and pixels or a ratio in `size`; do not write `2k` in `size`.
+* Use a lowercase English `x` as the dimension separator; do not use a multiplication sign, uppercase X, arrays, or strings with ×.
+* A ratio in `size` takes precedence over `aspect_ratio` alone; explicit pixels or `auto` take precedence over ratio presets.
+* The official arbitrary-size limit for gpt-image-2 is 3840×2160; the 4K `1:4` and `4:1` combinations exceed it and are marked as over the per-side limit. Other models follow their own published limits.
+* Gemini and Qwen use their own size fields; these forms do not transfer directly.
+
+### 28 common dimension references
+
+The labels below indicate only the billing tiers defined above; they do not guarantee that the selected model supports these dimensions. Check the model's accepted dimensions first. Do not treat a billing tier as an API parameter value.
+
+| Use / ratio                    | Dimensions (pixels) and billing tier                                         |
+| ------------------------------ | ---------------------------------------------------------------------------- |
+| General square · 1\:1          | 1024×1024 · 1K; 1536×1536 · 2K; 2048×2048 · 2K                               |
+| Landscape cover · 16\:9        | 1280×720 · 2K; 1536×864 · 2K; 2048×1152 · 2K; 2560×1440 · 4K; 3840×2160 · 4K |
+| Vertical video / Story · 9\:16 | 720×1280 · 2K; 864×1536 · 2K; 1152×2048 · 2K; 1440×2560 · 4K; 2160×3840 · 4K |
+| Article illustration · 3\:2    | 1536×1024 · 2K; 1920×1280 · 2K; 2400×1600 · 4K                               |
+| Portrait poster · 2\:3         | 1024×1536 · 2K; 1280×1920 · 2K; 1600×2400 · 4K                               |
+| Wide banner · 2\:1             | 1536×768 · 2K; 2048×1024 · 2K; 2560×1280 · 4K; 3840×1920 · 4K                |
+| Ultra-wide banner · 3\:1       | 1536×512 · 2K; 1920×640 · 2K; 2400×800 · 4K; 3072×1024 · 4K; 3840×1280 · 4K  |
+
+## 5. Go deeper by protocol
+
+Complete parameters, response structures, code examples, and error handling for each protocol\:
+
+* [OpenAI format](/simidoc/en/apps/api/images/openai)
+* [Gemini format](/simidoc/en/apps/api/images/gemini)
+* [Qwen format](/simidoc/en/apps/api/images/qwen)
+* [Jimeng / Volcengine Ark format](/simidoc/en/apps/api/images/jimeng)
+* [xAI Grok format](/simidoc/en/apps/api/images/grok)
+* [BFL FLUX format](/simidoc/en/apps/api/images/flux)
+
+# Image calling examples are now organized by protocol
+
+Image calls no longer use a shared script tutorial that applies only to OpenAI Images. Choose the protocol you actually use. Each protocol page follows “Request format and parameters → Response parameters → Calling examples,” including image specifications, links to code in four languages, agent tasks, and safe saving workflows\:
+
+* [OpenAI format](/simidoc/en/apps/api/images/openai)\: Images generation and editing, Responses conversational image generation, and image understanding.
+* [Gemini native format](/simidoc/en/apps/api/images/gemini)\: GenerateContent text and image Parts, and saving Base64 images.
+* [Qwen native format](/simidoc/en/apps/api/images/qwen)\: official Alibaba Cloud regional endpoints, native message structures, and saving result URLs.
+
+For interface, effect, and 1K / 2K / 4K comparisons, see the [Image API overview](/simidoc/en/apps/api/images). This page preserves existing links; follow the relevant protocol for actual calls. Do not mix credentials, parameters, or response fields between protocols.
+
 # Claude Messages
 
 ## Endpoint overview
@@ -7674,616 +7919,6 @@ Long replies and streaming requests can take from tens of seconds to several min
 * [OpenAI background mode](https\://developers.openai.com/api/docs/guides/background)
 * [OpenAI error handling](https\://developers.openai.com/api/docs/guides/error-codes)
 
-# Agent image calls are now included in protocol documentation
-
-Agent tasks are now distributed across the three protocols. Each includes generation and editing templates, configuration, saving results, and failure handling, replacing a separate tutorial oriented toward OpenAI Images\:
-
-* [Agent calls in OpenAI format](/simidoc/en/apps/api/images/openai)\: Images generation, JSON editing, and final-event checks.
-* [Agent calls in Gemini native format](/simidoc/en/apps/api/images/gemini)\: GenerateContent image Parts, MIME types, and multi-turn context.
-* [Agent calls in Qwen native format](/simidoc/en/apps/api/images/qwen)\: regional Alibaba Cloud configuration, native synchronous calls, and image URL downloads.
-
-Agents still need local execution and response-inspection capabilities; these documents do not install remote Skills. Real requests may incur charges. Confirm the model, specifications, count, and output location before calling. Do not expose keys, overwrite files, or retry automatically. For interface, effect, and specification comparisons, see the [Image API overview](/simidoc/en/apps/api/images).
-
-# Images
-
-Choose the **API protocol**, decide on the **effect**, and then check the **dimensions, quality, format, and image count**. The protocol defines request and response structures, the model and prompt determine the effect, and specifications define the output requirements. These are separate decisions.
-
-Generation and editing return images; image understanding takes images and returns text or structured results. A text-only model does not gain image-generation capabilities when image parameters are added. Before calling, check the exact model ID, supported interfaces, billing group, and quota under [Models and pricing](https://api.dwchainless.com/en/pricing/). Real requests may incur charges.
-
-## Overview
-
-| What you want to do                   | Input                                    | Output                       | Typical endpoint              |
-| ------------------------------------- | ---------------------------------------- | ---------------------------- | ----------------------------- |
-| Generate an image from text           | Prompt                                   | A new image                  | `POST /v1/images/generations` |
-| Modify an existing image              | Prompt plus one or more reference images | The edited image             | `POST /v1/images/edits`       |
-| Generate images inside a conversation | Chat messages plus the image tool        | Mixed image and text results | `POST /v1/responses`          |
-| Have the model describe an image      | Image plus a question                    | Text, not a new image        | `POST /v1/chat/completions`   |
-
-## Core concepts
-
-Three kinds of numbers come first; the parameters and prices below only make sense once they are separated\:
-
-* **Pixel dimensions**\: the real width × height, such as `1024x1024`. It sets the actual resolution of the file, not the file size, and it is not a quality tier.
-* **Aspect ratio**\: ratios such as `1:1`, `16:9`, and `9:16` only determine the shape of the frame. One ratio can map to several pixel dimensions; naming a ratio does not specify the output size.
-* **Resolution tier**\: tiers such as `1K`, `2K`, and `4K`. Vendor-native tiers are defined by longest edge or product line, while this site's per-image billing tiers are classified by longest edge; the names match but the boundaries may not, so neither can be inferred from the other.
-
-There are also three common misconceptions\: `quality` controls rendering quality, not compression quality; PNG, JPEG, and WebP are file formats, and renaming an extension does not convert one to another; Base64 and URL are delivery methods, not resolutions. See section 4 below, "Image specifications and billing", for the itemized comparison.
-
-## 1. APIs\: choose a protocol
-
-Each of the three protocols has its own request parameters, response fields, and examples. Script calls, agent use, saving results, and failure handling are also explained within each protocol, so you do not need to start with a shared tutorial that only applies to OpenAI.
-
-| Protocol                | API / capability                                          | Request endpoint                                        | Main result                                                  | Documentation                                             |
-| ----------------------- | --------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------ | --------------------------------------------------------- |
-| OpenAI                  | Text-to-image                                             | `POST /v1/images/generations`                           | `data[].b64_json`; compatible models may also return URLs    | [Generation](/simidoc/en/apps/api/images/openai/generations)                        |
-| OpenAI                  | Image editing / image-to-image                            | `POST /v1/images/edits`                                 | Edited images                                                | [Editing](/simidoc/en/apps/api/images/openai/edits)                                 |
-| OpenAI                  | Conversational image generation                           | `POST /v1/responses`, using the `image_generation` tool | Image tool results in `output[]`                             | [Conversational generation](/simidoc/en/apps/api/images/openai/chat-format)         |
-| OpenAI                  | Image understanding                                       | `POST /v1/chat/completions`, with `image_url` input     | Text analysis, not generated images                          | [Image understanding](/simidoc/en/apps/api/images/openai/vision)                    |
-| Gemini                  | Text-to-image                                             | `POST /v1beta/models/{model}:generateContent`           | `candidates[].content.parts[].inlineData`                    | [Generation](/simidoc/en/apps/api/images/gemini/generate)                           |
-| Gemini                  | Image editing / multi-turn editing                        | Same endpoint, with mixed text and image input          | Images in the returned content parts                         | [Editing](/simidoc/en/apps/api/images/gemini/edits)                                 |
-| Gemini                  | Image understanding                                       | Same endpoint, using a model with vision input          | Text analysis                                                | [Media understanding](/simidoc/en/apps/api/chat/gemini-media)               |
-| Qwen                    | Text-to-image / image editing                             | `POST /v1/images/generations`, `POST /v1/images/edits`  | `data[].url` or `data[].b64_json`                            | [Generation](/simidoc/en/apps/api/images/qwen/generations), [Editing](/simidoc/en/apps/api/images/qwen/edits) |
-| Jimeng / Volcengine Ark | Text-to-image / reference-image generation                | `POST /api/v3/images/generations`                       | `data[].url` or `data[].b64_json`                            | [Generation](/simidoc/en/apps/api/images/jimeng)                                    |
-| xAI Grok                | Text-to-image / multiple images                           | `POST /v1/images/generations`                           | `data[].url` or `data[].b64_json`                            | [Generation](/simidoc/en/apps/api/images/grok)                                      |
-| BFL FLUX                | Text-to-image / reference-image generation (asynchronous) | `POST /v1/flux-pro-1.1` and others                      | Take `polling_url` first, then `result.sample` when complete | [Generation](/simidoc/en/apps/api/images/flux)                                      |
-
-**The Qwen section uses the native Qwen request body, called through this site's gateway `/v1/images/generations` and `/v1/images/edits`, and returns the uniform `data[]`.** Do not rewrite the request body into OpenAI's `prompt` field; model IDs must use the names actually provided by this site's channel. Jimeng uses the native Volcengine Ark request body; Grok uses the same paths as OpenAI Images, but its frame parameters are `aspect_ratio` and `resolution`; FLUX does not generate images synchronously and must submit a task and then poll `polling_url`. These three cannot copy each other's fields.
-
-Call modes also vary by protocol\: ordinary OpenAI Images requests wait for complete results, and only supported models offer image event streams; Gemini streams through `streamGenerateContent?alt=sse`; the Qwen and Jimeng examples in this directory use synchronous responses; Grok is synchronous by default and can use `deferred` to become a deferred task; FLUX is always asynchronous polling. None becomes a universal task queue simply by adding an “asynchronous” parameter. See [OpenAI](/simidoc/en/apps/api/images/openai), [Gemini](/simidoc/en/apps/api/images/gemini), [Qwen](/simidoc/en/apps/api/images/qwen), [Jimeng](/simidoc/en/apps/api/images/jimeng), [Grok](/simidoc/en/apps/api/images/grok), and [FLUX](/simidoc/en/apps/api/images/flux) for requests, outputs, and completion checks.
-
-## 2. Effects\: choose by your goal
-
-“Watercolor,” “replace the background,” and “product composition” are usually generation or editing tasks, not separate APIs. The following categories describe tasks, not capabilities guaranteed across all models. Check the relevant protocol and model documentation first.
-
-| Desired effect                                                              | Input and prompt focus                                                                        | Interface choice and limitations                                                                                           |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Create from scratch\: illustrations, covers, posters, photorealistic scenes | Describe the subject, composition, style, lighting, and text to render                        | Use text-to-image; check text and details                                                                                  |
-| Reference-image variations\: regenerate using a subject or composition      | Provide a reference and distinguish what to keep from what to change                          | Use image editing / image-to-image; pixel-perfect preservation is not guaranteed                                           |
-| Style transfer\: photo to watercolor, line art, and more                    | Provide a reference and target style; state whether to preserve the subject and layout        | Use an editing model that accepts reference images                                                                         |
-| Replace backgrounds, add or remove objects, or edit locally                 | Specify the area to change; provide a mask where supported                                    | Use editing; mask support and requirements vary by model                                                                   |
-| Combine images\: compose products, people, and scenes                       | Explain each reference image's role, the relationships between subjects, and the final layout | Use an editing model with multi-image input and check input-count limits                                                   |
-| Iterate over multiple turns\: continue editing a previous result            | Retain the history or references required by the protocol                                     | Use an interface supporting multi-turn image workflows; saving only text does not guarantee that image context is retained |
-| Transparent-background assets                                               | Request a real alpha channel, not a white background or a checkerboard drawn into the image   | Select transparency and a format that preserves it only when the model supports them                                       |
-| Image understanding, text extraction, chart questions                       | Supply the image and state the analysis goal                                                  | Use image understanding, which returns text rather than an edited image                                                    |
-
-For capabilities and limitations, see [OpenAI image generation](https\://developers.openai.com/api/docs/guides/image-generation), [Gemini image generation and editing](https\://ai.google.dev/gemini-api/docs/image-generation), and [Qwen image editing](https\://www.alibabacloud.com/help/en/model-studio/qwen-image-edit-api). Official examples do not establish that the current gateway channel exposes the same capabilities.
-
-## 3. Calling the API\: four steps to your first image
-
-Whichever protocol you choose, a call follows the same order\: confirm configuration, choose an endpoint, send a minimal request, then read and verify the result. The steps below describe only the general flow; the protocol page defines the exact fields.
-
-### 1. Confirm the request URL, key, and model
-
-* **Request URL**\: This site's gateway is `https://api.dwchainless.com`; the endpoint path varies by protocol and operation.
-* **Key**\: Create one under [API key management](https://api.dwchainless.com/keys) and send it as `Authorization: Bearer $API_KEY`; never put it in prompts, source code, screenshots, or Git.
-* **Model**\: Copy the complete model ID from [Models and pricing](https://api.dwchainless.com/en/pricing/) and confirm that it supports the target endpoint. Generation, editing, and image understanding may use different models.
-
-### 2. Choose an endpoint and request format
-
-Choose an endpoint from the protocol table above, then confirm the request body format\:
-
-| Operation                       | Endpoint (OpenAI format)      | Request format                   |
-| ------------------------------- | ----------------------------- | -------------------------------- |
-| Text-to-image                   | `POST /v1/images/generations` | JSON                             |
-| Image editing / image-to-image  | `POST /v1/images/edits`       | JSON `images[]` or multipart     |
-| Conversational image generation | `POST /v1/responses`          | JSON with the image tool enabled |
-| Image understanding             | `POST /v1/chat/completions`   | JSON with an `image_url` item    |
-
-Gemini, Qwen, Jimeng, Grok, and FLUX use their own native request fields; do not copy OpenAI fields directly into them.
-
-### 3. Send a minimal request
-
-For the first call, generate one image without streaming to confirm that authentication, the model, and the parameters are valid. The following uses OpenAI generation as an example\:
-
-```bash
-API_URL="https://api.dwchainless.com/v1/images/generations"
-API_KEY="PASTE_API_KEY_HERE"
-curl "$API_URL" \
-  -H "Authorization: Bearer $API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "gpt-image-2",
-    "prompt": "一只小机器人在图书馆阅读，水彩插画，不要文字。",
-    "n": 1,
-    "size": "1024x1024",
-    "output_format": "png"
-  }'
-```
-
-Once the response is normal, increase `n`, adjust the size, or enable streaming as needed. See [generation](/simidoc/en/apps/api/images/openai/generations) and [editing](/simidoc/en/apps/api/images/openai/edits) for complete multilingual examples.
-
-**Response shape (illustrative)**\: a real response contains a very long Base64 string, so only the beginning is kept here. On success, read `data[]` rather than relying on HTTP 200 alone.
-
-```json
-{
-  "created": 1763366400,
-  "data": [{ "b64_json": "iVBORw0KGgoAAAANSUhEUg..." }],
-  "usage": { "input_tokens": 28, "output_tokens": 4160, "total_tokens": 4188 }
-}
-```
-
-### 4. Read and verify the result
-
-1. **Check the status**\: Only 2xx means the request succeeded; for 4xx, check parameters and permissions; for 5xx or a timeout, first confirm whether the request executed.
-2. **Read the result**\: Take images from `data[]`; GPT Image returns `data[].b64_json`, while compatible models may return `data[].url`; do not assume a first item exists.
-3. **Save the image**\: Decode Base64 into binary and choose the extension from the actual MIME type; download URLs promptly and without the API key.
-4. **Verify**\: Check that the file opens, then confirm actual pixel dimensions, transparency, and content, and inspect usage logs. HTTP 200, an empty `data[]`, or a streaming preview does not mean the final image has been saved.
-
-## 4. Image specifications and billing
-
-### What each request specification controls
-
-| Specification          | Meaning and examples                                                                   | Common confusion                                                                                                                                         |
-| ---------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Pixel dimensions       | Actual width × height, such as `1024x1024` or `1536x1024`                              | Not file size, and not automatically a quality tier                                                                                                      |
-| Aspect ratio           | `1:1` square, `16:9` landscape, `9:16` portrait                                        | The same ratio can have multiple resolutions; choosing a ratio alone does not specify exact pixel dimensions                                             |
-| Resolution tier        | Some models use native parameters such as `1K`, `2K`, and `4K`                         | Actual dimensions also depend on the model and aspect ratio; provider tiers should not be equated directly with this site's per-image billing boundaries |
-| Generation quality     | For example, OpenAI's `quality` selects rendering quality                              | Not `size`, or JPEG/WebP compression quality; other models may not have the same parameter                                                               |
-| File format            | PNG, JPEG, WebP, and others, according to the actual returned MIME type                | Base64 and URLs are delivery methods, not image formats; renaming an extension does not convert a file                                                   |
-| Transparent background | An alpha channel, useful for compositing assets                                        | Requires support from the model, parameters, and file format; asking for transparency does not guarantee an alpha channel                                |
-| Image count            | Number of generated images or candidates; fields and limits vary by protocol and model | Writing “generate three images” in the prompt is not the same as setting an API count; multiple inputs do not imply multiple outputs                     |
-
-At a fixed aspect ratio, doubling both edges produces four times as many pixels, but does not guarantee a proportional increase in detail or sharpness. Start with the intended use, then check model support, latency, and pricing rather than always choosing the highest tier.
-
-For fields, accepted values, and code examples, see [OpenAI request format](/simidoc/en/apps/api/images/openai/generations), [Gemini request format](/simidoc/en/apps/api/images/gemini/generate), [Qwen request format](/simidoc/en/apps/api/images/qwen/generations), [Jimeng request format](/simidoc/en/apps/api/images/jimeng), [Grok request format](/simidoc/en/apps/api/images/grok), and [FLUX request format](/simidoc/en/apps/api/images/flux). OpenAI's quality, format, and transparency settings are covered in the [official output options](https\://developers.openai.com/api/docs/guides/image-generation#customize-image-output); Qwen's dimension and output requirements are in the [official specifications](https\://www.alibabacloud.com/help/en/model-studio/qwen-image-api). Do not copy one protocol's parameters into another.
-
-### How this site's 1K, 2K, and 4K per-image billing tiers differ
-
-The table below applies only to models explicitly priced per image in three 1K / 2K / 4K tiers under [Model pricing](https://api.dwchainless.com/en/pricing/). Token-priced models and models with other fixed prices follow their own rules. An “image model” name alone does not determine how it is billed.
-
-| Billing tier | Longest edge                          | Example dimensions (pixels) |
-| ------------ | ------------------------------------- | --------------------------- |
-| 1K           | Both edges ≤ 1024 pixels              | 1024×1024                   |
-| 2K           | Longest edge > 1024 and ≤ 2048 pixels | 1280×720, 1536×1024         |
-| 4K           | Either edge > 2048 pixels             | 2560×1440, 3840×2160        |
-
-**Total price = per-image price for the current tier × billable image count.** Interfaces supporting settlement by completed results charge for the actual completed count; intermediate streaming previews are not completed images. Current model pricing and usage logs determine the unit price, group, and final charge. This page does not fix numerical prices.
-
-Under these three-tier per-image rules, omitting `size` or using `auto` defaults to 1K only when no other valid resolution tier has been specified. Explicit native resolution fields still determine the billing tier. Pixel dimensions are classified by the longest requested edge, not total pixel count. For example, `1280x720` is 2K and `2560x1440` is 4K.
-
-**A billing tier is not a promise of output dimensions.** Gemini's `generationConfig.imageConfig.imageSize` selects a native model resolution; confirm actual pixel dimensions against the model and aspect ratio. This site calculates billing tiers from supported request fields without promising uniform output dimensions. Do not send conflicting dimension fields, or apply these per-image rules to official direct calls or token-priced models.
-
-### Common ratios at a glance\: 14 ratios × 1K / 2K / 4K
-
-The table lists common 1K, 2K, and 4K preset dimensions by aspect ratio for quickly picking a frame. It is a size quick reference, not a model-support list\: available ratios, preset names, and per-side limits vary by model and gateway, so confirm against the model documentation or API error before requesting.
-
-A K tier here is a preset name, not this page's per-image billing tier. For some "1K" presets the longest edge already exceeds 1024 pixels, which this site classifies as 2K; for example, the 16\:9 1K preset `1536x864` is 2K. Billing always follows the requested dimensions and [Models and pricing](https://api.dwchainless.com/en/pricing/).
-
-| Ratio     | Common use                        | 1K size     | 2K size     | 4K size                 |
-| :-------- | :-------------------------------- | :---------- | :---------- | :---------------------- |
-| `1:1`     | Square avatar / product           | `1024x1024` | `2048x2048` | `3840x3840`             |
-| `4:3`     | Landscape illustration / display  | `1152x896`  | `2048x1536` | `3840x2880`             |
-| `3:4`     | Portrait poster / people          | `896x1152`  | `1536x2048` | `2880x3840`             |
-| `16:9`    | Landscape cover / slides          | `1536x864`  | `2048x1152` | `3840x2160`             |
-| `9:16`    | Vertical cover / phone background | `864x1536`  | `1152x2048` | `2160x3840`             |
-| `3:2`     | Landscape photography             | `1536x1024` | `2048x1360` | `3840x2560`             |
-| `2:3`     | Portrait photography              | `1024x1536` | `1360x2048` | `2560x3840`             |
-| `5:4`     | Landscape product display         | `1280x1024` | `2560x2048` | `3840x3072`             |
-| `4:5`     | Portrait product / social image   | `1024x1280` | `2048x2560` | `3072x3840`             |
-| `21:9`    | Wide scene / banner               | `1792x768`  | `2048x880`  | `3840x1648`             |
-| `1:4`     | Narrow vertical strip             | `512x2048`  | `768x3072`  | **Over per-side limit** |
-| `4:1`     | Narrow horizontal strip           | `2048x512`  | `3072x768`  | **Over per-side limit** |
-| `1.414:1` | Approx. A-series landscape paper  | `1440x1024` | `2048x1456` | `3840x2720`             |
-| `1:1.414` | Approx. A-series portrait paper   | `1024x1440` | `1456x2048` | `2720x3840`             |
-
-### Three correct ways to write size
-
-Some OpenAI-compatible gateways accept the following forms; whether a field takes effect depends on the model and gateway, so fall back to explicit pixels when unsupported.
-
-| Form                          | Request fragment                   | Purpose                                                               |
-| :---------------------------- | :--------------------------------- | :-------------------------------------------------------------------- |
-| Explicit pixels (recommended) | `{"size":"1536x2048"}`             | Most direct; avoids preset conversion differences                     |
-| Ratio + resolution            | `{"size":"3:4","resolution":"2k"}` | Converts using the 2K, 3\:4 preset                                    |
-| Automatic size                | `{"size":"auto"}`                  | The model chooses dimensions; fixed width and height are not promised |
-
-* Put the K tier in `resolution` and pixels or a ratio in `size`; do not write `2k` in `size`.
-* Use a lowercase English `x` as the dimension separator; do not use a multiplication sign, uppercase X, arrays, or strings with ×.
-* A ratio in `size` takes precedence over `aspect_ratio` alone; explicit pixels or `auto` take precedence over ratio presets.
-* The official arbitrary-size limit for gpt-image-2 is 3840×2160; the 4K `1:4` and `4:1` combinations exceed it and are marked as over the per-side limit. Other models follow their own published limits.
-* Gemini and Qwen use their own size fields; these forms do not transfer directly.
-
-### 28 common dimension references
-
-The labels below indicate only the billing tiers defined above; they do not guarantee that the selected model supports these dimensions. Check the model's accepted dimensions first. Do not treat a billing tier as an API parameter value.
-
-| Use / ratio                    | Dimensions (pixels) and billing tier                                         |
-| ------------------------------ | ---------------------------------------------------------------------------- |
-| General square · 1\:1          | 1024×1024 · 1K; 1536×1536 · 2K; 2048×2048 · 2K                               |
-| Landscape cover · 16\:9        | 1280×720 · 2K; 1536×864 · 2K; 2048×1152 · 2K; 2560×1440 · 4K; 3840×2160 · 4K |
-| Vertical video / Story · 9\:16 | 720×1280 · 2K; 864×1536 · 2K; 1152×2048 · 2K; 1440×2560 · 4K; 2160×3840 · 4K |
-| Article illustration · 3\:2    | 1536×1024 · 2K; 1920×1280 · 2K; 2400×1600 · 4K                               |
-| Portrait poster · 2\:3         | 1024×1536 · 2K; 1280×1920 · 2K; 1600×2400 · 4K                               |
-| Wide banner · 2\:1             | 1536×768 · 2K; 2048×1024 · 2K; 2560×1280 · 4K; 3840×1920 · 4K                |
-| Ultra-wide banner · 3\:1       | 1536×512 · 2K; 1920×640 · 2K; 2400×800 · 4K; 3072×1024 · 4K; 3840×1280 · 4K  |
-
-## 5. Go deeper by protocol
-
-Complete parameters, response structures, code examples, and error handling for each protocol\:
-
-* [OpenAI format](/simidoc/en/apps/api/images/openai)
-* [Gemini format](/simidoc/en/apps/api/images/gemini)
-* [Qwen format](/simidoc/en/apps/api/images/qwen)
-* [Jimeng / Volcengine Ark format](/simidoc/en/apps/api/images/jimeng)
-* [xAI Grok format](/simidoc/en/apps/api/images/grok)
-* [BFL FLUX format](/simidoc/en/apps/api/images/flux)
-
-# Image calling examples are now organized by protocol
-
-Image calls no longer use a shared script tutorial that applies only to OpenAI Images. Choose the protocol you actually use. Each protocol page follows “Request format and parameters → Response parameters → Calling examples,” including image specifications, links to code in four languages, agent tasks, and safe saving workflows\:
-
-* [OpenAI format](/simidoc/en/apps/api/images/openai)\: Images generation and editing, Responses conversational image generation, and image understanding.
-* [Gemini native format](/simidoc/en/apps/api/images/gemini)\: GenerateContent text and image Parts, and saving Base64 images.
-* [Qwen native format](/simidoc/en/apps/api/images/qwen)\: official Alibaba Cloud regional endpoints, native message structures, and saving result URLs.
-
-For interface, effect, and 1K / 2K / 4K comparisons, see the [Image API overview](/simidoc/en/apps/api/images). This page preserves existing links; follow the relevant protocol for actual calls. Do not mix credentials, parameters, or response fields between protocols.
-
-# Gemini-format model list
-
-## Endpoint overview
-
-`GET /v1beta/models` returns a Gemini-format model list.
-
-The gateway URL is `https://api.dwchainless.com`, with the request header `Authorization: Bearer $SIMIROUTER_API_KEY` . Direct Google access uses `https://generativelanguage.googleapis.com`, usually with `x-goog-api-key: $GEMINI_API_KEY`, not the gateway Bearer key. Select a model available to the account that supports the required capability.
-
-The gateway list primarily discovers model names; it is not Google’s complete native capability catalog.
-
-## Request parameters
-
-Gateway list requests have no body and require no pagination parameters. Native Google models.list supports pageSize (default 50, maximum 1,000) and pageToken, but the gateway returns the full list without identical pagination or metadata guarantees.
-
-| Field                | Type                   | Required        | Description                                                                     |
-| -------------------- | ---------------------- | --------------- | ------------------------------------------------------------------------------- |
-| Authorization        | header string          | Yes             | Bearer gateway key; use a Google key for official direct access.                |
-| pageSize / pageToken | query integer / string | Native optional | Pagination for the official native list only; do not depend on gateway support. |
-
-## Response
-
-| Field                                        | Type           | Description                                                                                          |
-| -------------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
-| models                                       | array          | The model list, which may be empty.                                                                  |
-| models\[].name                               | string         | Model resource name; usually models/\{id} officially, but the gateway may return the plain model ID. |
-| models\[].displayName                        | string         | Human-readable name.                                                                                 |
-| nextPageToken                                | string / null  | Official next-page token; the gateway may return null when not paginated.                            |
-| models\[].version / description              | string / null  | Version and description available officially; gateway values may be absent or null.                  |
-| models\[].inputTokenLimit / outputTokenLimit | integer / null | Official input and output limits; do not infer values from missing fields.                           |
-| models\[].supportedGenerationMethods         | array / null   | Official supported method names such as generateContent; gateway values may be absent or null.       |
-
-```json
-{
-  "models": [
-    {
-      "name": "MODEL_ID",
-      "displayName": "MODEL_ID"
-    }
-  ],
-  "nextPageToken": null
-}
-```
-
-The example above shows the gateway’s reduced structure. Before using name in a path, strip only one leading models/. A successful models.list does not guarantee generateContent access\: permissions, capabilities, or quotas may still cause failure.
-
-## Code examples
-
-Set `SIMIROUTER_API_KEY`. To override the default gateway root, set `SIMIROUTER_BASE_URL` without a version suffix. All examples send a GET request without a body.
-
-<Tabs items={["Python","Node.js","curl","Go"]}>
-  <Tab value="Python">
-    ```python
-    import json, os, sys, urllib.request, urllib.error
-    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
-    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
-    path = '/v1beta/models'
-    request = urllib.request.Request(base + path, method="GET",
-        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(request, timeout=120) as response:
-            result = json.load(response)
-    except urllib.error.HTTPError as error:
-        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
-        raise SystemExit(1)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-    ```
-  </Tab>
-
-  <Tab value="Node.js">
-    ```javascript
-    async function main() {
-      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
-      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
-      const endpoint = "/v1beta/models";
-      const response = await fetch(base + endpoint, { method: "GET",
-        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
-        signal: AbortSignal.timeout(120000) });
-      const result = await response.text();
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
-      console.log(JSON.stringify(JSON.parse(result), null, 2));
-    }
-    main().catch(error => { console.error(error); process.exitCode = 1; });
-    ```
-  </Tab>
-
-  <Tab value="curl">
-    ```bash
-    set -eu
-    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
-    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
-    curl "${BASE_URL%/}/v1beta/models" \
-      --fail-with-body \
-      --max-time 120 \
-      -X GET \
-      -H "Authorization: Bearer $SIMIROUTER_API_KEY"
-    ```
-  </Tab>
-
-  <Tab value="Go">
-    ```go
-    package main
-
-    import (
-      "fmt"
-      "io"
-      "log"
-      "net/http"
-      "os"
-      "strings"
-      "time"
-    )
-
-    func main() {
-      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
-      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
-      endpoint := "/v1beta/models"
-      req, err := http.NewRequest("GET", base + endpoint, nil); if err != nil { log.Fatal(err) }
-      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
-      client := &http.Client{Timeout: 120 * time.Second}
-      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
-      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
-      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
-      fmt.Println(string(result))
-    }
-    ```
-  </Tab>
-</Tabs>
-
-## Errors
-
-| HTTP status | Meaning or vendor error type          | Action                                                                          |
-| ----------- | ------------------------------------- | ------------------------------------------------------------------------------- |
-| 400         | `INVALID_ARGUMENT` and similar errors | Check JSON, model parameters, media MIME type, and input length.                |
-| 403         | `PERMISSION_DENIED`                   | Check the key, project permissions, region, or billing restrictions.            |
-| 404         | `NOT_FOUND`                           | Check the model name and API version.                                           |
-| 429         | `RESOURCE_EXHAUSTED`                  | Check rate limits and quotas; use bounded backoff when retrying is appropriate. |
-| 500 / 503   | `INTERNAL` / `UNAVAILABLE`            | Record the request identifier and retry a limited number of times or later.     |
-
-Google’s native error object contains `error.code` (HTTP number), `error.status` (enum name), and `error.message`, optionally with `details`. The gateway may return authentication, routing, or quota errors before contacting the vendor; an HTTP number alone does not establish an upstream error. Internal gateway lookups may also return HTTP 200 with success=false; inspect the response structure.
-
-## Official reference
-
-* [Google Models API](https\://ai.google.dev/api/models)
-* [Google model catalog](https\://ai.google.dev/gemini-api/docs/models)
-* [Google troubleshooting](https\://ai.google.dev/gemini-api/docs/troubleshooting)
-
-# Model lists
-
-Model lists help configure an integration\: obtain the model ID, then consult vendor capabilities to choose chat, vision, image, audio, or tool endpoints. Visibility does not guarantee callability, and a model list is not a realtime health check.
-
-## Overview
-
-| What you need to confirm               | Where to look                                        | Note                                                                         |
-| -------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------- |
-| Which model IDs exist                  | The list endpoints in this section                   | Returns only models visible to the current credentials                       |
-| Whether a model can actually be called | Models and pricing plus one real request             | Visible, routable, and funded are three different things                     |
-| Which inputs and outputs it supports   | Model capability documentation                       | List metadata is usually incomplete                                          |
-| When it shuts down                     | The vendor’s official deprecation or shutdown notice | Deprecation is not immediate unavailability, but do not add new integrations |
-
-## Core concepts
-
-* **Model ID**\: the unique identifier used in request bodies. It is usually case-sensitive and must be copied in full without abbreviating. Display names, aliases, and the actual request ID may differ.
-* **Visible vs. callable**\: the list only reflects models within your permissions; requests still fail when a channel is unconfigured, the balance is insufficient, or rate limits apply.
-* **Context window**\: the input-plus-output Token limit, per model; list endpoints often do not return it.
-* **Billing unit**\: text models mostly bill per Token, image models per image or per Token, video models per second or per request; it can differ even within one model family.
-* **Shutdown date**\: the date the vendor plans to stop serving. Migration should finish before that date, not be discovered after it.
-
-## List endpoints
-
-| Documentation             | Request            | Response structure                           |
-| ------------------------- | ------------------ | -------------------------------------------- |
-| [OpenAI format](/simidoc/en/apps/api/models/openai) | GET /v1/models     | data\[].id, for OpenAI-compatible clients.   |
-| [Gemini format](/simidoc/en/apps/api/models/gemini) | GET /v1beta/models | models\[].name, for Gemini-protocol clients. |
-
-## Request mode
-
-Listing is a synchronous JSON request, not SSE or an asynchronous task. Different accounts may query concurrently, but credentials and results must remain separate. Expire cached lists and refresh when models become unavailable; do not send actual generation requests merely to refresh a list.
-
-## Simulated call
-
-Send a GET request with no body. This example shows a SimiRouter gateway response\:
-
-```bash
-curl "https://api.dwchainless.com/v1/models" \
-  -H "Authorization: Bearer $SIMIROUTER_API_KEY"
-```
-
-```json
-{
-  "object": "list",
-  "success": true,
-  "data": [
-    {
-      "id": "MODEL_ID",
-      "object": "model",
-      "created": 1626777600,
-      "owned_by": "custom",
-      "context_length": 1048576,
-      "supported_endpoint_types": ["openai"]
-    }
-  ]
-}
-```
-
-The gateway returns a context length and endpoint types. The length may be a platform default. Check the model documentation for pricing, input and output modalities, and tool support. An empty list usually means no models are visible to the current credentials.
-
-## Metadata boundaries
-
-OpenAI model objects contain id, object, created, and owned\_by; native Google objects may include methods and token limits. The gateway may return reduced metadata, so missing fields do not justify guessing context limits, modalities, or tool support.
-
-## Official reference
-
-* [OpenAI Models API](https\://developers.openai.com/api/reference/resources/models/methods/list)
-* [Google Models API](https\://ai.google.dev/api/models)
-
-# OpenAI-format model list
-
-## Endpoint overview
-
-`GET /v1/models` returns models visible to the current key. It can populate a model selector, but does not establish all modalities, tools, quota availability, or current service health.
-
-The gateway URL is `https://api.dwchainless.com`, with the request header `Authorization: Bearer $SIMIROUTER_API_KEY`. Direct OpenAI access uses `https://api.openai.com` and Bearer authentication, but requires an OpenAI key. Select a model available to the account that supports the required capability.
-
-Send only Bearer authentication; do not mix x-api-key or x-goog-api-key, which may trigger another gateway response format.
-
-## Request parameters
-
-This list request has no JSON body or required query parameters.
-
-| Field         | Type          | Required | Description                   |
-| ------------- | ------------- | -------- | ----------------------------- |
-| Authorization | header string | Yes      | The gateway key after Bearer. |
-
-## Response
-
-| Field                             | Type                   | Description                                                                                                                                                    |
-| --------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| object                            | string                 | list.                                                                                                                                                          |
-| data                              | array                  | The model list, which may be empty.                                                                                                                            |
-| data\[].id                        | string                 | The model ID used in generation requests.                                                                                                                      |
-| data\[].object                    | string                 | model.                                                                                                                                                         |
-| data\[].created                   | integer                | Unix-second timestamp; gateway metadata may not reflect the vendor’s model release date.                                                                       |
-| data\[].owned\_by                 | string                 | An ownership label; it does not prove routing to a particular vendor.                                                                                          |
-| success                           | boolean                | An optional gateway business-result flag, not an OpenAI standard field.                                                                                        |
-| `data[].context_length`           | integer                | Context length in tokens reported by the gateway. The platform default applies when no value is configured. Check the model documentation and endpoint limits. |
-| `data[].supported_endpoint_types` | `array<string>` / null | Endpoint types reported by the gateway. Use them as a guide when selecting an endpoint.                                                                        |
-
-```json
-{
-  "object": "list",
-  "success": true,
-  "data": [
-    {
-      "id": "MODEL_ID",
-      "object": "model",
-      "created": 1626777600,
-      "owned_by": "custom",
-      "context_length": 1048576,
-      "supported_endpoint_types": ["openai"]
-    }
-  ]
-}
-```
-
-An empty array is valid; do not access data\[0] without checking. A failed gateway group lookup may return HTTP 200 with success=false/message; clients must detect this application-level failure. Official OpenAI also provides GET /v1/models/\{model}; list metadata is not a complete capability description.
-
-## Code examples
-
-Set `SIMIROUTER_API_KEY`. To override the default gateway root, set `SIMIROUTER_BASE_URL` without a version suffix. All examples send a GET request without a body.
-
-<Tabs items={["Python","Node.js","curl","Go"]}>
-  <Tab value="Python">
-    ```python
-    import json, os, sys, urllib.request, urllib.error
-    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
-    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
-    path = '/v1/models'
-    request = urllib.request.Request(base + path, method="GET",
-        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(request, timeout=120) as response:
-            result = json.load(response)
-    except urllib.error.HTTPError as error:
-        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
-        raise SystemExit(1)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-    ```
-  </Tab>
-
-  <Tab value="Node.js">
-    ```javascript
-    async function main() {
-      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
-      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
-      const endpoint = "/v1/models";
-      const response = await fetch(base + endpoint, { method: "GET",
-        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
-        signal: AbortSignal.timeout(120000) });
-      const result = await response.text();
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
-      console.log(JSON.stringify(JSON.parse(result), null, 2));
-    }
-    main().catch(error => { console.error(error); process.exitCode = 1; });
-    ```
-  </Tab>
-
-  <Tab value="curl">
-    ```bash
-    set -eu
-    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
-    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
-    curl "${BASE_URL%/}/v1/models" \
-      --fail-with-body \
-      --max-time 120 \
-      -X GET \
-      -H "Authorization: Bearer $SIMIROUTER_API_KEY"
-    ```
-  </Tab>
-
-  <Tab value="Go">
-    ```go
-    package main
-
-    import (
-      "fmt"
-      "io"
-      "log"
-      "net/http"
-      "os"
-      "strings"
-      "time"
-    )
-
-    func main() {
-      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
-      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
-      endpoint := "/v1/models"
-      req, err := http.NewRequest("GET", base + endpoint, nil); if err != nil { log.Fatal(err) }
-      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
-      client := &http.Client{Timeout: 120 * time.Second}
-      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
-      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
-      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
-      fmt.Println(string(result))
-    }
-    ```
-  </Tab>
-</Tabs>
-
-## Errors
-
-| HTTP status | Meaning or vendor error type           | Action                                                                                                           |
-| ----------- | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| 400         | Invalid request                        | Check required fields, JSON, model parameters, and context length.                                               |
-| 401         | Authentication failed                  | Check that the key exists, is valid, and belongs to the correct service.                                         |
-| 403 / 404   | Access denied / resource not found     | Check model permissions, resource IDs, and the URL.                                                              |
-| 429         | Rate or quota limit                    | Distinguish rate limits from insufficient quota using the response body; retrying cannot fix insufficient quota. |
-| 500 / 503   | Server error / temporarily unavailable | Retain the request identifier and use bounded backoff for transient failures.                                    |
-
-Native OpenAI errors usually contain `error.message`, `error.type`, `error.param`, `error.code`; `param`, `code` may be `null`; do not assume these fields always exist or equal the HTTP status. The gateway may return authentication, routing, or quota errors before contacting the vendor; the status alone does not establish an upstream error. Also check gateway success=false application errors, which differ from successful HTTP transport.
-
-## Official reference
-
-* [OpenAI List models](https\://developers.openai.com/api/reference/resources/models/methods/list)
-* [OpenAI Retrieve model](https\://developers.openai.com/api/reference/resources/models/methods/retrieve)
-* [OpenAI error handling](https\://developers.openai.com/api/docs/guides/error-codes)
-
 # Music (unsupported)
 
 This section documents Google Lyria’s public generation protocol. SimiRouter has not yet opened music capabilities; all examples connect directly to the Google AI Studio Gemini API using `https://generativelanguage.googleapis.com` and a Google API key. Vertex AI requires a separate protocol that is not verified on this page; do not substitute its address directly.
@@ -8687,6 +8322,373 @@ Handshake HTTP 400/401/403 indicates URL, key, permission, or model issues; 429 
 ## Official reference
 
 [Google realtime music](https\://ai.google.dev/gemini-api/docs/realtime-music-generation), [Live Music WebSocket API](https\://ai.google.dev/api/live_music).
+
+# Gemini-format model list
+
+## Endpoint overview
+
+`GET /v1beta/models` returns a Gemini-format model list.
+
+The gateway URL is `https://api.dwchainless.com`, with the request header `Authorization: Bearer $SIMIROUTER_API_KEY` . Direct Google access uses `https://generativelanguage.googleapis.com`, usually with `x-goog-api-key: $GEMINI_API_KEY`, not the gateway Bearer key. Select a model available to the account that supports the required capability.
+
+The gateway list primarily discovers model names; it is not Google’s complete native capability catalog.
+
+## Request parameters
+
+Gateway list requests have no body and require no pagination parameters. Native Google models.list supports pageSize (default 50, maximum 1,000) and pageToken, but the gateway returns the full list without identical pagination or metadata guarantees.
+
+| Field                | Type                   | Required        | Description                                                                     |
+| -------------------- | ---------------------- | --------------- | ------------------------------------------------------------------------------- |
+| Authorization        | header string          | Yes             | Bearer gateway key; use a Google key for official direct access.                |
+| pageSize / pageToken | query integer / string | Native optional | Pagination for the official native list only; do not depend on gateway support. |
+
+## Response
+
+| Field                                        | Type           | Description                                                                                          |
+| -------------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
+| models                                       | array          | The model list, which may be empty.                                                                  |
+| models\[].name                               | string         | Model resource name; usually models/\{id} officially, but the gateway may return the plain model ID. |
+| models\[].displayName                        | string         | Human-readable name.                                                                                 |
+| nextPageToken                                | string / null  | Official next-page token; the gateway may return null when not paginated.                            |
+| models\[].version / description              | string / null  | Version and description available officially; gateway values may be absent or null.                  |
+| models\[].inputTokenLimit / outputTokenLimit | integer / null | Official input and output limits; do not infer values from missing fields.                           |
+| models\[].supportedGenerationMethods         | array / null   | Official supported method names such as generateContent; gateway values may be absent or null.       |
+
+```json
+{
+  "models": [
+    {
+      "name": "MODEL_ID",
+      "displayName": "MODEL_ID"
+    }
+  ],
+  "nextPageToken": null
+}
+```
+
+The example above shows the gateway’s reduced structure. Before using name in a path, strip only one leading models/. A successful models.list does not guarantee generateContent access\: permissions, capabilities, or quotas may still cause failure.
+
+## Code examples
+
+Set `SIMIROUTER_API_KEY`. To override the default gateway root, set `SIMIROUTER_BASE_URL` without a version suffix. All examples send a GET request without a body.
+
+<Tabs items={["Python","Node.js","curl","Go"]}>
+  <Tab value="Python">
+    ```python
+    import json, os, sys, urllib.request, urllib.error
+    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
+    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
+    path = '/v1beta/models'
+    request = urllib.request.Request(base + path, method="GET",
+        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(request, timeout=120) as response:
+            result = json.load(response)
+    except urllib.error.HTTPError as error:
+        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
+        raise SystemExit(1)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    ```
+  </Tab>
+
+  <Tab value="Node.js">
+    ```javascript
+    async function main() {
+      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
+      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
+      const endpoint = "/v1beta/models";
+      const response = await fetch(base + endpoint, { method: "GET",
+        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(120000) });
+      const result = await response.text();
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
+      console.log(JSON.stringify(JSON.parse(result), null, 2));
+    }
+    main().catch(error => { console.error(error); process.exitCode = 1; });
+    ```
+  </Tab>
+
+  <Tab value="curl">
+    ```bash
+    set -eu
+    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
+    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
+    curl "${BASE_URL%/}/v1beta/models" \
+      --fail-with-body \
+      --max-time 120 \
+      -X GET \
+      -H "Authorization: Bearer $SIMIROUTER_API_KEY"
+    ```
+  </Tab>
+
+  <Tab value="Go">
+    ```go
+    package main
+
+    import (
+      "fmt"
+      "io"
+      "log"
+      "net/http"
+      "os"
+      "strings"
+      "time"
+    )
+
+    func main() {
+      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
+      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
+      endpoint := "/v1beta/models"
+      req, err := http.NewRequest("GET", base + endpoint, nil); if err != nil { log.Fatal(err) }
+      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
+      client := &http.Client{Timeout: 120 * time.Second}
+      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
+      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
+      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
+      fmt.Println(string(result))
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Errors
+
+| HTTP status | Meaning or vendor error type          | Action                                                                          |
+| ----------- | ------------------------------------- | ------------------------------------------------------------------------------- |
+| 400         | `INVALID_ARGUMENT` and similar errors | Check JSON, model parameters, media MIME type, and input length.                |
+| 403         | `PERMISSION_DENIED`                   | Check the key, project permissions, region, or billing restrictions.            |
+| 404         | `NOT_FOUND`                           | Check the model name and API version.                                           |
+| 429         | `RESOURCE_EXHAUSTED`                  | Check rate limits and quotas; use bounded backoff when retrying is appropriate. |
+| 500 / 503   | `INTERNAL` / `UNAVAILABLE`            | Record the request identifier and retry a limited number of times or later.     |
+
+Google’s native error object contains `error.code` (HTTP number), `error.status` (enum name), and `error.message`, optionally with `details`. The gateway may return authentication, routing, or quota errors before contacting the vendor; an HTTP number alone does not establish an upstream error. Internal gateway lookups may also return HTTP 200 with success=false; inspect the response structure.
+
+## Official reference
+
+* [Google Models API](https\://ai.google.dev/api/models)
+* [Google model catalog](https\://ai.google.dev/gemini-api/docs/models)
+* [Google troubleshooting](https\://ai.google.dev/gemini-api/docs/troubleshooting)
+
+# Model lists
+
+Model lists help configure an integration\: obtain the model ID, then consult vendor capabilities to choose chat, vision, image, audio, or tool endpoints. Visibility does not guarantee callability, and a model list is not a realtime health check.
+
+## Overview
+
+| What you need to confirm               | Where to look                                        | Note                                                                         |
+| -------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Which model IDs exist                  | The list endpoints in this section                   | Returns only models visible to the current credentials                       |
+| Whether a model can actually be called | Models and pricing plus one real request             | Visible, routable, and funded are three different things                     |
+| Which inputs and outputs it supports   | Model capability documentation                       | List metadata is usually incomplete                                          |
+| When it shuts down                     | The vendor’s official deprecation or shutdown notice | Deprecation is not immediate unavailability, but do not add new integrations |
+
+## Core concepts
+
+* **Model ID**\: the unique identifier used in request bodies. It is usually case-sensitive and must be copied in full without abbreviating. Display names, aliases, and the actual request ID may differ.
+* **Visible vs. callable**\: the list only reflects models within your permissions; requests still fail when a channel is unconfigured, the balance is insufficient, or rate limits apply.
+* **Context window**\: the input-plus-output Token limit, per model; list endpoints often do not return it.
+* **Billing unit**\: text models mostly bill per Token, image models per image or per Token, video models per second or per request; it can differ even within one model family.
+* **Shutdown date**\: the date the vendor plans to stop serving. Migration should finish before that date, not be discovered after it.
+
+## List endpoints
+
+| Documentation             | Request            | Response structure                           |
+| ------------------------- | ------------------ | -------------------------------------------- |
+| [OpenAI format](/simidoc/en/apps/api/models/openai) | GET /v1/models     | data\[].id, for OpenAI-compatible clients.   |
+| [Gemini format](/simidoc/en/apps/api/models/gemini) | GET /v1beta/models | models\[].name, for Gemini-protocol clients. |
+
+## Request mode
+
+Listing is a synchronous JSON request, not SSE or an asynchronous task. Different accounts may query concurrently, but credentials and results must remain separate. Expire cached lists and refresh when models become unavailable; do not send actual generation requests merely to refresh a list.
+
+## Simulated call
+
+Send a GET request with no body. This example shows a SimiRouter gateway response\:
+
+```bash
+curl "https://api.dwchainless.com/v1/models" \
+  -H "Authorization: Bearer $SIMIROUTER_API_KEY"
+```
+
+```json
+{
+  "object": "list",
+  "success": true,
+  "data": [
+    {
+      "id": "MODEL_ID",
+      "object": "model",
+      "created": 1626777600,
+      "owned_by": "custom",
+      "context_length": 1048576,
+      "supported_endpoint_types": ["openai"]
+    }
+  ]
+}
+```
+
+The gateway returns a context length and endpoint types. The length may be a platform default. Check the model documentation for pricing, input and output modalities, and tool support. An empty list usually means no models are visible to the current credentials.
+
+## Metadata boundaries
+
+OpenAI model objects contain id, object, created, and owned\_by; native Google objects may include methods and token limits. The gateway may return reduced metadata, so missing fields do not justify guessing context limits, modalities, or tool support.
+
+## Official reference
+
+* [OpenAI Models API](https\://developers.openai.com/api/reference/resources/models/methods/list)
+* [Google Models API](https\://ai.google.dev/api/models)
+
+# OpenAI-format model list
+
+## Endpoint overview
+
+`GET /v1/models` returns models visible to the current key. It can populate a model selector, but does not establish all modalities, tools, quota availability, or current service health.
+
+The gateway URL is `https://api.dwchainless.com`, with the request header `Authorization: Bearer $SIMIROUTER_API_KEY`. Direct OpenAI access uses `https://api.openai.com` and Bearer authentication, but requires an OpenAI key. Select a model available to the account that supports the required capability.
+
+Send only Bearer authentication; do not mix x-api-key or x-goog-api-key, which may trigger another gateway response format.
+
+## Request parameters
+
+This list request has no JSON body or required query parameters.
+
+| Field         | Type          | Required | Description                   |
+| ------------- | ------------- | -------- | ----------------------------- |
+| Authorization | header string | Yes      | The gateway key after Bearer. |
+
+## Response
+
+| Field                             | Type                   | Description                                                                                                                                                    |
+| --------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| object                            | string                 | list.                                                                                                                                                          |
+| data                              | array                  | The model list, which may be empty.                                                                                                                            |
+| data\[].id                        | string                 | The model ID used in generation requests.                                                                                                                      |
+| data\[].object                    | string                 | model.                                                                                                                                                         |
+| data\[].created                   | integer                | Unix-second timestamp; gateway metadata may not reflect the vendor’s model release date.                                                                       |
+| data\[].owned\_by                 | string                 | An ownership label; it does not prove routing to a particular vendor.                                                                                          |
+| success                           | boolean                | An optional gateway business-result flag, not an OpenAI standard field.                                                                                        |
+| `data[].context_length`           | integer                | Context length in tokens reported by the gateway. The platform default applies when no value is configured. Check the model documentation and endpoint limits. |
+| `data[].supported_endpoint_types` | `array<string>` / null | Endpoint types reported by the gateway. Use them as a guide when selecting an endpoint.                                                                        |
+
+```json
+{
+  "object": "list",
+  "success": true,
+  "data": [
+    {
+      "id": "MODEL_ID",
+      "object": "model",
+      "created": 1626777600,
+      "owned_by": "custom",
+      "context_length": 1048576,
+      "supported_endpoint_types": ["openai"]
+    }
+  ]
+}
+```
+
+An empty array is valid; do not access data\[0] without checking. A failed gateway group lookup may return HTTP 200 with success=false/message; clients must detect this application-level failure. Official OpenAI also provides GET /v1/models/\{model}; list metadata is not a complete capability description.
+
+## Code examples
+
+Set `SIMIROUTER_API_KEY`. To override the default gateway root, set `SIMIROUTER_BASE_URL` without a version suffix. All examples send a GET request without a body.
+
+<Tabs items={["Python","Node.js","curl","Go"]}>
+  <Tab value="Python">
+    ```python
+    import json, os, sys, urllib.request, urllib.error
+    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
+    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
+    path = '/v1/models'
+    request = urllib.request.Request(base + path, method="GET",
+        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(request, timeout=120) as response:
+            result = json.load(response)
+    except urllib.error.HTTPError as error:
+        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
+        raise SystemExit(1)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    ```
+  </Tab>
+
+  <Tab value="Node.js">
+    ```javascript
+    async function main() {
+      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
+      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
+      const endpoint = "/v1/models";
+      const response = await fetch(base + endpoint, { method: "GET",
+        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(120000) });
+      const result = await response.text();
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
+      console.log(JSON.stringify(JSON.parse(result), null, 2));
+    }
+    main().catch(error => { console.error(error); process.exitCode = 1; });
+    ```
+  </Tab>
+
+  <Tab value="curl">
+    ```bash
+    set -eu
+    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
+    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
+    curl "${BASE_URL%/}/v1/models" \
+      --fail-with-body \
+      --max-time 120 \
+      -X GET \
+      -H "Authorization: Bearer $SIMIROUTER_API_KEY"
+    ```
+  </Tab>
+
+  <Tab value="Go">
+    ```go
+    package main
+
+    import (
+      "fmt"
+      "io"
+      "log"
+      "net/http"
+      "os"
+      "strings"
+      "time"
+    )
+
+    func main() {
+      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
+      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
+      endpoint := "/v1/models"
+      req, err := http.NewRequest("GET", base + endpoint, nil); if err != nil { log.Fatal(err) }
+      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
+      client := &http.Client{Timeout: 120 * time.Second}
+      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
+      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
+      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
+      fmt.Println(string(result))
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Errors
+
+| HTTP status | Meaning or vendor error type           | Action                                                                                                           |
+| ----------- | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| 400         | Invalid request                        | Check required fields, JSON, model parameters, and context length.                                               |
+| 401         | Authentication failed                  | Check that the key exists, is valid, and belongs to the correct service.                                         |
+| 403 / 404   | Access denied / resource not found     | Check model permissions, resource IDs, and the URL.                                                              |
+| 429         | Rate or quota limit                    | Distinguish rate limits from insufficient quota using the response body; retrying cannot fix insufficient quota. |
+| 500 / 503   | Server error / temporarily unavailable | Retain the request identifier and use bounded backoff for transient failures.                                    |
+
+Native OpenAI errors usually contain `error.message`, `error.type`, `error.param`, `error.code`; `param`, `code` may be `null`; do not assume these fields always exist or equal the HTTP status. The gateway may return authentication, routing, or quota errors before contacting the vendor; the status alone does not establish an upstream error. Also check gateway success=false application errors, which differ from successful HTTP transport.
+
+## Official reference
+
+* [OpenAI List models](https\://developers.openai.com/api/reference/resources/models/methods/list)
+* [OpenAI Retrieve model](https\://developers.openai.com/api/reference/resources/models/methods/retrieve)
+* [OpenAI error handling](https\://developers.openai.com/api/docs/guides/error-codes)
 
 # Other capabilities and integration references
 
@@ -9171,6 +9173,435 @@ Set the official Cohere `COHERE_API_KEY`. Examples use a positive top\_n and non
 ## Official reference
 
 [Cohere Rerank v2](https\://docs.cohere.com/reference/rerank).
+
+# File content understanding
+
+## Endpoint overview
+
+`POST /v1/responses` input\_file items let supported models process files. File understanding is not file storage and does not guarantee complete or accurate OCR.
+
+The gateway URL is `https://api.dwchainless.com`, with the request header `Authorization: Bearer $SIMIROUTER_API_KEY`. Direct OpenAI access uses `https://api.openai.com` and Bearer authentication, but requires an OpenAI key. Select a model available to the account that supports the required capability.
+
+The gateway’s `/v1/files` upload, retrieval, and deletion endpoints are unimplemented. This page inlines Base64 PDFs without Files API dependencies. Direct official access can upload a file and reference file\_id, but an official file\_id is not automatically gateway-accessible.
+
+## Request parameters
+
+| Field                    | Type    | Required    | Description                                                                                                                                                                             |
+| ------------------------ | ------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| model                    | string  | Yes         | A model ID supporting PDF input and the required vision capabilities.                                                                                                                   |
+| input\[].role            | string  | Yes         | user here.                                                                                                                                                                              |
+| input\[].content\[].type | string  | Yes         | Use input\_text for questions and input\_file for files.                                                                                                                                |
+| input\_text.text         | string  | Yes         | The file task, such as summarizing, extracting fields, or answering questions.                                                                                                          |
+| input\_file.filename     | string  | Conditional | The inline file’s name, retaining its real extension.                                                                                                                                   |
+| input\_file.file\_data   | string  | Conditional | The PDF’s Base64 data; this page’s code uses a data\:application/pdf;base64,... prefix. The official spec only requires Base64, so drop the data\:... prefix if the channel rejects it. |
+| input\_file.file\_id     | string  | Conditional | A file ID from an official upload; depends on the corresponding service’s Files support.                                                                                                |
+| input\_file.file\_url    | string  | Conditional | A file URL readable by the vendor; select one source rather than combining with inline data.                                                                                            |
+| max\_output\_tokens      | integer | No          | The model output limit.                                                                                                                                                                 |
+| stream                   | boolean | No          | true uses Responses SSE.                                                                                                                                                                |
+
+Do not send a local path as file\_url or populate file\_data, file\_id, and file\_url together. Request size must satisfy both gateway and official file-input limits. Base64 is larger than the source, and PDF page images increase model input tokens.
+
+### Request structure
+
+BASE64\_PDF\_BYTES represents the original PDF’s Base64; the four language examples populate it after reading PDF\_PATH.
+
+```json
+{
+  "model": "MODEL_ID",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+        },
+        {
+          "type": "input_file",
+          "filename": "document.pdf",
+          "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+        }
+      ]
+    }
+  ],
+  "max_output_tokens": 1024,
+  "stream": false
+}
+```
+
+## Response
+
+File input returns a standard Responses object, not a separate file-task ID.
+
+| Field                                                | Type             | Description                                                                                                                           |
+| ---------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| id / object                                          | string           | Response ID; object=response.                                                                                                         |
+| created\_at / model                                  | integer / string | Creation time in Unix seconds and model.                                                                                              |
+| status                                               | string           | completed, incomplete, failed, queued, in\_progress, or cancelled; these states can appear in both streamed and background responses. |
+| output\[]                                            | array            | Typed output items may mix message, reasoning, function\_call, web\_search\_call, and more; do not hard-code output\[0].              |
+| output\[].type / id / status                         | string           | Output item type, ID, and status, where applicable.                                                                                   |
+| output\[].role                                       | string           | Message output usually uses assistant.                                                                                                |
+| output\[].content\[]                                 | array            | Message content items\: type=output\_text for text, type=refusal for refusals.                                                        |
+| output\[].content\[].text / annotations              | string / array   | Response text and annotations such as citations.                                                                                      |
+| output\[].call\_id / name / arguments                | string           | The function\_call correlation ID, name, and JSON-string arguments.                                                                   |
+| error                                                | object / null    | Failure information; usually null on normal completion.                                                                               |
+| incomplete\_details                                  | object / null    | The incomplete reason, such as max\_output\_tokens; do not treat it as complete success.                                              |
+| usage.input\_tokens / output\_tokens / total\_tokens | integer          | Input, output, and total tokens.                                                                                                      |
+| usage.\*\_tokens\_details                            | object           | Optional usage details such as caching and reasoning.                                                                                 |
+
+```json
+{
+  "id": "resp_file_example",
+  "object": "response",
+  "status": "completed",
+  "error": null,
+  "incomplete_details": null,
+  "output": [
+    {
+      "id": "msg_file_example",
+      "type": "message",
+      "role": "assistant",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "这份文档主要讨论项目背景、实施步骤和风险。部分扫描页较模糊，无法确认细小文字。",
+          "annotations": []
+        }
+      ]
+    }
+  ],
+  "usage": {
+    "input_tokens": 1800,
+    "output_tokens": 75,
+    "total_tokens": 1875
+  }
+}
+```
+
+Chat Completions also supports `type=file` and nested file.filename/file\_data for PDFs, but differs from Responses input\_file. Base64 for arbitrary TXT files, spreadsheets, or archives is not universally supported. Applications can decode text and send it as text; verify vendor and model support for other formats first.
+
+## Code examples
+
+Set `SIMIROUTER_API_KEY`, `SIMIROUTER_FILE_MODEL`; `SIMIROUTER_BASE_URL` overrides the default gateway root; do not append `/v1`. `PDF_PATH` points to an existing local file. Python 3, Node.js 18+, and Go examples use only standard libraries; the curl example uses Python 3 to encode JSON safely.
+
+<Tabs items={["Python","Node.js","curl","Go"]}>
+  <Tab value="Python">
+    ```python
+    import json, os, sys, urllib.request, urllib.error
+    import base64
+    from pathlib import Path
+    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
+    if not os.environ.get("SIMIROUTER_FILE_MODEL"): raise RuntimeError("请设置 SIMIROUTER_FILE_MODEL")
+    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
+    body = json.loads(r'''{
+      "model": "MODEL_ID",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+            },
+            {
+              "type": "input_file",
+              "filename": "document.pdf",
+              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 1024,
+      "stream": false
+    }''')
+    body["model"] = os.environ["SIMIROUTER_FILE_MODEL"]
+    p = Path(os.environ["PDF_PATH"])
+    if not p.is_file(): raise FileNotFoundError(p)
+    mime = {'.pdf': 'application/pdf'}.get(p.suffix.lower())
+    if not mime: raise ValueError("不支持的文件扩展名")
+    data = p.read_bytes()
+    if not data: raise ValueError("输入文件为空")
+    encoded = base64.b64encode(data).decode("ascii")
+    body["input"][0]["content"][1].update({"filename": p.name, "file_data": "data:" + mime + ";base64," + encoded})
+    path = '/v1/responses'
+    request = urllib.request.Request(base + path, data=json.dumps(body).encode("utf-8"), method="POST",
+        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(request, timeout=120) as response:
+            result = json.load(response)
+    except urllib.error.HTTPError as error:
+        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
+        raise SystemExit(1)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    ```
+  </Tab>
+
+  <Tab value="Node.js">
+    ```javascript
+    async function main() {
+      const fs = require("node:fs");
+      const path = require("node:path");
+      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
+      if (!process.env.SIMIROUTER_FILE_MODEL) throw new Error("请设置 SIMIROUTER_FILE_MODEL");
+      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
+      const body = {
+      "model": "MODEL_ID",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+            },
+            {
+              "type": "input_file",
+              "filename": "document.pdf",
+              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 1024,
+      "stream": false
+    };
+      body.model = process.env.SIMIROUTER_FILE_MODEL;
+      const filename = process.env.PDF_PATH;
+      if (!filename) throw new Error("请设置 PDF_PATH");
+      const mime = {".pdf": "application/pdf"}[path.extname(filename).toLowerCase()];
+      if (!mime) throw new Error("不支持的文件扩展名");
+      const data = fs.readFileSync(filename);
+      if (!data.length) throw new Error("输入文件为空");
+      const encoded = data.toString("base64");
+      Object.assign(body.input[0].content[1], { filename: path.basename(filename), file_data: `data:${mime};base64,${encoded}` });
+      const endpoint = "/v1/responses";
+      const response = await fetch(base + endpoint, { method: "POST",
+        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: AbortSignal.timeout(120000) });
+      const result = await response.text();
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
+      console.log(JSON.stringify(JSON.parse(result), null, 2));
+    }
+    main().catch(error => { console.error(error); process.exitCode = 1; });
+    ```
+  </Tab>
+
+  <Tab value="curl">
+    ```bash
+    set -eu
+    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
+    : "${SIMIROUTER_FILE_MODEL:?请设置 SIMIROUTER_FILE_MODEL}"
+    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
+    BODY=$(python3 - <<'PYBODY'
+    import json, os
+    import base64
+    from pathlib import Path
+    body = json.loads(r'''{
+      "model": "MODEL_ID",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+            },
+            {
+              "type": "input_file",
+              "filename": "document.pdf",
+              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 1024,
+      "stream": false
+    }''')
+    body["model"] = os.environ["SIMIROUTER_FILE_MODEL"]
+    p = Path(os.environ["PDF_PATH"])
+    if not p.is_file(): raise FileNotFoundError(p)
+    mime = {'.pdf': 'application/pdf'}.get(p.suffix.lower())
+    if not mime: raise ValueError("不支持的文件扩展名")
+    data = p.read_bytes()
+    if not data: raise ValueError("输入文件为空")
+    encoded = base64.b64encode(data).decode("ascii")
+    body["input"][0]["content"][1].update({"filename": p.name, "file_data": "data:" + mime + ";base64," + encoded})
+    print(json.dumps(body, ensure_ascii=False))
+    PYBODY
+    )
+    curl "${BASE_URL%/}/v1/responses" \
+      --fail-with-body \
+      --max-time 120 \
+      -X POST \
+      -H "Authorization: Bearer $SIMIROUTER_API_KEY" \
+      -H "Content-Type: application/json" \
+      --data-binary "$BODY"
+    ```
+  </Tab>
+
+  <Tab value="Go">
+    ```go
+    package main
+
+    import (
+      "bytes"
+      "fmt"
+      "io"
+      "log"
+      "net/http"
+      "os"
+      "strings"
+      "time"
+      "encoding/json"
+      "encoding/base64"
+      "path/filepath"
+    )
+
+    func main() {
+      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
+      model := os.Getenv("SIMIROUTER_FILE_MODEL"); if model == "" { log.Fatal("请设置 SIMIROUTER_FILE_MODEL") }
+      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
+      var body map[string]any
+      if err := json.Unmarshal([]byte(`{
+      "model": "MODEL_ID",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+            },
+            {
+              "type": "input_file",
+              "filename": "document.pdf",
+              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 1024,
+      "stream": false
+    }`), &body); err != nil { log.Fatal(err) }
+      body["model"] = model
+      filename := os.Getenv("PDF_PATH"); if filename == "" { log.Fatal("请设置 PDF_PATH") }
+      mime := map[string]string{".pdf":"application/pdf"}[strings.ToLower(filepath.Ext(filename))]
+      if mime == "" { log.Fatal("不支持的文件扩展名") }
+      data, err := os.ReadFile(filename); if err != nil { log.Fatal(err) }; if len(data) == 0 { log.Fatal("输入文件为空") }
+      encoded := base64.StdEncoding.EncodeToString(data)
+      item := body["input"].([]any)[0].(map[string]any)["content"].([]any)[1].(map[string]any); item["filename"] = filepath.Base(filename); item["file_data"] = "data:" + mime + ";base64," + encoded
+      endpoint := "/v1/responses"
+      payload, err := json.Marshal(body); if err != nil { log.Fatal(err) }
+      req, err := http.NewRequest("POST", base + endpoint, bytes.NewReader(payload)); if err != nil { log.Fatal(err) }
+      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
+      client := &http.Client{Timeout: 120 * time.Second}
+      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
+      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
+      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
+      fmt.Println(string(result))
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Errors
+
+| HTTP status | Meaning or vendor error type           | Action                                                                                                           |
+| ----------- | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| 400         | Invalid request                        | Check required fields, JSON, model parameters, and context length.                                               |
+| 401         | Authentication failed                  | Check that the key exists, is valid, and belongs to the correct service.                                         |
+| 403 / 404   | Access denied / resource not found     | Check model permissions, resource IDs, and the URL.                                                              |
+| 429         | Rate or quota limit                    | Distinguish rate limits from insufficient quota using the response body; retrying cannot fix insufficient quota. |
+| 500 / 503   | Server error / temporarily unavailable | Retain the request identifier and use bounded backoff for transient failures.                                    |
+
+Native OpenAI errors usually contain `error.message`, `error.type`, `error.param`, `error.code`; `param`, `code` may be `null`; do not assume these fields always exist or equal the HTTP status. The gateway may return authentication, routing, or quota errors before contacting the vendor; the status alone does not establish an upstream error. Correct damaged, password-protected, oversized, or unsupported files; do not repeatedly retry an invalid file or fabricate successful recognition.
+
+## Official reference
+
+* [OpenAI file input](https\://developers.openai.com/api/docs/guides/file-inputs)
+* [OpenAI Responses API](https\://developers.openai.com/api/reference/resources/responses/methods/create)
+* [OpenAI Files API](https\://developers.openai.com/api/reference/resources/files/methods/create)
+* [OpenAI error handling](https\://developers.openai.com/api/docs/guides/error-codes)
+
+# Files and content understanding
+
+File workflows have two layers\: upload APIs manage resources, while model-input APIs read file content and generate answers. Attaching a file to a generation request does not store it as a reusable resource.
+
+## Overview
+
+| What you want to do                  | Input method                        | Where the file goes      | Upload first?               |
+| ------------------------------------ | ----------------------------------- | ------------------------ | --------------------------- |
+| Have the model read a PDF            | Inline Base64 or a reachable URL    | Only inside this request | No                          |
+| Reuse a file across several requests | file\_id or a vendor file reference | Vendor file resource     | Yes (official Files API)    |
+| Preprocess large or numerous files   | Upload, then wait for processing    | Vendor file resource     | Yes, and it has a lifecycle |
+
+## Core concepts
+
+* **Inline input**\: the file is encoded into the request body and sent with the message. It ends with the request, there is no file\_id, and there is no later delete step.
+* **File resource**\: upload first to obtain an id, then reference it in multiple requests. The resource has an owner, an expiry, and a quota, and must be deleted explicitly.
+* **Lifecycle**\: a finished upload is neither a finished text extraction nor a model that already understands the file; poll until it is processable before reasoning over it.
+* **Size and format**\: limits are set separately for file size, page count, and duration; compressing an image does not convert its file type, and scanned PDFs still need OCR capability.
+* **Data retention**\: vendors differ on how they retain file content and recognition results; for sensitive material, confirm authorization and deletion methods first.
+
+## Requests and capabilities
+
+| Purpose                                            | Request                                       | Boundary                                                                               |
+| -------------------------------------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------- |
+| [PDF content understanding](/simidoc/en/apps/api/upload/file-recognition)    | POST /v1/responses + input\_file              | Inline Base64; no Files API required.                                                  |
+| Chat PDF input                                     | POST /v1/chat/completions + type=file         | Uses Chat’s file object, not the Responses structure.                                  |
+| [Files API](/simidoc/en/apps/api/pending/files)                      | /v1/files                                     | Not implemented in the gateway; official native uploads do not imply platform support. |
+| [Gemini media understanding](/simidoc/en/apps/api/chat/gemini-media) | POST /v1beta/models/\{model}\:generateContent | inlineData or applicable fileData.                                                     |
+
+## Request mode
+
+Inline understanding can return synchronous JSON or streamed text events; both are one model request. Some official upload or preprocessing workflows wait for resources to become usable. This is a resource lifecycle, not automatic background model execution. Multiple files can share one supported request or use parallel requests, with different context, cost, and total-size limits.
+
+Before uploading sensitive files, confirm authorization and provider data policies. Select relevant pages or excerpts from large documents rather than increasing input without limit. Preserve uncertainty in recognition results; manually verify important amounts, identifiers, and legal or medical conclusions.
+
+## Simulated call
+
+Inline understanding completes in one request, with the file carried as Base64 inside `input_file`\:
+
+```json
+{
+  "model": "gpt-5.5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        { "type": "input_text", "text": "总结这份合同的付款条款。" },
+        { "type": "input_file", "filename": "contract.pdf", "file_data": "data:application/pdf;base64,JVBERi0xLjQK..." }
+      ]
+    }
+  ]
+}
+```
+
+The response is an ordinary model message, and the result sits in `output_text`\:
+
+```json
+{
+  "status": "completed",
+  "output": [
+    {
+      "type": "message",
+      "content": [
+        { "type": "output_text", "text": "（示意）合同约定分三期付款……" }
+      ]
+    }
+  ]
+}
+```
+
+Nothing is uploaded and no reusable file\_id appears; asking about the same file again means resubmitting the Base64 or switching to official file resources.
+
+## Official reference
+
+* [OpenAI file input](https\://developers.openai.com/api/docs/guides/file-inputs)
+* [OpenAI Files API](https\://developers.openai.com/api/reference/resources/files/methods/create)
+* [Google file input](https\://ai.google.dev/gemini-api/docs/file-input-methods)
 
 # Function tool calling
 
@@ -10123,435 +10554,6 @@ Native OpenAI errors usually contain `error.message`, `error.type`, `error.param
 * [OpenAI web search](https\://developers.openai.com/api/docs/guides/tools-web-search)
 * [OpenAI Responses API](https\://developers.openai.com/api/reference/resources/responses/methods/create)
 * [OpenAI error handling](https\://developers.openai.com/api/docs/guides/error-codes)
-
-# File content understanding
-
-## Endpoint overview
-
-`POST /v1/responses` input\_file items let supported models process files. File understanding is not file storage and does not guarantee complete or accurate OCR.
-
-The gateway URL is `https://api.dwchainless.com`, with the request header `Authorization: Bearer $SIMIROUTER_API_KEY`. Direct OpenAI access uses `https://api.openai.com` and Bearer authentication, but requires an OpenAI key. Select a model available to the account that supports the required capability.
-
-The gateway’s `/v1/files` upload, retrieval, and deletion endpoints are unimplemented. This page inlines Base64 PDFs without Files API dependencies. Direct official access can upload a file and reference file\_id, but an official file\_id is not automatically gateway-accessible.
-
-## Request parameters
-
-| Field                    | Type    | Required    | Description                                                                                                                                                                             |
-| ------------------------ | ------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| model                    | string  | Yes         | A model ID supporting PDF input and the required vision capabilities.                                                                                                                   |
-| input\[].role            | string  | Yes         | user here.                                                                                                                                                                              |
-| input\[].content\[].type | string  | Yes         | Use input\_text for questions and input\_file for files.                                                                                                                                |
-| input\_text.text         | string  | Yes         | The file task, such as summarizing, extracting fields, or answering questions.                                                                                                          |
-| input\_file.filename     | string  | Conditional | The inline file’s name, retaining its real extension.                                                                                                                                   |
-| input\_file.file\_data   | string  | Conditional | The PDF’s Base64 data; this page’s code uses a data\:application/pdf;base64,... prefix. The official spec only requires Base64, so drop the data\:... prefix if the channel rejects it. |
-| input\_file.file\_id     | string  | Conditional | A file ID from an official upload; depends on the corresponding service’s Files support.                                                                                                |
-| input\_file.file\_url    | string  | Conditional | A file URL readable by the vendor; select one source rather than combining with inline data.                                                                                            |
-| max\_output\_tokens      | integer | No          | The model output limit.                                                                                                                                                                 |
-| stream                   | boolean | No          | true uses Responses SSE.                                                                                                                                                                |
-
-Do not send a local path as file\_url or populate file\_data, file\_id, and file\_url together. Request size must satisfy both gateway and official file-input limits. Base64 is larger than the source, and PDF page images increase model input tokens.
-
-### Request structure
-
-BASE64\_PDF\_BYTES represents the original PDF’s Base64; the four language examples populate it after reading PDF\_PATH.
-
-```json
-{
-  "model": "MODEL_ID",
-  "input": [
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "input_text",
-          "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-        },
-        {
-          "type": "input_file",
-          "filename": "document.pdf",
-          "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-        }
-      ]
-    }
-  ],
-  "max_output_tokens": 1024,
-  "stream": false
-}
-```
-
-## Response
-
-File input returns a standard Responses object, not a separate file-task ID.
-
-| Field                                                | Type             | Description                                                                                                                           |
-| ---------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| id / object                                          | string           | Response ID; object=response.                                                                                                         |
-| created\_at / model                                  | integer / string | Creation time in Unix seconds and model.                                                                                              |
-| status                                               | string           | completed, incomplete, failed, queued, in\_progress, or cancelled; these states can appear in both streamed and background responses. |
-| output\[]                                            | array            | Typed output items may mix message, reasoning, function\_call, web\_search\_call, and more; do not hard-code output\[0].              |
-| output\[].type / id / status                         | string           | Output item type, ID, and status, where applicable.                                                                                   |
-| output\[].role                                       | string           | Message output usually uses assistant.                                                                                                |
-| output\[].content\[]                                 | array            | Message content items\: type=output\_text for text, type=refusal for refusals.                                                        |
-| output\[].content\[].text / annotations              | string / array   | Response text and annotations such as citations.                                                                                      |
-| output\[].call\_id / name / arguments                | string           | The function\_call correlation ID, name, and JSON-string arguments.                                                                   |
-| error                                                | object / null    | Failure information; usually null on normal completion.                                                                               |
-| incomplete\_details                                  | object / null    | The incomplete reason, such as max\_output\_tokens; do not treat it as complete success.                                              |
-| usage.input\_tokens / output\_tokens / total\_tokens | integer          | Input, output, and total tokens.                                                                                                      |
-| usage.\*\_tokens\_details                            | object           | Optional usage details such as caching and reasoning.                                                                                 |
-
-```json
-{
-  "id": "resp_file_example",
-  "object": "response",
-  "status": "completed",
-  "error": null,
-  "incomplete_details": null,
-  "output": [
-    {
-      "id": "msg_file_example",
-      "type": "message",
-      "role": "assistant",
-      "status": "completed",
-      "content": [
-        {
-          "type": "output_text",
-          "text": "这份文档主要讨论项目背景、实施步骤和风险。部分扫描页较模糊，无法确认细小文字。",
-          "annotations": []
-        }
-      ]
-    }
-  ],
-  "usage": {
-    "input_tokens": 1800,
-    "output_tokens": 75,
-    "total_tokens": 1875
-  }
-}
-```
-
-Chat Completions also supports `type=file` and nested file.filename/file\_data for PDFs, but differs from Responses input\_file. Base64 for arbitrary TXT files, spreadsheets, or archives is not universally supported. Applications can decode text and send it as text; verify vendor and model support for other formats first.
-
-## Code examples
-
-Set `SIMIROUTER_API_KEY`, `SIMIROUTER_FILE_MODEL`; `SIMIROUTER_BASE_URL` overrides the default gateway root; do not append `/v1`. `PDF_PATH` points to an existing local file. Python 3, Node.js 18+, and Go examples use only standard libraries; the curl example uses Python 3 to encode JSON safely.
-
-<Tabs items={["Python","Node.js","curl","Go"]}>
-  <Tab value="Python">
-    ```python
-    import json, os, sys, urllib.request, urllib.error
-    import base64
-    from pathlib import Path
-    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
-    if not os.environ.get("SIMIROUTER_FILE_MODEL"): raise RuntimeError("请设置 SIMIROUTER_FILE_MODEL")
-    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
-    body = json.loads(r'''{
-      "model": "MODEL_ID",
-      "input": [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "input_text",
-              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-            },
-            {
-              "type": "input_file",
-              "filename": "document.pdf",
-              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-            }
-          ]
-        }
-      ],
-      "max_output_tokens": 1024,
-      "stream": false
-    }''')
-    body["model"] = os.environ["SIMIROUTER_FILE_MODEL"]
-    p = Path(os.environ["PDF_PATH"])
-    if not p.is_file(): raise FileNotFoundError(p)
-    mime = {'.pdf': 'application/pdf'}.get(p.suffix.lower())
-    if not mime: raise ValueError("不支持的文件扩展名")
-    data = p.read_bytes()
-    if not data: raise ValueError("输入文件为空")
-    encoded = base64.b64encode(data).decode("ascii")
-    body["input"][0]["content"][1].update({"filename": p.name, "file_data": "data:" + mime + ";base64," + encoded})
-    path = '/v1/responses'
-    request = urllib.request.Request(base + path, data=json.dumps(body).encode("utf-8"), method="POST",
-        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(request, timeout=120) as response:
-            result = json.load(response)
-    except urllib.error.HTTPError as error:
-        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
-        raise SystemExit(1)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-    ```
-  </Tab>
-
-  <Tab value="Node.js">
-    ```javascript
-    async function main() {
-      const fs = require("node:fs");
-      const path = require("node:path");
-      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
-      if (!process.env.SIMIROUTER_FILE_MODEL) throw new Error("请设置 SIMIROUTER_FILE_MODEL");
-      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
-      const body = {
-      "model": "MODEL_ID",
-      "input": [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "input_text",
-              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-            },
-            {
-              "type": "input_file",
-              "filename": "document.pdf",
-              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-            }
-          ]
-        }
-      ],
-      "max_output_tokens": 1024,
-      "stream": false
-    };
-      body.model = process.env.SIMIROUTER_FILE_MODEL;
-      const filename = process.env.PDF_PATH;
-      if (!filename) throw new Error("请设置 PDF_PATH");
-      const mime = {".pdf": "application/pdf"}[path.extname(filename).toLowerCase()];
-      if (!mime) throw new Error("不支持的文件扩展名");
-      const data = fs.readFileSync(filename);
-      if (!data.length) throw new Error("输入文件为空");
-      const encoded = data.toString("base64");
-      Object.assign(body.input[0].content[1], { filename: path.basename(filename), file_data: `data:${mime};base64,${encoded}` });
-      const endpoint = "/v1/responses";
-      const response = await fetch(base + endpoint, { method: "POST",
-        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-        signal: AbortSignal.timeout(120000) });
-      const result = await response.text();
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
-      console.log(JSON.stringify(JSON.parse(result), null, 2));
-    }
-    main().catch(error => { console.error(error); process.exitCode = 1; });
-    ```
-  </Tab>
-
-  <Tab value="curl">
-    ```bash
-    set -eu
-    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
-    : "${SIMIROUTER_FILE_MODEL:?请设置 SIMIROUTER_FILE_MODEL}"
-    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
-    BODY=$(python3 - <<'PYBODY'
-    import json, os
-    import base64
-    from pathlib import Path
-    body = json.loads(r'''{
-      "model": "MODEL_ID",
-      "input": [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "input_text",
-              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-            },
-            {
-              "type": "input_file",
-              "filename": "document.pdf",
-              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-            }
-          ]
-        }
-      ],
-      "max_output_tokens": 1024,
-      "stream": false
-    }''')
-    body["model"] = os.environ["SIMIROUTER_FILE_MODEL"]
-    p = Path(os.environ["PDF_PATH"])
-    if not p.is_file(): raise FileNotFoundError(p)
-    mime = {'.pdf': 'application/pdf'}.get(p.suffix.lower())
-    if not mime: raise ValueError("不支持的文件扩展名")
-    data = p.read_bytes()
-    if not data: raise ValueError("输入文件为空")
-    encoded = base64.b64encode(data).decode("ascii")
-    body["input"][0]["content"][1].update({"filename": p.name, "file_data": "data:" + mime + ";base64," + encoded})
-    print(json.dumps(body, ensure_ascii=False))
-    PYBODY
-    )
-    curl "${BASE_URL%/}/v1/responses" \
-      --fail-with-body \
-      --max-time 120 \
-      -X POST \
-      -H "Authorization: Bearer $SIMIROUTER_API_KEY" \
-      -H "Content-Type: application/json" \
-      --data-binary "$BODY"
-    ```
-  </Tab>
-
-  <Tab value="Go">
-    ```go
-    package main
-
-    import (
-      "bytes"
-      "fmt"
-      "io"
-      "log"
-      "net/http"
-      "os"
-      "strings"
-      "time"
-      "encoding/json"
-      "encoding/base64"
-      "path/filepath"
-    )
-
-    func main() {
-      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
-      model := os.Getenv("SIMIROUTER_FILE_MODEL"); if model == "" { log.Fatal("请设置 SIMIROUTER_FILE_MODEL") }
-      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
-      var body map[string]any
-      if err := json.Unmarshal([]byte(`{
-      "model": "MODEL_ID",
-      "input": [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "input_text",
-              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-            },
-            {
-              "type": "input_file",
-              "filename": "document.pdf",
-              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-            }
-          ]
-        }
-      ],
-      "max_output_tokens": 1024,
-      "stream": false
-    }`), &body); err != nil { log.Fatal(err) }
-      body["model"] = model
-      filename := os.Getenv("PDF_PATH"); if filename == "" { log.Fatal("请设置 PDF_PATH") }
-      mime := map[string]string{".pdf":"application/pdf"}[strings.ToLower(filepath.Ext(filename))]
-      if mime == "" { log.Fatal("不支持的文件扩展名") }
-      data, err := os.ReadFile(filename); if err != nil { log.Fatal(err) }; if len(data) == 0 { log.Fatal("输入文件为空") }
-      encoded := base64.StdEncoding.EncodeToString(data)
-      item := body["input"].([]any)[0].(map[string]any)["content"].([]any)[1].(map[string]any); item["filename"] = filepath.Base(filename); item["file_data"] = "data:" + mime + ";base64," + encoded
-      endpoint := "/v1/responses"
-      payload, err := json.Marshal(body); if err != nil { log.Fatal(err) }
-      req, err := http.NewRequest("POST", base + endpoint, bytes.NewReader(payload)); if err != nil { log.Fatal(err) }
-      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
-      client := &http.Client{Timeout: 120 * time.Second}
-      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
-      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
-      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
-      fmt.Println(string(result))
-    }
-    ```
-  </Tab>
-</Tabs>
-
-## Errors
-
-| HTTP status | Meaning or vendor error type           | Action                                                                                                           |
-| ----------- | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| 400         | Invalid request                        | Check required fields, JSON, model parameters, and context length.                                               |
-| 401         | Authentication failed                  | Check that the key exists, is valid, and belongs to the correct service.                                         |
-| 403 / 404   | Access denied / resource not found     | Check model permissions, resource IDs, and the URL.                                                              |
-| 429         | Rate or quota limit                    | Distinguish rate limits from insufficient quota using the response body; retrying cannot fix insufficient quota. |
-| 500 / 503   | Server error / temporarily unavailable | Retain the request identifier and use bounded backoff for transient failures.                                    |
-
-Native OpenAI errors usually contain `error.message`, `error.type`, `error.param`, `error.code`; `param`, `code` may be `null`; do not assume these fields always exist or equal the HTTP status. The gateway may return authentication, routing, or quota errors before contacting the vendor; the status alone does not establish an upstream error. Correct damaged, password-protected, oversized, or unsupported files; do not repeatedly retry an invalid file or fabricate successful recognition.
-
-## Official reference
-
-* [OpenAI file input](https\://developers.openai.com/api/docs/guides/file-inputs)
-* [OpenAI Responses API](https\://developers.openai.com/api/reference/resources/responses/methods/create)
-* [OpenAI Files API](https\://developers.openai.com/api/reference/resources/files/methods/create)
-* [OpenAI error handling](https\://developers.openai.com/api/docs/guides/error-codes)
-
-# Files and content understanding
-
-File workflows have two layers\: upload APIs manage resources, while model-input APIs read file content and generate answers. Attaching a file to a generation request does not store it as a reusable resource.
-
-## Overview
-
-| What you want to do                  | Input method                        | Where the file goes      | Upload first?               |
-| ------------------------------------ | ----------------------------------- | ------------------------ | --------------------------- |
-| Have the model read a PDF            | Inline Base64 or a reachable URL    | Only inside this request | No                          |
-| Reuse a file across several requests | file\_id or a vendor file reference | Vendor file resource     | Yes (official Files API)    |
-| Preprocess large or numerous files   | Upload, then wait for processing    | Vendor file resource     | Yes, and it has a lifecycle |
-
-## Core concepts
-
-* **Inline input**\: the file is encoded into the request body and sent with the message. It ends with the request, there is no file\_id, and there is no later delete step.
-* **File resource**\: upload first to obtain an id, then reference it in multiple requests. The resource has an owner, an expiry, and a quota, and must be deleted explicitly.
-* **Lifecycle**\: a finished upload is neither a finished text extraction nor a model that already understands the file; poll until it is processable before reasoning over it.
-* **Size and format**\: limits are set separately for file size, page count, and duration; compressing an image does not convert its file type, and scanned PDFs still need OCR capability.
-* **Data retention**\: vendors differ on how they retain file content and recognition results; for sensitive material, confirm authorization and deletion methods first.
-
-## Requests and capabilities
-
-| Purpose                                            | Request                                       | Boundary                                                                               |
-| -------------------------------------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------- |
-| [PDF content understanding](/simidoc/en/apps/api/upload/file-recognition)    | POST /v1/responses + input\_file              | Inline Base64; no Files API required.                                                  |
-| Chat PDF input                                     | POST /v1/chat/completions + type=file         | Uses Chat’s file object, not the Responses structure.                                  |
-| [Files API](/simidoc/en/apps/api/pending/files)                      | /v1/files                                     | Not implemented in the gateway; official native uploads do not imply platform support. |
-| [Gemini media understanding](/simidoc/en/apps/api/chat/gemini-media) | POST /v1beta/models/\{model}\:generateContent | inlineData or applicable fileData.                                                     |
-
-## Request mode
-
-Inline understanding can return synchronous JSON or streamed text events; both are one model request. Some official upload or preprocessing workflows wait for resources to become usable. This is a resource lifecycle, not automatic background model execution. Multiple files can share one supported request or use parallel requests, with different context, cost, and total-size limits.
-
-Before uploading sensitive files, confirm authorization and provider data policies. Select relevant pages or excerpts from large documents rather than increasing input without limit. Preserve uncertainty in recognition results; manually verify important amounts, identifiers, and legal or medical conclusions.
-
-## Simulated call
-
-Inline understanding completes in one request, with the file carried as Base64 inside `input_file`\:
-
-```json
-{
-  "model": "gpt-5.5",
-  "input": [
-    {
-      "role": "user",
-      "content": [
-        { "type": "input_text", "text": "总结这份合同的付款条款。" },
-        { "type": "input_file", "filename": "contract.pdf", "file_data": "data:application/pdf;base64,JVBERi0xLjQK..." }
-      ]
-    }
-  ]
-}
-```
-
-The response is an ordinary model message, and the result sits in `output_text`\:
-
-```json
-{
-  "status": "completed",
-  "output": [
-    {
-      "type": "message",
-      "content": [
-        { "type": "output_text", "text": "（示意）合同约定分三期付款……" }
-      ]
-    }
-  ]
-}
-```
-
-Nothing is uploaded and no reusable file\_id appears; asking about the same file again means resubmitting the Base64 or switching to official file resources.
-
-## Official reference
-
-* [OpenAI file input](https\://developers.openai.com/api/docs/guides/file-inputs)
-* [OpenAI Files API](https\://developers.openai.com/api/reference/resources/files/methods/create)
-* [Google file input](https\://ai.google.dev/gemini-api/docs/file-input-methods)
 
 # Video
 

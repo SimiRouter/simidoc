@@ -17,13 +17,15 @@
 
 В репозитории есть скрипты Bash и PowerShell. Сначала установите и запустите Codex CLI или Codex Desktop; скачайте и изучите скрипт перед запуском локального файла.
 
-* [Скачать скрипт Bash](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
-* [Скачать скрипт PowerShell](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Скачать скрипт Bash (CDN)](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Скачать скрипт Bash (резерв GitHub Raw)](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Скачать скрипт PowerShell (CDN)](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Скачать скрипт PowerShell (резерв GitHub Raw)](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
 
 В macOS / Linux выполните в терминале\:
 
 <Callout type="warn" title="">
-  Эти шаги сохраняют скрипт с сайта документации, но не передают сетевой ответ непосредственно интерпретатору. Изучите сохранённый файл перед запуском. Если опубликованный файл недоступен, используйте такой же файл из `public/scripts/` репозитория или ручную настройку ниже.
+  Эти шаги сохраняют скрипт по одной из ссылок CDN или GitHub Raw выше, но не передают сетевой ответ непосредственно интерпретатору. Изучите сохранённый локальный файл перед запуском.
   Скрипт записывает API-ключ в `experimental_bearer_token` файла `config.toml`; `auth.json` не создаётся и не изменяется. Считайте файл открытым секретом.
 </Callout>
 

@@ -17,13 +17,15 @@ Le catalogue exige une clé valide. Les modèles et les métadonnées de base, c
 
 Le dépôt fournit des scripts Bash et PowerShell. Installez et lancez d’abord Codex CLI ou Codex Desktop ; téléchargez et examinez le script avant d’exécuter le fichier local.
 
-* [Télécharger le script Bash](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
-* [Télécharger le script PowerShell](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Télécharger le script Bash (CDN)](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Télécharger le script Bash (secours GitHub Raw)](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Télécharger le script PowerShell (CDN)](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Télécharger le script PowerShell (secours GitHub Raw)](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
 
 Sous macOS / Linux, exécutez cette commande dans un terminal \:
 
 <Callout type="warn" title="">
-  Ces étapes téléchargent un script depuis le site de documentation, sans transmettre directement la réponse réseau à un interpréteur. Examinez le fichier enregistré avant de l’exécuter. Si le fichier publié est indisponible, utilisez le fichier correspondant dans `public/scripts/` du dépôt ou la configuration manuelle ci-dessous.
+  Ces étapes téléchargent un script depuis l’un des liens CDN ou GitHub Raw ci-dessus, sans transmettre directement la réponse réseau à un interpréteur. Examinez le fichier local enregistré avant de l’exécuter.
   Le script écrit la clé API dans `experimental_bearer_token` de `config.toml` ; il ne crée ni ne modifie `auth.json`. Traitez ce fichier comme un secret en clair.
 </Callout>
 

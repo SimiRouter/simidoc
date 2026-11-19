@@ -17,13 +17,15 @@ The catalog endpoint requires a valid key. Available models and basic metadata s
 
 The repository includes Bash and PowerShell scripts. Install and launch Codex CLI or the desktop app first; download and review the script before running the local file.
 
-* [Download the Bash script](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
-* [Download the PowerShell script](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Download Bash script (CDN)](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Download Bash script (GitHub Raw fallback)](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Download PowerShell script (CDN)](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Download PowerShell script (GitHub Raw fallback)](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
 
 Run in a macOS or Linux terminal\:
 
 <Callout type="warn" title="">
-  These steps download a script from the docs site but do not pipe the network response directly to an interpreter. Review the saved file before running it. If the published file is unavailable, use the matching file in the repository's `public/scripts/` directory or use manual configuration below.
+  These steps download a script from one of the CDN or GitHub Raw links above but do not pipe the network response directly to an interpreter. Review the saved local file before running it.
   The script writes the API key to `experimental_bearer_token` in `config.toml`; it does not create or modify `auth.json`. Treat this file as a plaintext secret.
 </Callout>
 

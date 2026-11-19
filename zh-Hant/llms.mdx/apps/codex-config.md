@@ -17,13 +17,15 @@
 
 儲存庫提供 Bash 與 PowerShell 指令碼。執行前請確保已安裝並啟動過 Codex CLI 或 Codex 桌面版；先下載並審閱指令碼，再執行本機檔案。
 
-* [下載 Bash 指令碼](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
-* [下載 PowerShell 指令碼](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [下載 Bash 指令碼（CDN）](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [下載 Bash 指令碼（GitHub Raw 備用）](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [下載 PowerShell 指令碼（CDN）](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [下載 PowerShell 指令碼（GitHub Raw 備用）](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
 
 macOS / Linux 使用者在終端機中執行：
 
 <Callout type="warn" title="">
-  以下步驟會從文件網站下載指令碼，但不會把網路回應直接交給直譯器。請先審閱儲存的檔案再執行。若網站尚未提供檔案，請使用儲存庫 `public/scripts/` 中的相同檔案，或使用下方手動設定。
+  以下步驟會從上方的 CDN 或 GitHub Raw 連結下載指令碼，但不會把網路回應直接交給直譯器。請先審閱儲存的本機檔案再執行。
   指令碼會將 API 金鑰寫入 `experimental_bearer_token` in `config.toml`，不會建立或修改 `auth.json`。請將此設定檔視為含明文秘密。
 </Callout>
 

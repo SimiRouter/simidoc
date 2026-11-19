@@ -1,8 +1,7 @@
-:HL["/simidoc/_next/static/chunks/29--_xkit9eal.css","style"]
-:HC["/",""]
-:HL["/simidoc/_next/static/chunks/2gs3drdnc84hp.css","style"]
+:HL["/simidoc/_next/static/css/78be9d45d7e35a92.css","style"]
+:HL["/simidoc/_next/static/css/3ada410c0d8a43b0.css","style"]
 4:[["children",{"s":"__PAGE__","h":160}]]
 3:[["children",{"s":{"n":"slug","t":"oc","k":"apps/api/video/sora/status","s":["llm-full.txt","llm.txt","llms-full.txt","llms.mdx","llms.txt","search-index.json"]},"h":65600,"c":"$Q4"}]]
 2:[["children",{"s":"(docs)","h":131072,"c":"$Q3"}]]
-1:[["children",{"s":{"n":"lang","t":"d","k":"zh-Hant","s":["llm-full.txt","llm.txt","llms-full.txt","llms.txt","og"]},"h":196656,"c":"$Q2"}]]
-0:{"b":"0K9ZuT3sJA4sXcVSgvwXa","t":{"t":{"s":"","h":131152,"c":"$Q1"}}}
+1:[["children",{"s":{"n":"lang","t":"d","k":"zh-Hant","s":["_not-found","_global-error","llm-full.txt","llm.txt","llms-full.txt","llms.txt","og","robots.txt","sitemap.xml"]},"h":196656,"c":"$Q2"}]]
+0:{"b":"zj0U54NhuVf0arXLhwFuO","t":{"t":{"s":"","h":131152,"c":"$Q1"}}}

@@ -633,13 +633,15 @@ Endpoint danh mục yêu cầu khóa hợp lệ. Mô hình và siêu dữ liệu
 
 Kho mã có script Bash và PowerShell. Hãy cài và chạy Codex CLI hoặc Codex Desktop trước; tải xuống và xem nội dung script trước khi chạy tệp cục bộ.
 
-* [Tải script Bash](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
-* [Tải script PowerShell](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Tải script Bash (CDN)](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Tải script Bash (dự phòng GitHub Raw)](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [Tải script PowerShell (CDN)](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [Tải script PowerShell (dự phòng GitHub Raw)](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
 
 Trên macOS / Linux, chạy trong terminal\:
 
 <Callout type="warn" title="">
-  Các bước này lưu script từ trang tài liệu nhưng không chuyển phản hồi mạng trực tiếp cho trình thông dịch. Hãy xem tệp đã lưu trước khi chạy. Nếu tệp đã xuất bản không có, hãy dùng tệp tương ứng trong `public/scripts/` của kho mã hoặc cấu hình thủ công bên dưới.
+  Các bước này lưu script từ một trong các liên kết CDN hoặc GitHub Raw ở trên nhưng không chuyển phản hồi mạng trực tiếp cho trình thông dịch. Hãy xem tệp cục bộ đã lưu trước khi chạy.
   Script ghi API Key vào `experimental_bearer_token` trong `config.toml`; không tạo hoặc sửa `auth.json`. Hãy coi tệp này là bí mật dạng văn bản rõ.
 </Callout>
 
@@ -1773,41 +1775,6 @@ Khi cần hỗ trợ, cung cấp **Phiên bản WorkBuddy, ID mô hình, thời 
 
 [Cấu hình mô hình tùy chỉnh WorkBuddy](https\://www.codebuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Model).
 
-# Quyền nhật ký sử dụng và nhật ký kiểm toán
-
-Hướng dẫn này giải thích phạm vi hiển thị theo vai trò trong Nhật ký sử dụng và Nhật ký kiểm toán, cũng như cách xác định kênh thực tế đã xử lý yêu cầu.
-
-## Nhật ký sử dụng
-
-### Quản trị viên cấp cao
-
-Quản trị viên cấp cao có thể xem đầy đủ nhật ký của mọi người dùng. Mở [Nhật ký sử dụng](https://api.dwchainless.com/usage-logs/common), chọn **Chỉ lỗi** trong bộ lọc loại để hiển thị các lần gọi lỗi của mọi người dùng. Bộ lọc vẫn giữ lỗi xảy ra trong lúc thử lại, ngay cả khi yêu cầu cuối cùng thành công.
-
-Cột kênh cho biết kênh thực tế đã xử lý yêu cầu. Khi kiểm tra định tuyến, hãy dùng kênh, mô hình, trạng thái và ID yêu cầu trong nhật ký thay vì chỉ dựa vào tên mô hình hiển thị trong ứng dụng.
-
-### Quản trị viên
-
-Quản trị viên chỉ có thể xem nhật ký yêu cầu, nạp tiền, thao tác quản trị và lần gọi lỗi của chính mình. Tham số tên người dùng, vai trò hoặc URL không thể mở rộng phạm vi này. Quản trị viên không có bộ lọc **Chỉ lỗi** toàn cục, nhưng bản ghi lỗi của chính họ vẫn hiển thị theo quyền.
-
-### Người dùng thông thường
-
-Người dùng thông thường chỉ có thể xem nhật ký yêu cầu, nạp tiền và thao tác quản trị của chính mình. Họ không thể xem nhật ký lỗi hoặc nhật ký của người khác.
-
-## Nhật ký kiểm toán
-
-Quản trị viên cấp cao có thể xem sự kiện kiểm toán của mọi người dùng và lọc theo tên người dùng. Quản trị viên và người dùng thông thường chỉ xem được sự kiện của tài khoản đang xác thực; tham số trang không thể mở rộng quyền phía máy chủ.
-
-## Cập nhật trạng thái kênh
-
-Sự kiện kiểm toán `channel.status_update` có nghĩa là **cập nhật trạng thái kênh**. Sự kiện này ghi lại thao tác thủ công trên một kênh. Mã hiện tại chấp nhận trạng thái đích là bật hoặc tắt thủ công; `changed=false` nghĩa là yêu cầu thành công nhưng trạng thái kênh không thay đổi. Thao tác hàng loạt dùng `channel.status_update_batch`. Hãy xem chi tiết sự kiện, người thao tác và thời gian để biết thao tác cụ thể.
-
-## Xử lý sự cố
-
-1. Xác nhận khoảng thời gian và ID yêu cầu.
-2. Khi điều tra lỗi toàn cục, quản trị viên cấp cao nên chọn **Chỉ lỗi**.
-3. Kiểm tra kênh, mô hình và trạng thái thực tế thay vì chỉ dựa vào nhãn ứng dụng.
-4. Với hết thời gian, phản hồi 5xx hoặc luồng bị ngắt, hãy xem nhật ký và ID yêu cầu trước khi thử lại để tránh tính phí trùng.
-
 # Liên hệ và hỗ trợ
 
 <ContactSupport locale="vi" />
@@ -1910,6 +1877,53 @@ Giờ hỗ trợ\: mỗi ngày, 9\:00 - 21\:00
 Kênh hỗ trợ\: Đăng nhập bảng quản trị và gửi yêu cầu qua hỗ trợ trực tuyến.
 
 Chính sách này áp dụng cho hoàn tiền dịch vụ trung chuyển SimiRouter. Nếu quy định thay đổi, thông báo mới nhất của nền tảng hoặc giải thích của hỗ trợ được ưu tiên.
+
+# Quyền nhật ký sử dụng và nhật ký kiểm toán
+
+Hướng dẫn này giải thích phạm vi hiển thị theo vai trò trong Nhật ký sử dụng và Nhật ký kiểm toán, cũng như cách xác định kênh thực tế đã xử lý yêu cầu.
+
+## Nhật ký sử dụng
+
+### Quản trị viên cấp cao
+
+Quản trị viên cấp cao có thể xem đầy đủ nhật ký của mọi người dùng. Mở [Nhật ký sử dụng](https://api.dwchainless.com/usage-logs/common), chọn **Chỉ lỗi** trong bộ lọc loại để hiển thị các lần gọi lỗi của mọi người dùng. Bộ lọc vẫn giữ lỗi xảy ra trong lúc thử lại, ngay cả khi yêu cầu cuối cùng thành công.
+
+Cột kênh cho biết kênh thực tế đã xử lý yêu cầu. Khi kiểm tra định tuyến, hãy dùng kênh, mô hình, trạng thái và ID yêu cầu trong nhật ký thay vì chỉ dựa vào tên mô hình hiển thị trong ứng dụng.
+
+### Quản trị viên
+
+Quản trị viên chỉ có thể xem nhật ký yêu cầu, nạp tiền, thao tác quản trị và lần gọi lỗi của chính mình. Tham số tên người dùng, vai trò hoặc URL không thể mở rộng phạm vi này. Quản trị viên không có bộ lọc **Chỉ lỗi** toàn cục, nhưng bản ghi lỗi của chính họ vẫn hiển thị theo quyền.
+
+### Người dùng thông thường
+
+Người dùng thông thường chỉ có thể xem nhật ký yêu cầu, nạp tiền và thao tác quản trị của chính mình. Họ không thể xem nhật ký lỗi hoặc nhật ký của người khác.
+
+## Nhật ký kiểm toán
+
+Quản trị viên cấp cao có thể xem sự kiện kiểm toán của mọi người dùng và lọc theo tên người dùng. Quản trị viên và người dùng thông thường chỉ xem được sự kiện của tài khoản đang xác thực; tham số trang không thể mở rộng quyền phía máy chủ.
+
+## Cập nhật trạng thái kênh
+
+Sự kiện kiểm toán `channel.status_update` có nghĩa là **cập nhật trạng thái kênh**. Sự kiện này ghi lại thao tác thủ công trên một kênh. Mã hiện tại chấp nhận trạng thái đích là bật hoặc tắt thủ công; `changed=false` nghĩa là yêu cầu thành công nhưng trạng thái kênh không thay đổi. Thao tác hàng loạt dùng `channel.status_update_batch`. Hãy xem chi tiết sự kiện, người thao tác và thời gian để biết thao tác cụ thể.
+
+## Xử lý sự cố
+
+1. Xác nhận khoảng thời gian và ID yêu cầu.
+2. Khi điều tra lỗi toàn cục, quản trị viên cấp cao nên chọn **Chỉ lỗi**.
+3. Kiểm tra kênh, mô hình và trạng thái thực tế thay vì chỉ dựa vào nhãn ứng dụng.
+4. Với hết thời gian, phản hồi 5xx hoặc luồng bị ngắt, hãy xem nhật ký và ID yêu cầu trước khi thử lại để tránh tính phí trùng.
+
+# Giá dịch vụ
+
+## Xem giá mô hình hiện tại
+
+Mở [Danh mục mô hình](https://api.dwchainless.com/vi/pricing/), chọn mô hình và nhóm. Giá đầu vào, đầu ra, bộ nhớ đệm hoặc theo lượt có thể khác nhau; ưu tiên thông tin hiện tại và quyền của nhóm tài khoản.
+
+![Trang mô hình và giá\: sau khi chọn nhóm giá, bảng liệt kê mã mô hình, thông số và giá](/simidoc/assets/guide/pricing-2026-11.png)
+
+*Ảnh chụp từ bản triển khai cục bộ, cập nhật 2026-11-17; chỉ minh họa vị trí trang, không phải cam kết giá. Chạm vào ảnh để xem kích thước đầy đủ.*
+
+Tiền nạp và hạn mức được cộng không phải giá của mô hình. Hãy thử một yêu cầu nhỏ rồi kiểm tra phí trong [Nhật ký sử dụng](https://api.dwchainless.com/usage-logs/common).
 
 # Ba ưu đãi ra mắt
 
@@ -2339,18 +2353,6 @@ Xem xét lại\: Nếu không đồng ý, trong 7 ngày làm việc từ thông 
 * Tham gia bằng nạp hộ, rửa tiền, gian lận thẻ hoặc cách trái pháp luật khác.
 * Tổ chức hoặc hỗ trợ người khác trục lợi ác ý.
 * Hành vi khác vi phạm nguyên tắc công bằng, trung thực, thỏa thuận người dùng hoặc pháp luật.
-
-# Giá dịch vụ
-
-## Xem giá mô hình hiện tại
-
-Mở [Danh mục mô hình](https://api.dwchainless.com/vi/pricing/), chọn mô hình và nhóm. Giá đầu vào, đầu ra, bộ nhớ đệm hoặc theo lượt có thể khác nhau; ưu tiên thông tin hiện tại và quyền của nhóm tài khoản.
-
-![Trang mô hình và giá\: sau khi chọn nhóm giá, bảng liệt kê mã mô hình, thông số và giá](/simidoc/assets/guide/pricing-2026-11.png)
-
-*Ảnh chụp từ bản triển khai cục bộ, cập nhật 2026-11-17; chỉ minh họa vị trí trang, không phải cam kết giá. Chạm vào ảnh để xem kích thước đầy đủ.*
-
-Tiền nạp và hạn mức được cộng không phải giá của mô hình. Hãy thử một yêu cầu nhỏ rồi kiểm tra phí trong [Nhật ký sử dụng](https://api.dwchainless.com/usage-logs/common).
 
 # Nạp tiền
 
@@ -5549,6 +5551,249 @@ Các trường `error.message`, `error.type` và `error.code` trong thân lỗi 
 
 [OpenAI Create translation](https\://developers.openai.com/api/reference/resources/audio/subresources/translations/methods/create).
 
+# Gọi ảnh bằng tác tử đã tích hợp vào tài liệu giao thức
+
+Tác vụ tác tử đã được phân vào ba giao thức. Mỗi trang có mẫu tạo và sửa, chuẩn bị cấu hình, lưu kết quả và xử lý lỗi; không còn duy trì hướng dẫn riêng thiên về OpenAI Images.
+
+* [Tác tử theo định dạng OpenAI](/simidoc/vi/apps/api/images/openai)\: tạo bằng Images, chỉnh sửa JSON và kiểm tra sự kiện cuối.
+* [Tác tử theo Gemini gốc](/simidoc/vi/apps/api/images/gemini)\: Part ảnh GenerateContent, MIME và ngữ cảnh nhiều lượt.
+* [Tác tử theo Qwen gốc](/simidoc/vi/apps/api/images/qwen)\: cấu hình khu vực chính thức, gọi đồng bộ và tải URL ảnh.
+
+Tác tử vẫn cần chạy cục bộ và kiểm tra phản hồi; tài liệu không cài Skill từ xa. Yêu cầu thật có thể tính phí\: xác nhận mô hình, thông số, số lượng và nơi lưu; không lộ khóa, không ghi đè và không tự thử lại. Xem so sánh API, hiệu ứng và thông số tại [tổng quan API hình ảnh](/simidoc/vi/apps/api/images).
+
+# Hình ảnh
+
+Chọn **giao thức API** trước, sau đó xác định **hiệu ứng** cần thực hiện, cuối cùng kiểm tra **kích thước, chất lượng, định dạng và số lượng**. Giao thức quyết định cấu trúc yêu cầu và phản hồi, hiệu ứng do năng lực mô hình và lời nhắc cùng quyết định, thông số quyết định yêu cầu đầu ra; không được trộn lẫn ba khái niệm này.
+
+Tạo và chỉnh sửa trả về hình ảnh; hiểu hình ảnh nhận hình ảnh làm đầu vào và trả về văn bản hoặc kết quả có cấu trúc. Mô hình văn bản thông thường không có khả năng tạo ảnh chỉ vì thêm tham số hình ảnh. Trước khi gọi, hãy xác nhận ID mô hình chính xác, hỗ trợ API, nhóm tính phí và hạn mức tại [Mô hình và giá](https://api.dwchainless.com/vi/pricing/); yêu cầu thực tế có thể phát sinh phí.
+
+## Tổng quan
+
+| Bạn muốn làm gì               | Đầu vào                                  | Đầu ra                         | Điểm cuối điển hình           |
+| ----------------------------- | ---------------------------------------- | ------------------------------ | ----------------------------- |
+| Tạo ảnh từ văn bản            | Lời nhắc                                 | Ảnh mới                        | `POST /v1/images/generations` |
+| Sửa ảnh đã có                 | Lời nhắc + một hoặc nhiều ảnh tham chiếu | Ảnh đã chỉnh sửa               | `POST /v1/images/edits`       |
+| Vừa trò chuyện vừa tạo ảnh    | Tin nhắn hội thoại + công cụ hình ảnh    | Kết quả kết hợp ảnh và văn bản | `POST /v1/responses`          |
+| Để mô hình xem ảnh và trả lời | Ảnh + câu hỏi                            | Văn bản, không phải ảnh mới    | `POST /v1/chat/completions`   |
+
+## Khái niệm cốt lõi
+
+Trước hết hãy phân biệt ba loại con số, khi đó các tham số và giá phía sau mới dễ hiểu\:
+
+* **Kích thước pixel**\: chiều rộng × chiều cao thực tế, ví dụ `1024x1024`. Nó quyết định độ phân giải thực của tệp, không phải dung lượng tệp và cũng không tương đương bậc chất lượng.
+* **Tỷ lệ khung hình**\: các tỷ lệ như `1:1`, `16:9`, `9:16`, chỉ quyết định hình dạng khung hình. Cùng một tỷ lệ có thể ứng với nhiều kích thước pixel; chỉ nêu tỷ lệ không có nghĩa là đã chỉ định kích thước đầu ra.
+* **Bậc độ phân giải**\: các bậc như `1K`, `2K`, `4K`. Bậc gốc của hãng được định nghĩa theo cạnh dài nhất hoặc theo dòng sản phẩm, còn bậc tính phí theo ảnh của trang này được xếp theo cạnh dài nhất; hai bên có thể cùng tên nhưng ranh giới không nhất thiết trùng nhau và không thể suy ra lẫn nhau.
+
+Còn có ba hiểu lầm phổ biến\: `quality` điều khiển chất lượng kết xuất chứ không phải chất lượng nén; PNG, JPEG, WebP là định dạng tệp, đổi phần mở rộng không chuyển đổi định dạng; Base64 và URL chỉ là cách bàn giao, không phải độ phân giải. Xem đối chiếu từng mục ở mục 4 bên dưới, “Thông số ảnh và tính phí”.
+
+## 1. Các API\: chọn theo giao thức
+
+Ba bộ giao thức có tham số yêu cầu, tham số trả về và ví dụ độc lập. Cách gọi bằng script, sử dụng trong tác tử, lưu kết quả và xử lý thất bại cũng được mô tả trong từng giao thức, không cần đọc trước một hướng dẫn chung chỉ dành cho OpenAI.
+
+| Giao thức               | API / khả năng                                       | Điểm cuối yêu cầu                                      | Kết quả chính                                              | Tài liệu                                                 |
+| ----------------------- | ---------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------------- | -------------------------------------------------------- |
+| OpenAI                  | Tạo ảnh từ văn bản                                   | `POST /v1/images/generations`                          | `data[].b64_json`; mô hình tương thích cũng có thể trả URL | [Tạo ảnh](/simidoc/vi/apps/api/images/openai/generations)                          |
+| OpenAI                  | Chỉnh sửa ảnh / tạo ảnh từ ảnh                       | `POST /v1/images/edits`                                | Ảnh đã chỉnh sửa                                           | [Chỉnh sửa](/simidoc/vi/apps/api/images/openai/edits)                              |
+| OpenAI                  | Tạo ảnh hội thoại                                    | `POST /v1/responses`, dùng công cụ `image_generation`  | Kết quả công cụ hình ảnh trong `output[]`                  | [Tạo ảnh hội thoại](/simidoc/vi/apps/api/images/openai/chat-format)                |
+| OpenAI                  | Hiểu hình ảnh                                        | `POST /v1/chat/completions`, nhập `image_url`          | Phân tích văn bản, không tạo ảnh                           | [Hiểu hình ảnh](/simidoc/vi/apps/api/images/openai/vision)                         |
+| Gemini                  | Tạo ảnh từ văn bản                                   | `POST /v1beta/models/{model}:generateContent`          | `candidates[].content.parts[].inlineData`                  | [Tạo ảnh](/simidoc/vi/apps/api/images/gemini/generate)                             |
+| Gemini                  | Chỉnh sửa ảnh / sửa nhiều lượt                       | Như trên, trộn văn bản và hình ảnh                     | Hình ảnh trong các mục nội dung trả về                     | [Chỉnh sửa](/simidoc/vi/apps/api/images/gemini/edits)                              |
+| Gemini                  | Hiểu hình ảnh                                        | Như trên, dùng mô hình hỗ trợ đầu vào thị giác         | Phân tích văn bản                                          | [Nhận diện phương tiện](/simidoc/vi/apps/api/chat/gemini-media)            |
+| Qwen                    | Tạo ảnh / chỉnh sửa ảnh                              | `POST /v1/images/generations`, `POST /v1/images/edits` | `data[].url` hoặc `data[].b64_json`                        | [Tạo ảnh](/simidoc/vi/apps/api/images/qwen/generations), [Chỉnh sửa](/simidoc/vi/apps/api/images/qwen/edits) |
+| Jimeng / Volcengine Ark | Tạo ảnh từ văn bản / tạo từ ảnh tham chiếu           | `POST /api/v3/images/generations`                      | `data[].url` hoặc `data[].b64_json`                        | [Tạo ảnh](/simidoc/vi/apps/api/images/jimeng)                                      |
+| xAI Grok                | Tạo ảnh từ văn bản / tạo nhiều ảnh                   | `POST /v1/images/generations`                          | `data[].url` hoặc `data[].b64_json`                        | [Tạo ảnh](/simidoc/vi/apps/api/images/grok)                                        |
+| BFL FLUX                | Tạo ảnh từ văn bản / từ ảnh tham chiếu (bất đồng bộ) | `POST /v1/flux-pro-1.1` và tương tự                    | Trước lấy `polling_url`, hoàn tất rồi lấy `result.sample`  | [Tạo ảnh](/simidoc/vi/apps/api/images/flux)                                        |
+
+**Phần Qwen này dùng nội dung yêu cầu gốc của Qwen, gọi qua `/v1/images/generations` và `/v1/images/edits` của cổng kết nối trang này, trả về thống nhất dưới dạng `data[]`.** Không viết lại nội dung thành trường `prompt` của OpenAI; ID mô hình phải dùng tên do kênh thực tế của trang này cung cấp. Jimeng dùng nội dung yêu cầu gốc của Volcengine Ark; đường dẫn của Grok giống OpenAI Images, nhưng tham số khung hình đổi thành `aspect_ratio` và `resolution`; FLUX không tạo ảnh đồng bộ, phải gửi tác vụ trước rồi thăm dò `polling_url`. Ba bên không thể sao chép trường của nhau.
+
+Cách gọi cũng khác nhau theo giao thức\: yêu cầu thông thường của OpenAI Images chờ kết quả đầy đủ, chỉ mô hình được hỗ trợ mới dùng được luồng sự kiện hình ảnh; Gemini phát trực tuyến dùng `streamGenerateContent?alt=sse`; ví dụ Qwen trong thư mục này dùng trả về đồng bộ; Grok mặc định đồng bộ, cũng có thể dùng `deferred` để chuyển thành tác vụ trì hoãn; FLUX thì cố định là thăm dò bất đồng bộ. Chúng đều không thể biến thành hàng đợi tác vụ chung chỉ bằng cách thêm tham số “bất đồng bộ”. Yêu cầu, đầu ra và cách xác định hoàn tất cụ thể xem mô tả riêng của [OpenAI](/simidoc/vi/apps/api/images/openai), [Gemini](/simidoc/vi/apps/api/images/gemini), [Qwen](/simidoc/vi/apps/api/images/qwen), [Jimeng](/simidoc/vi/apps/api/images/jimeng), [Grok](/simidoc/vi/apps/api/images/grok), [FLUX](/simidoc/vi/apps/api/images/flux).
+
+## 2. Các hiệu ứng\: chọn theo mục tiêu
+
+“Màu nước”, “đổi nền”, “ghép sản phẩm”… thường là tác vụ tạo hoặc chỉnh sửa, không phải các API độc lập. Dưới đây là phân loại tác vụ, không phải cam kết năng lực cho mọi mô hình; hãy xác nhận phạm vi hỗ trợ trong giao thức và mô tả mô hình tương ứng trước.
+
+| Hiệu ứng muốn có                                             | Trọng tâm đầu vào và lời nhắc                                              | Lựa chọn và giới hạn giao diện                                                                                                      |
+| ------------------------------------------------------------ | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Sáng tạo từ đầu\: minh họa, bìa, áp phích, hình ảnh thực tế  | Mô tả chủ thể, bố cục, phong cách, ánh sáng và chữ cần hiển thị            | Chọn tạo ảnh từ văn bản; cần kiểm tra chữ và chi tiết                                                                               |
+| Biến thể ảnh tham chiếu\: giữ chủ thể hoặc bố cục để tạo lại | Cung cấp ảnh tham chiếu, nêu riêng phần giữ lại và phần thay đổi           | Chọn chỉnh sửa ảnh / tạo ảnh từ ảnh; không bảo đảm giữ nguyên từng pixel                                                            |
+| Chuyển phong cách\: ảnh chụp sang màu nước, nét vẽ…          | Ảnh tham chiếu cộng phong cách đích, nêu rõ có giữ chủ thể và bố cục không | Chọn mô hình chỉnh sửa hỗ trợ ảnh tham chiếu                                                                                        |
+| Thay nền, thêm bớt phần tử, sửa cục bộ                       | Nêu rõ vùng cần sửa; cung cấp mặt nạ khi được hỗ trợ                       | Chọn giao diện chỉnh sửa; hỗ trợ mặt nạ và quy tắc thay đổi theo mô hình                                                            |
+| Ghép nhiều ảnh\: sản phẩm, nhân vật và bối cảnh              | Nêu mục đích từng ảnh tham chiếu, quan hệ chủ thể và bố cục cuối           | Chọn mô hình chỉnh sửa hỗ trợ nhiều ảnh vào, kiểm tra giới hạn số ảnh                                                               |
+| Lặp nhiều lượt\: sửa tiếp dựa trên ảnh trước                 | Giữ nội dung lịch sử hoặc thông tin tham chiếu theo yêu cầu giao thức      | Chọn giao diện hỗ trợ làm việc với hình ảnh nhiều lượt; không thể giả định ngữ cảnh hình ảnh vẫn còn chỉ vì đã lưu một đoạn văn bản |
+| Tư liệu nền trong suốt                                       | Nêu rõ cần kênh trong suốt thật, không phải nền trắng hay họa tiết bàn cờ  | Chỉ chọn nền trong suốt và định dạng đầu ra giữ được kênh trong suốt khi mô hình hỗ trợ                                             |
+| Nhận diện ảnh, trích xuất chữ, hỏi đáp về biểu đồ            | Nhập ảnh và nêu mục tiêu phân tích                                         | Chọn giao diện hiểu hình ảnh, trả về văn bản thay vì ảnh đã chỉnh sửa                                                               |
+
+Có thể tham khảo các năng lực và giới hạn này tại [Tạo ảnh OpenAI](https\://developers.openai.com/api/docs/guides/image-generation), [Tạo và chỉnh sửa ảnh Gemini](https\://ai.google.dev/gemini-api/docs/image-generation), [Chỉnh sửa ảnh Qwen](https\://www.alibabacloud.com/help/en/model-studio/qwen-image-edit-api). Ví dụ chính thức không có nghĩa kênh hiện tại của cổng kết nối đã mở cùng năng lực.
+
+## 3. Gọi API\: bốn bước để có ảnh đầu tiên
+
+Dù chọn giao thức nào, việc gọi đều theo cùng thứ tự\: xác nhận cấu hình, chọn điểm cuối, gửi yêu cầu tối thiểu, đọc và nghiệm thu kết quả. Dưới đây chỉ mô tả quy trình chung; trường cụ thể theo trang của giao thức tương ứng.
+
+### 1. Xác nhận địa chỉ yêu cầu, khóa và mô hình
+
+* **Địa chỉ yêu cầu**\: cổng kết nối của trang này là `https://api.dwchainless.com`, đường dẫn điểm cuối thay đổi theo giao thức và thao tác.
+* **Khóa**\: tạo tại [Quản lý API key](https://api.dwchainless.com/keys), mang theo khi yêu cầu qua `Authorization: Bearer $API_KEY`; không ghi vào lời nhắc, mã nguồn, ảnh chụp màn hình hay Git.
+* **Mô hình**\: sao chép ID mô hình đầy đủ từ [Mô hình và giá](https://api.dwchainless.com/vi/pricing/) và xác nhận mô hình hỗ trợ điểm cuối đích. Tạo ảnh, chỉnh sửa và hiểu hình ảnh có thể do các mô hình khác nhau cung cấp.
+
+### 2. Chọn điểm cuối và định dạng yêu cầu
+
+Chọn điểm cuối theo bảng giao thức phía trên, sau đó xác nhận định dạng nội dung yêu cầu\:
+
+| Thao tác                       | Điểm cuối (định dạng OpenAI)  | Định dạng yêu cầu                   |
+| ------------------------------ | ----------------------------- | ----------------------------------- |
+| Tạo ảnh từ văn bản             | `POST /v1/images/generations` | JSON                                |
+| Chỉnh sửa ảnh / tạo ảnh từ ảnh | `POST /v1/images/edits`       | JSON `images[]` hoặc multipart      |
+| Tạo ảnh hội thoại              | `POST /v1/responses`          | JSON, bật công cụ hình ảnh          |
+| Hiểu hình ảnh                  | `POST /v1/chat/completions`   | JSON, mục nội dung chứa `image_url` |
+
+Gemini, Qwen, Jimeng, Grok và FLUX dùng trường yêu cầu gốc của riêng chúng; không thể sao chép trực tiếp các trường của OpenAI sang.
+
+### 3. Gửi yêu cầu tối thiểu
+
+Lần gọi đầu tiên chỉ tạo một ảnh, không dùng phát trực tuyến, trước hết xác nhận xác thực, mô hình và tham số đều hợp lệ. Dưới đây lấy tạo ảnh OpenAI làm ví dụ\:
+
+```bash
+API_URL="https://api.dwchainless.com/v1/images/generations"
+API_KEY="PASTE_API_KEY_HERE"
+curl "$API_URL" \
+  -H "Authorization: Bearer $API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-image-2",
+    "prompt": "一只小机器人在图书馆阅读，水彩插画，不要文字。",
+    "n": 1,
+    "size": "1024x1024",
+    "output_format": "png"
+  }'
+```
+
+Sau khi xác nhận phản hồi bình thường, hãy tăng `n`, điều chỉnh kích thước hoặc bật phát trực tuyến theo nhu cầu. Ví dụ đầy đủ đa ngôn ngữ xem [Tạo ảnh](/simidoc/vi/apps/api/images/openai/generations) và [Chỉnh sửa](/simidoc/vi/apps/api/images/openai/edits).
+
+**Hình thức trả về (minh họa)**\: Base64 trong phản hồi thật rất dài, ở đây chỉ giữ phần đầu; khi thành công hãy xem `data[]` chứ không chỉ HTTP 200.
+
+```json
+{
+  "created": 1763366400,
+  "data": [{ "b64_json": "iVBORw0KGgoAAAANSUhEUg..." }],
+  "usage": { "input_tokens": 28, "output_tokens": 4160, "total_tokens": 4188 }
+}
+```
+
+### 4. Đọc kết quả và nghiệm thu
+
+1. **Kiểm tra trạng thái**\: chỉ 2xx biểu thị yêu cầu thành công; 4xx kiểm tra tham số và quyền, 5xx hoặc quá thời gian hãy xác nhận trước yêu cầu đã được thực thi chưa.
+2. **Đọc kết quả**\: lấy ảnh từ `data[]`; GPT Image trả `data[].b64_json`, mô hình tương thích có thể trả `data[].url`; không được giả định luôn có mục đầu tiên.
+3. **Lưu ảnh**\: Base64 giải mã thành nhị phân trước, chọn phần mở rộng theo MIME thực tế; URL tải xuống kịp thời, không đính kèm API Key khi tải.
+4. **Nghiệm thu**\: kiểm tra tệp có mở được không, kích thước pixel thực, hiệu ứng trong suốt và nội dung, rồi đối chiếu nhật ký sử dụng. HTTP 200, `data[]` rỗng hay bản xem trước giữa luồng đều không có nghĩa ảnh cuối đã được lưu.
+
+## 4. Thông số ảnh và tính phí
+
+### Từng thông số trong yêu cầu điều khiển gì
+
+| Thông số         | Ý nghĩa và ví dụ                                                                   | Điểm dễ nhầm                                                                                                                                          |
+| ---------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Kích thước pixel | Chiều rộng × chiều cao thực, ví dụ `1024x1024`, `1536x1024`                        | Không phải dung lượng tệp, cũng không tự động đại diện bậc chất lượng                                                                                 |
+| Tỷ lệ khung hình | `1:1` vuông, `16:9` ngang, `9:16` dọc                                              | Cùng tỷ lệ có thể có nhiều độ phân giải; chỉ chọn tỷ lệ chưa chỉ định đủ kích thước pixel                                                             |
+| Bậc độ phân giải | Một số mô hình dùng tham số gốc `1K`, `2K`, `4K`                                   | Chiều rộng và cao thực của bậc hãng còn phụ thuộc mô hình và tỷ lệ, không nên đánh đồng trực tiếp với ranh giới pixel tính phí theo ảnh của trang này |
+| Chất lượng tạo   | Ví dụ `quality` của OpenAI, điều khiển lựa chọn chất lượng kết xuất của mô hình    | Không phải `size`, cũng không phải chất lượng nén JPEG/WebP; các mô hình khác nhau có thể không có tham số cùng tên                                   |
+| Định dạng tệp    | PNG, JPEG, WebP… lấy MIME thực tế trả về làm chuẩn                                 | Base64 và URL là cách bàn giao, không phải định dạng ảnh; đổi phần mở rộng không chuyển đổi định dạng                                                 |
+| Nền trong suốt   | Ảnh chứa kênh trong suốt, phù hợp chồng ghép tư liệu                               | Cần mô hình, tham số và định dạng tệp cùng hỗ trợ; ghi “nền trong suốt” không bảo đảm kết quả có kênh trong suốt                                      |
+| Số ảnh           | Số lượng tạo hoặc số ứng viên, trường và giới hạn thay đổi theo giao thức, mô hình | Lời nhắc ghi “tạo ba ảnh” không bằng thiết lập số lượng API; nhiều ảnh vào cũng không bằng nhiều ảnh ra                                               |
+
+Cùng một tỷ lệ, khi gấp đôi cạnh thì tổng số pixel thành bốn lần, nhưng không bảo đảm chi tiết hình ảnh hay độ nét tăng cùng bội số. Khi chọn, hãy đáp ứng trước nhu cầu sử dụng, rồi kiểm tra hỗ trợ mô hình, thời gian và giá; không nhất thiết luôn dùng bậc cao nhất.
+
+Trường cụ thể, giá trị khả dụng và ví dụ mã xem tại [Định dạng yêu cầu OpenAI](/simidoc/vi/apps/api/images/openai/generations), [Định dạng yêu cầu Gemini](/simidoc/vi/apps/api/images/gemini/generate), [Định dạng yêu cầu Qwen](/simidoc/vi/apps/api/images/qwen/generations), [Định dạng yêu cầu Jimeng](/simidoc/vi/apps/api/images/jimeng), [Định dạng yêu cầu Grok](/simidoc/vi/apps/api/images/grok), [Định dạng yêu cầu FLUX](/simidoc/vi/apps/api/images/flux). Trong đó tham số chất lượng đầu ra, định dạng và trong suốt của OpenAI xem [cài đặt đầu ra chính thức](https\://developers.openai.com/api/docs/guides/image-generation#customize-image-output); yêu cầu kích thước và đầu ra của Qwen xem [thông số chính thức](https\://www.alibabacloud.com/help/en/model-studio/qwen-image-api). Không sao chép trực tiếp tham số của giao thức này sang giao thức khác.
+
+### Khác biệt giữa tính phí theo ảnh 1K, 2K, 4K của trang này
+
+Chỉ các mô hình được ghi rõ tính phí theo ba bậc 1K / 2K / 4K theo ảnh trong [Giá mô hình](https://api.dwchainless.com/vi/pricing/) mới áp dụng bảng dưới đây. Mô hình tính theo Token hoặc đơn giá cố định khác vẫn quyết toán theo quy tắc riêng, không thể chỉ dựa vào tên “mô hình ảnh” để phán đoán cách thu phí.
+
+| Bậc tính phí | Cạnh dài nhất                        | Kích thước ví dụ (pixel) |
+| ------------ | ------------------------------------ | ------------------------ |
+| 1K           | Cả hai cạnh đều ≤ 1024 pixel         | 1024×1024                |
+| 2K           | Cạnh dài nhất > 1024 và ≤ 2048 pixel | 1280×720, 1536×1024      |
+| 4K           | Một trong hai cạnh > 2048 pixel      | 2560×1440, 3840×2160     |
+
+**Tổng giá = giá mỗi ảnh của bậc hiện tại × số ảnh tính phí.** Các giao diện hỗ trợ quyết toán theo kết quả hoàn thành sẽ tính theo số ảnh thực tế hoàn thành; bản xem trước giữa luồng không tính là ảnh hoàn thành. Giá mỗi ảnh, nhóm và khoản khấu trừ cuối cùng theo giá mô hình hiện tại và nhật ký sử dụng; trang này không cố định con số giá.
+
+Khi áp dụng quy tắc ba bậc theo ảnh nêu trên, chỉ khi không chỉ định bậc kích thước hợp lệ khác thì việc bỏ `size` hoặc dùng `auto` mới mặc định tính theo bậc 1K; trường độ phân giải gốc được chỉ định rõ vẫn quyết định bậc tính phí. Phân loại theo ranh giới sau\: 1K là cả hai cạnh đều ≤ 1024; 2K là cạnh dài nhất > 1024 và ≤ 2048; 4K là một trong hai cạnh > 2048. Ví dụ `1280x720` thuộc 2K, `2560x1440` thuộc 4K.
+
+**Bậc tính phí không phải cam kết kích thước đầu ra.** `generationConfig.imageConfig.imageSize` của Gemini là lựa chọn độ phân giải gốc của mô hình, kích thước pixel thực cần xác nhận cùng mô hình và tỷ lệ; trang này tính bậc tính phí theo trường yêu cầu được hỗ trợ, không vì thế cam kết chiều rộng và cao đầu ra thống nhất. Không điền đồng thời các trường kích thước xung đột, cũng không áp quy tắc theo ảnh cho kết nối trực tiếp chính thức hoặc mô hình tính theo Token.
+
+### Tra nhanh tỷ lệ phổ biến\: 14 tỷ lệ × 1K / 2K / 4K
+
+Bảng dưới liệt kê kích thước đặt trước 1K, 2K, 4K phổ biến theo tỷ lệ, giúp chọn nhanh khung hình. Đây là bảng tra kích thước, không phải danh sách mô hình hỗ trợ\: tỷ lệ khả dụng, tên đặt trước và giới hạn mỗi cạnh thay đổi theo mô hình và kênh; trước khi yêu cầu vẫn phải dựa vào mô tả mô hình hoặc lỗi giao diện.
+
+Bậc K là tên đặt trước, không phải bậc tính phí theo ảnh của trang này. Một số đặt trước “1K” có cạnh dài đã vượt 1024 pixel, theo quy tắc trang này sẽ xếp vào bậc 2K; ví dụ đặt trước 1K 16\:9 `1536x864` thuộc 2K. Việc tính phí luôn theo kích thước yêu cầu thực tế và [Giá mô hình](https://api.dwchainless.com/vi/pricing/).
+
+| Tỷ lệ     | Mục đích phổ biến                 | Kích thước 1K | Kích thước 2K | Kích thước 4K              |
+| :-------- | :-------------------------------- | :------------ | :------------ | :------------------------- |
+| `1:1`     | Ảnh đại diện vuông / ảnh sản phẩm | `1024x1024`   | `2048x2048`   | `3840x3840`                |
+| `4:3`     | Minh họa ngang / ảnh trưng bày    | `1152x896`    | `2048x1536`   | `3840x2880`                |
+| `3:4`     | Áp phích dọc / chân dung          | `896x1152`    | `1536x2048`   | `2880x3840`                |
+| `16:9`    | Bìa ngang / slide                 | `1536x864`    | `2048x1152`   | `3840x2160`                |
+| `9:16`    | Bìa dọc / hình nền điện thoại     | `864x1536`    | `1152x2048`   | `2160x3840`                |
+| `3:2`     | Nhiếp ảnh ngang                   | `1536x1024`   | `2048x1360`   | `3840x2560`                |
+| `2:3`     | Nhiếp ảnh dọc                     | `1024x1536`   | `1360x2048`   | `2560x3840`                |
+| `5:4`     | Trưng bày sản phẩm ngang          | `1280x1024`   | `2560x2048`   | `3840x3072`                |
+| `4:5`     | Sản phẩm dọc / ảnh mạng xã hội    | `1024x1280`   | `2048x2560`   | `3072x3840`                |
+| `21:9`    | Cảnh rộng / banner                | `1792x768`    | `2048x880`    | `3840x1648`                |
+| `1:4`     | Dải dọc hẹp dài                   | `512x2048`    | `768x3072`    | **Vượt giới hạn một cạnh** |
+| `4:1`     | Dải ngang hẹp dài                 | `2048x512`    | `3072x768`    | **Vượt giới hạn một cạnh** |
+| `1.414:1` | Giấy ngang gần khổ A              | `1440x1024`   | `2048x1456`   | `3840x2720`                |
+| `1:1.414` | Giấy dọc gần khổ A                | `1024x1440`   | `1456x2048`   | `2720x3840`                |
+
+### Ba cách viết size đúng
+
+Một số cổng kết nối tương thích OpenAI hỗ trợ các cách viết sau; trường có hiệu lực hay không phụ thuộc mô hình và kênh, khi không được hỗ trợ hãy quay lại pixel rõ ràng.
+
+| Cách viết                   | Đoạn yêu cầu                       | Mục đích                                                         |
+| :-------------------------- | :--------------------------------- | :--------------------------------------------------------------- |
+| Pixel rõ ràng (khuyến nghị) | `{"size":"1536x2048"}`             | Trực quan nhất, tránh khác biệt quy đổi đặt trước                |
+| Tỷ lệ + độ phân giải        | `{"size":"3:4","resolution":"2k"}` | Quy đổi theo đặt trước 2K / 3\:4                                 |
+| Kích thước tự động          | `{"size":"auto"}`                  | Mô hình chọn theo năng lực, không cam kết chiều rộng cao cố định |
+
+* Bậc K điền vào `resolution`, `size` điền pixel hoặc tỷ lệ; không viết `2k` vào `size`.
+* Dấu phân cách kích thước dùng chữ `x` thường, không dùng dấu nhân ×, X hoa, mảng hay chuỗi có dấu nhân.
+* Khi viết tỷ lệ vào `size` thì ưu tiên hơn `aspect_ratio` riêng; pixel rõ ràng hoặc `auto` ưu tiên hơn đặt trước tỷ lệ.
+* Giới hạn kích thước tùy ý chính thức của OpenAI cho gpt-image-2 là 3840×2160; tổ hợp 4K của `1:4`, `4:1` vượt giới hạn này nên được ghi là vượt giới hạn một cạnh. Giới hạn của các mô hình khác theo mô tả mô hình.
+* Gemini và Qwen dùng trường kích thước riêng, không thể áp dụng trực tiếp các cách viết trên.
+
+### Tham khảo kích thước phổ biến\: 28 loại
+
+Các nhãn dưới đây chỉ biểu thị bậc tính phí theo quy tắc theo ảnh nêu trên, không bảo đảm mô hình được chọn hỗ trợ các kích thước này. Hãy kiểm tra phạm vi hỗ trợ giao diện của mô hình trước rồi mới chọn kích thước; không dùng bậc tính phí trực tiếp làm giá trị tham số giao diện.
+
+| Mục đích / tỷ lệ             | Kích thước (pixel) và bậc tính phí                                           |
+| ---------------------------- | ---------------------------------------------------------------------------- |
+| Ảnh vuông chung · 1\:1       | 1024×1024 · 1K; 1536×1536 · 2K; 2048×2048 · 2K                               |
+| Bìa ngang · 16\:9            | 1280×720 · 2K; 1536×864 · 2K; 2048×1152 · 2K; 2560×1440 · 4K; 3840×2160 · 4K |
+| Video dọc / Story · 9\:16    | 720×1280 · 2K; 864×1536 · 2K; 1152×2048 · 2K; 1440×2560 · 4K; 2160×3840 · 4K |
+| Ảnh minh họa bài viết · 3\:2 | 1536×1024 · 2K; 1920×1280 · 2K; 2400×1600 · 4K                               |
+| Áp phích dọc · 2\:3          | 1024×1536 · 2K; 1280×1920 · 2K; 1600×2400 · 4K                               |
+| Banner rộng · 2\:1           | 1536×768 · 2K; 2048×1024 · 2K; 2560×1280 · 4K; 3840×1920 · 4K                |
+| Banner siêu rộng · 3\:1      | 1536×512 · 2K; 1920×640 · 2K; 2400×800 · 4K; 3072×1024 · 4K; 3840×1280 · 4K  |
+
+## 5. Đi sâu theo giao thức
+
+Đầy đủ tham số, cấu trúc trả về, ví dụ mã và xử lý lỗi của từng giao thức\:
+
+* [Định dạng OpenAI](/simidoc/vi/apps/api/images/openai)
+* [Định dạng Gemini](/simidoc/vi/apps/api/images/gemini)
+* [Định dạng Qwen](/simidoc/vi/apps/api/images/qwen)
+* [Định dạng Jimeng / Volcengine Ark](/simidoc/vi/apps/api/images/jimeng)
+* [Định dạng xAI Grok](/simidoc/vi/apps/api/images/grok)
+* [Định dạng BFL FLUX](/simidoc/vi/apps/api/images/flux)
+
+# Ví dụ gọi ảnh đã được sắp xếp theo giao thức
+
+Không còn dùng một hướng dẫn mã chung chỉ phù hợp OpenAI Images. Chọn giao thức thực tế\: mỗi trang theo thứ tự “định dạng và tham số yêu cầu → tham số phản hồi → ví dụ gọi”, có thông số ảnh, mã bốn ngôn ngữ, tác vụ tác tử và quy trình lưu an toàn.
+
+* [Định dạng OpenAI](/simidoc/vi/apps/api/images/openai)\: tạo / sửa bằng Images, tạo trong hội thoại bằng Responses và hiểu ảnh.
+* [Gemini gốc](/simidoc/vi/apps/api/images/gemini)\: Part văn bản / ảnh của GenerateContent và lưu Base64.
+* [Qwen gốc](/simidoc/vi/apps/api/images/qwen)\: endpoint khu vực chính thức, cấu trúc tin nhắn và lưu URL kết quả.
+
+So sánh API, hiệu ứng và thông số 1K / 2K / 4K tại [tổng quan API hình ảnh](/simidoc/vi/apps/api/images). Liên kết cũ được giữ ở đây; thao tác thực theo từng giao thức, không trộn thông tin xác thực, tham số hay trường phản hồi.
+
 # Claude Messages
 
 ## Tổng quan API
@@ -7670,616 +7915,6 @@ Phản hồi dài và yêu cầu streaming có thể mất từ vài chục giâ
 * [Chế độ nền OpenAI](https\://developers.openai.com/api/docs/guides/background)
 * [Xử lý lỗi OpenAI](https\://developers.openai.com/api/docs/guides/error-codes)
 
-# Gọi ảnh bằng tác tử đã tích hợp vào tài liệu giao thức
-
-Tác vụ tác tử đã được phân vào ba giao thức. Mỗi trang có mẫu tạo và sửa, chuẩn bị cấu hình, lưu kết quả và xử lý lỗi; không còn duy trì hướng dẫn riêng thiên về OpenAI Images.
-
-* [Tác tử theo định dạng OpenAI](/simidoc/vi/apps/api/images/openai)\: tạo bằng Images, chỉnh sửa JSON và kiểm tra sự kiện cuối.
-* [Tác tử theo Gemini gốc](/simidoc/vi/apps/api/images/gemini)\: Part ảnh GenerateContent, MIME và ngữ cảnh nhiều lượt.
-* [Tác tử theo Qwen gốc](/simidoc/vi/apps/api/images/qwen)\: cấu hình khu vực chính thức, gọi đồng bộ và tải URL ảnh.
-
-Tác tử vẫn cần chạy cục bộ và kiểm tra phản hồi; tài liệu không cài Skill từ xa. Yêu cầu thật có thể tính phí\: xác nhận mô hình, thông số, số lượng và nơi lưu; không lộ khóa, không ghi đè và không tự thử lại. Xem so sánh API, hiệu ứng và thông số tại [tổng quan API hình ảnh](/simidoc/vi/apps/api/images).
-
-# Hình ảnh
-
-Chọn **giao thức API** trước, sau đó xác định **hiệu ứng** cần thực hiện, cuối cùng kiểm tra **kích thước, chất lượng, định dạng và số lượng**. Giao thức quyết định cấu trúc yêu cầu và phản hồi, hiệu ứng do năng lực mô hình và lời nhắc cùng quyết định, thông số quyết định yêu cầu đầu ra; không được trộn lẫn ba khái niệm này.
-
-Tạo và chỉnh sửa trả về hình ảnh; hiểu hình ảnh nhận hình ảnh làm đầu vào và trả về văn bản hoặc kết quả có cấu trúc. Mô hình văn bản thông thường không có khả năng tạo ảnh chỉ vì thêm tham số hình ảnh. Trước khi gọi, hãy xác nhận ID mô hình chính xác, hỗ trợ API, nhóm tính phí và hạn mức tại [Mô hình và giá](https://api.dwchainless.com/vi/pricing/); yêu cầu thực tế có thể phát sinh phí.
-
-## Tổng quan
-
-| Bạn muốn làm gì               | Đầu vào                                  | Đầu ra                         | Điểm cuối điển hình           |
-| ----------------------------- | ---------------------------------------- | ------------------------------ | ----------------------------- |
-| Tạo ảnh từ văn bản            | Lời nhắc                                 | Ảnh mới                        | `POST /v1/images/generations` |
-| Sửa ảnh đã có                 | Lời nhắc + một hoặc nhiều ảnh tham chiếu | Ảnh đã chỉnh sửa               | `POST /v1/images/edits`       |
-| Vừa trò chuyện vừa tạo ảnh    | Tin nhắn hội thoại + công cụ hình ảnh    | Kết quả kết hợp ảnh và văn bản | `POST /v1/responses`          |
-| Để mô hình xem ảnh và trả lời | Ảnh + câu hỏi                            | Văn bản, không phải ảnh mới    | `POST /v1/chat/completions`   |
-
-## Khái niệm cốt lõi
-
-Trước hết hãy phân biệt ba loại con số, khi đó các tham số và giá phía sau mới dễ hiểu\:
-
-* **Kích thước pixel**\: chiều rộng × chiều cao thực tế, ví dụ `1024x1024`. Nó quyết định độ phân giải thực của tệp, không phải dung lượng tệp và cũng không tương đương bậc chất lượng.
-* **Tỷ lệ khung hình**\: các tỷ lệ như `1:1`, `16:9`, `9:16`, chỉ quyết định hình dạng khung hình. Cùng một tỷ lệ có thể ứng với nhiều kích thước pixel; chỉ nêu tỷ lệ không có nghĩa là đã chỉ định kích thước đầu ra.
-* **Bậc độ phân giải**\: các bậc như `1K`, `2K`, `4K`. Bậc gốc của hãng được định nghĩa theo cạnh dài nhất hoặc theo dòng sản phẩm, còn bậc tính phí theo ảnh của trang này được xếp theo cạnh dài nhất; hai bên có thể cùng tên nhưng ranh giới không nhất thiết trùng nhau và không thể suy ra lẫn nhau.
-
-Còn có ba hiểu lầm phổ biến\: `quality` điều khiển chất lượng kết xuất chứ không phải chất lượng nén; PNG, JPEG, WebP là định dạng tệp, đổi phần mở rộng không chuyển đổi định dạng; Base64 và URL chỉ là cách bàn giao, không phải độ phân giải. Xem đối chiếu từng mục ở mục 4 bên dưới, “Thông số ảnh và tính phí”.
-
-## 1. Các API\: chọn theo giao thức
-
-Ba bộ giao thức có tham số yêu cầu, tham số trả về và ví dụ độc lập. Cách gọi bằng script, sử dụng trong tác tử, lưu kết quả và xử lý thất bại cũng được mô tả trong từng giao thức, không cần đọc trước một hướng dẫn chung chỉ dành cho OpenAI.
-
-| Giao thức               | API / khả năng                                       | Điểm cuối yêu cầu                                      | Kết quả chính                                              | Tài liệu                                                 |
-| ----------------------- | ---------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------------- | -------------------------------------------------------- |
-| OpenAI                  | Tạo ảnh từ văn bản                                   | `POST /v1/images/generations`                          | `data[].b64_json`; mô hình tương thích cũng có thể trả URL | [Tạo ảnh](/simidoc/vi/apps/api/images/openai/generations)                          |
-| OpenAI                  | Chỉnh sửa ảnh / tạo ảnh từ ảnh                       | `POST /v1/images/edits`                                | Ảnh đã chỉnh sửa                                           | [Chỉnh sửa](/simidoc/vi/apps/api/images/openai/edits)                              |
-| OpenAI                  | Tạo ảnh hội thoại                                    | `POST /v1/responses`, dùng công cụ `image_generation`  | Kết quả công cụ hình ảnh trong `output[]`                  | [Tạo ảnh hội thoại](/simidoc/vi/apps/api/images/openai/chat-format)                |
-| OpenAI                  | Hiểu hình ảnh                                        | `POST /v1/chat/completions`, nhập `image_url`          | Phân tích văn bản, không tạo ảnh                           | [Hiểu hình ảnh](/simidoc/vi/apps/api/images/openai/vision)                         |
-| Gemini                  | Tạo ảnh từ văn bản                                   | `POST /v1beta/models/{model}:generateContent`          | `candidates[].content.parts[].inlineData`                  | [Tạo ảnh](/simidoc/vi/apps/api/images/gemini/generate)                             |
-| Gemini                  | Chỉnh sửa ảnh / sửa nhiều lượt                       | Như trên, trộn văn bản và hình ảnh                     | Hình ảnh trong các mục nội dung trả về                     | [Chỉnh sửa](/simidoc/vi/apps/api/images/gemini/edits)                              |
-| Gemini                  | Hiểu hình ảnh                                        | Như trên, dùng mô hình hỗ trợ đầu vào thị giác         | Phân tích văn bản                                          | [Nhận diện phương tiện](/simidoc/vi/apps/api/chat/gemini-media)            |
-| Qwen                    | Tạo ảnh / chỉnh sửa ảnh                              | `POST /v1/images/generations`, `POST /v1/images/edits` | `data[].url` hoặc `data[].b64_json`                        | [Tạo ảnh](/simidoc/vi/apps/api/images/qwen/generations), [Chỉnh sửa](/simidoc/vi/apps/api/images/qwen/edits) |
-| Jimeng / Volcengine Ark | Tạo ảnh từ văn bản / tạo từ ảnh tham chiếu           | `POST /api/v3/images/generations`                      | `data[].url` hoặc `data[].b64_json`                        | [Tạo ảnh](/simidoc/vi/apps/api/images/jimeng)                                      |
-| xAI Grok                | Tạo ảnh từ văn bản / tạo nhiều ảnh                   | `POST /v1/images/generations`                          | `data[].url` hoặc `data[].b64_json`                        | [Tạo ảnh](/simidoc/vi/apps/api/images/grok)                                        |
-| BFL FLUX                | Tạo ảnh từ văn bản / từ ảnh tham chiếu (bất đồng bộ) | `POST /v1/flux-pro-1.1` và tương tự                    | Trước lấy `polling_url`, hoàn tất rồi lấy `result.sample`  | [Tạo ảnh](/simidoc/vi/apps/api/images/flux)                                        |
-
-**Phần Qwen này dùng nội dung yêu cầu gốc của Qwen, gọi qua `/v1/images/generations` và `/v1/images/edits` của cổng kết nối trang này, trả về thống nhất dưới dạng `data[]`.** Không viết lại nội dung thành trường `prompt` của OpenAI; ID mô hình phải dùng tên do kênh thực tế của trang này cung cấp. Jimeng dùng nội dung yêu cầu gốc của Volcengine Ark; đường dẫn của Grok giống OpenAI Images, nhưng tham số khung hình đổi thành `aspect_ratio` và `resolution`; FLUX không tạo ảnh đồng bộ, phải gửi tác vụ trước rồi thăm dò `polling_url`. Ba bên không thể sao chép trường của nhau.
-
-Cách gọi cũng khác nhau theo giao thức\: yêu cầu thông thường của OpenAI Images chờ kết quả đầy đủ, chỉ mô hình được hỗ trợ mới dùng được luồng sự kiện hình ảnh; Gemini phát trực tuyến dùng `streamGenerateContent?alt=sse`; ví dụ Qwen trong thư mục này dùng trả về đồng bộ; Grok mặc định đồng bộ, cũng có thể dùng `deferred` để chuyển thành tác vụ trì hoãn; FLUX thì cố định là thăm dò bất đồng bộ. Chúng đều không thể biến thành hàng đợi tác vụ chung chỉ bằng cách thêm tham số “bất đồng bộ”. Yêu cầu, đầu ra và cách xác định hoàn tất cụ thể xem mô tả riêng của [OpenAI](/simidoc/vi/apps/api/images/openai), [Gemini](/simidoc/vi/apps/api/images/gemini), [Qwen](/simidoc/vi/apps/api/images/qwen), [Jimeng](/simidoc/vi/apps/api/images/jimeng), [Grok](/simidoc/vi/apps/api/images/grok), [FLUX](/simidoc/vi/apps/api/images/flux).
-
-## 2. Các hiệu ứng\: chọn theo mục tiêu
-
-“Màu nước”, “đổi nền”, “ghép sản phẩm”… thường là tác vụ tạo hoặc chỉnh sửa, không phải các API độc lập. Dưới đây là phân loại tác vụ, không phải cam kết năng lực cho mọi mô hình; hãy xác nhận phạm vi hỗ trợ trong giao thức và mô tả mô hình tương ứng trước.
-
-| Hiệu ứng muốn có                                             | Trọng tâm đầu vào và lời nhắc                                              | Lựa chọn và giới hạn giao diện                                                                                                      |
-| ------------------------------------------------------------ | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Sáng tạo từ đầu\: minh họa, bìa, áp phích, hình ảnh thực tế  | Mô tả chủ thể, bố cục, phong cách, ánh sáng và chữ cần hiển thị            | Chọn tạo ảnh từ văn bản; cần kiểm tra chữ và chi tiết                                                                               |
-| Biến thể ảnh tham chiếu\: giữ chủ thể hoặc bố cục để tạo lại | Cung cấp ảnh tham chiếu, nêu riêng phần giữ lại và phần thay đổi           | Chọn chỉnh sửa ảnh / tạo ảnh từ ảnh; không bảo đảm giữ nguyên từng pixel                                                            |
-| Chuyển phong cách\: ảnh chụp sang màu nước, nét vẽ…          | Ảnh tham chiếu cộng phong cách đích, nêu rõ có giữ chủ thể và bố cục không | Chọn mô hình chỉnh sửa hỗ trợ ảnh tham chiếu                                                                                        |
-| Thay nền, thêm bớt phần tử, sửa cục bộ                       | Nêu rõ vùng cần sửa; cung cấp mặt nạ khi được hỗ trợ                       | Chọn giao diện chỉnh sửa; hỗ trợ mặt nạ và quy tắc thay đổi theo mô hình                                                            |
-| Ghép nhiều ảnh\: sản phẩm, nhân vật và bối cảnh              | Nêu mục đích từng ảnh tham chiếu, quan hệ chủ thể và bố cục cuối           | Chọn mô hình chỉnh sửa hỗ trợ nhiều ảnh vào, kiểm tra giới hạn số ảnh                                                               |
-| Lặp nhiều lượt\: sửa tiếp dựa trên ảnh trước                 | Giữ nội dung lịch sử hoặc thông tin tham chiếu theo yêu cầu giao thức      | Chọn giao diện hỗ trợ làm việc với hình ảnh nhiều lượt; không thể giả định ngữ cảnh hình ảnh vẫn còn chỉ vì đã lưu một đoạn văn bản |
-| Tư liệu nền trong suốt                                       | Nêu rõ cần kênh trong suốt thật, không phải nền trắng hay họa tiết bàn cờ  | Chỉ chọn nền trong suốt và định dạng đầu ra giữ được kênh trong suốt khi mô hình hỗ trợ                                             |
-| Nhận diện ảnh, trích xuất chữ, hỏi đáp về biểu đồ            | Nhập ảnh và nêu mục tiêu phân tích                                         | Chọn giao diện hiểu hình ảnh, trả về văn bản thay vì ảnh đã chỉnh sửa                                                               |
-
-Có thể tham khảo các năng lực và giới hạn này tại [Tạo ảnh OpenAI](https\://developers.openai.com/api/docs/guides/image-generation), [Tạo và chỉnh sửa ảnh Gemini](https\://ai.google.dev/gemini-api/docs/image-generation), [Chỉnh sửa ảnh Qwen](https\://www.alibabacloud.com/help/en/model-studio/qwen-image-edit-api). Ví dụ chính thức không có nghĩa kênh hiện tại của cổng kết nối đã mở cùng năng lực.
-
-## 3. Gọi API\: bốn bước để có ảnh đầu tiên
-
-Dù chọn giao thức nào, việc gọi đều theo cùng thứ tự\: xác nhận cấu hình, chọn điểm cuối, gửi yêu cầu tối thiểu, đọc và nghiệm thu kết quả. Dưới đây chỉ mô tả quy trình chung; trường cụ thể theo trang của giao thức tương ứng.
-
-### 1. Xác nhận địa chỉ yêu cầu, khóa và mô hình
-
-* **Địa chỉ yêu cầu**\: cổng kết nối của trang này là `https://api.dwchainless.com`, đường dẫn điểm cuối thay đổi theo giao thức và thao tác.
-* **Khóa**\: tạo tại [Quản lý API key](https://api.dwchainless.com/keys), mang theo khi yêu cầu qua `Authorization: Bearer $API_KEY`; không ghi vào lời nhắc, mã nguồn, ảnh chụp màn hình hay Git.
-* **Mô hình**\: sao chép ID mô hình đầy đủ từ [Mô hình và giá](https://api.dwchainless.com/vi/pricing/) và xác nhận mô hình hỗ trợ điểm cuối đích. Tạo ảnh, chỉnh sửa và hiểu hình ảnh có thể do các mô hình khác nhau cung cấp.
-
-### 2. Chọn điểm cuối và định dạng yêu cầu
-
-Chọn điểm cuối theo bảng giao thức phía trên, sau đó xác nhận định dạng nội dung yêu cầu\:
-
-| Thao tác                       | Điểm cuối (định dạng OpenAI)  | Định dạng yêu cầu                   |
-| ------------------------------ | ----------------------------- | ----------------------------------- |
-| Tạo ảnh từ văn bản             | `POST /v1/images/generations` | JSON                                |
-| Chỉnh sửa ảnh / tạo ảnh từ ảnh | `POST /v1/images/edits`       | JSON `images[]` hoặc multipart      |
-| Tạo ảnh hội thoại              | `POST /v1/responses`          | JSON, bật công cụ hình ảnh          |
-| Hiểu hình ảnh                  | `POST /v1/chat/completions`   | JSON, mục nội dung chứa `image_url` |
-
-Gemini, Qwen, Jimeng, Grok và FLUX dùng trường yêu cầu gốc của riêng chúng; không thể sao chép trực tiếp các trường của OpenAI sang.
-
-### 3. Gửi yêu cầu tối thiểu
-
-Lần gọi đầu tiên chỉ tạo một ảnh, không dùng phát trực tuyến, trước hết xác nhận xác thực, mô hình và tham số đều hợp lệ. Dưới đây lấy tạo ảnh OpenAI làm ví dụ\:
-
-```bash
-API_URL="https://api.dwchainless.com/v1/images/generations"
-API_KEY="PASTE_API_KEY_HERE"
-curl "$API_URL" \
-  -H "Authorization: Bearer $API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "gpt-image-2",
-    "prompt": "一只小机器人在图书馆阅读，水彩插画，不要文字。",
-    "n": 1,
-    "size": "1024x1024",
-    "output_format": "png"
-  }'
-```
-
-Sau khi xác nhận phản hồi bình thường, hãy tăng `n`, điều chỉnh kích thước hoặc bật phát trực tuyến theo nhu cầu. Ví dụ đầy đủ đa ngôn ngữ xem [Tạo ảnh](/simidoc/vi/apps/api/images/openai/generations) và [Chỉnh sửa](/simidoc/vi/apps/api/images/openai/edits).
-
-**Hình thức trả về (minh họa)**\: Base64 trong phản hồi thật rất dài, ở đây chỉ giữ phần đầu; khi thành công hãy xem `data[]` chứ không chỉ HTTP 200.
-
-```json
-{
-  "created": 1763366400,
-  "data": [{ "b64_json": "iVBORw0KGgoAAAANSUhEUg..." }],
-  "usage": { "input_tokens": 28, "output_tokens": 4160, "total_tokens": 4188 }
-}
-```
-
-### 4. Đọc kết quả và nghiệm thu
-
-1. **Kiểm tra trạng thái**\: chỉ 2xx biểu thị yêu cầu thành công; 4xx kiểm tra tham số và quyền, 5xx hoặc quá thời gian hãy xác nhận trước yêu cầu đã được thực thi chưa.
-2. **Đọc kết quả**\: lấy ảnh từ `data[]`; GPT Image trả `data[].b64_json`, mô hình tương thích có thể trả `data[].url`; không được giả định luôn có mục đầu tiên.
-3. **Lưu ảnh**\: Base64 giải mã thành nhị phân trước, chọn phần mở rộng theo MIME thực tế; URL tải xuống kịp thời, không đính kèm API Key khi tải.
-4. **Nghiệm thu**\: kiểm tra tệp có mở được không, kích thước pixel thực, hiệu ứng trong suốt và nội dung, rồi đối chiếu nhật ký sử dụng. HTTP 200, `data[]` rỗng hay bản xem trước giữa luồng đều không có nghĩa ảnh cuối đã được lưu.
-
-## 4. Thông số ảnh và tính phí
-
-### Từng thông số trong yêu cầu điều khiển gì
-
-| Thông số         | Ý nghĩa và ví dụ                                                                   | Điểm dễ nhầm                                                                                                                                          |
-| ---------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Kích thước pixel | Chiều rộng × chiều cao thực, ví dụ `1024x1024`, `1536x1024`                        | Không phải dung lượng tệp, cũng không tự động đại diện bậc chất lượng                                                                                 |
-| Tỷ lệ khung hình | `1:1` vuông, `16:9` ngang, `9:16` dọc                                              | Cùng tỷ lệ có thể có nhiều độ phân giải; chỉ chọn tỷ lệ chưa chỉ định đủ kích thước pixel                                                             |
-| Bậc độ phân giải | Một số mô hình dùng tham số gốc `1K`, `2K`, `4K`                                   | Chiều rộng và cao thực của bậc hãng còn phụ thuộc mô hình và tỷ lệ, không nên đánh đồng trực tiếp với ranh giới pixel tính phí theo ảnh của trang này |
-| Chất lượng tạo   | Ví dụ `quality` của OpenAI, điều khiển lựa chọn chất lượng kết xuất của mô hình    | Không phải `size`, cũng không phải chất lượng nén JPEG/WebP; các mô hình khác nhau có thể không có tham số cùng tên                                   |
-| Định dạng tệp    | PNG, JPEG, WebP… lấy MIME thực tế trả về làm chuẩn                                 | Base64 và URL là cách bàn giao, không phải định dạng ảnh; đổi phần mở rộng không chuyển đổi định dạng                                                 |
-| Nền trong suốt   | Ảnh chứa kênh trong suốt, phù hợp chồng ghép tư liệu                               | Cần mô hình, tham số và định dạng tệp cùng hỗ trợ; ghi “nền trong suốt” không bảo đảm kết quả có kênh trong suốt                                      |
-| Số ảnh           | Số lượng tạo hoặc số ứng viên, trường và giới hạn thay đổi theo giao thức, mô hình | Lời nhắc ghi “tạo ba ảnh” không bằng thiết lập số lượng API; nhiều ảnh vào cũng không bằng nhiều ảnh ra                                               |
-
-Cùng một tỷ lệ, khi gấp đôi cạnh thì tổng số pixel thành bốn lần, nhưng không bảo đảm chi tiết hình ảnh hay độ nét tăng cùng bội số. Khi chọn, hãy đáp ứng trước nhu cầu sử dụng, rồi kiểm tra hỗ trợ mô hình, thời gian và giá; không nhất thiết luôn dùng bậc cao nhất.
-
-Trường cụ thể, giá trị khả dụng và ví dụ mã xem tại [Định dạng yêu cầu OpenAI](/simidoc/vi/apps/api/images/openai/generations), [Định dạng yêu cầu Gemini](/simidoc/vi/apps/api/images/gemini/generate), [Định dạng yêu cầu Qwen](/simidoc/vi/apps/api/images/qwen/generations), [Định dạng yêu cầu Jimeng](/simidoc/vi/apps/api/images/jimeng), [Định dạng yêu cầu Grok](/simidoc/vi/apps/api/images/grok), [Định dạng yêu cầu FLUX](/simidoc/vi/apps/api/images/flux). Trong đó tham số chất lượng đầu ra, định dạng và trong suốt của OpenAI xem [cài đặt đầu ra chính thức](https\://developers.openai.com/api/docs/guides/image-generation#customize-image-output); yêu cầu kích thước và đầu ra của Qwen xem [thông số chính thức](https\://www.alibabacloud.com/help/en/model-studio/qwen-image-api). Không sao chép trực tiếp tham số của giao thức này sang giao thức khác.
-
-### Khác biệt giữa tính phí theo ảnh 1K, 2K, 4K của trang này
-
-Chỉ các mô hình được ghi rõ tính phí theo ba bậc 1K / 2K / 4K theo ảnh trong [Giá mô hình](https://api.dwchainless.com/vi/pricing/) mới áp dụng bảng dưới đây. Mô hình tính theo Token hoặc đơn giá cố định khác vẫn quyết toán theo quy tắc riêng, không thể chỉ dựa vào tên “mô hình ảnh” để phán đoán cách thu phí.
-
-| Bậc tính phí | Cạnh dài nhất                        | Kích thước ví dụ (pixel) |
-| ------------ | ------------------------------------ | ------------------------ |
-| 1K           | Cả hai cạnh đều ≤ 1024 pixel         | 1024×1024                |
-| 2K           | Cạnh dài nhất > 1024 và ≤ 2048 pixel | 1280×720, 1536×1024      |
-| 4K           | Một trong hai cạnh > 2048 pixel      | 2560×1440, 3840×2160     |
-
-**Tổng giá = giá mỗi ảnh của bậc hiện tại × số ảnh tính phí.** Các giao diện hỗ trợ quyết toán theo kết quả hoàn thành sẽ tính theo số ảnh thực tế hoàn thành; bản xem trước giữa luồng không tính là ảnh hoàn thành. Giá mỗi ảnh, nhóm và khoản khấu trừ cuối cùng theo giá mô hình hiện tại và nhật ký sử dụng; trang này không cố định con số giá.
-
-Khi áp dụng quy tắc ba bậc theo ảnh nêu trên, chỉ khi không chỉ định bậc kích thước hợp lệ khác thì việc bỏ `size` hoặc dùng `auto` mới mặc định tính theo bậc 1K; trường độ phân giải gốc được chỉ định rõ vẫn quyết định bậc tính phí. Phân loại theo ranh giới sau\: 1K là cả hai cạnh đều ≤ 1024; 2K là cạnh dài nhất > 1024 và ≤ 2048; 4K là một trong hai cạnh > 2048. Ví dụ `1280x720` thuộc 2K, `2560x1440` thuộc 4K.
-
-**Bậc tính phí không phải cam kết kích thước đầu ra.** `generationConfig.imageConfig.imageSize` của Gemini là lựa chọn độ phân giải gốc của mô hình, kích thước pixel thực cần xác nhận cùng mô hình và tỷ lệ; trang này tính bậc tính phí theo trường yêu cầu được hỗ trợ, không vì thế cam kết chiều rộng và cao đầu ra thống nhất. Không điền đồng thời các trường kích thước xung đột, cũng không áp quy tắc theo ảnh cho kết nối trực tiếp chính thức hoặc mô hình tính theo Token.
-
-### Tra nhanh tỷ lệ phổ biến\: 14 tỷ lệ × 1K / 2K / 4K
-
-Bảng dưới liệt kê kích thước đặt trước 1K, 2K, 4K phổ biến theo tỷ lệ, giúp chọn nhanh khung hình. Đây là bảng tra kích thước, không phải danh sách mô hình hỗ trợ\: tỷ lệ khả dụng, tên đặt trước và giới hạn mỗi cạnh thay đổi theo mô hình và kênh; trước khi yêu cầu vẫn phải dựa vào mô tả mô hình hoặc lỗi giao diện.
-
-Bậc K là tên đặt trước, không phải bậc tính phí theo ảnh của trang này. Một số đặt trước “1K” có cạnh dài đã vượt 1024 pixel, theo quy tắc trang này sẽ xếp vào bậc 2K; ví dụ đặt trước 1K 16\:9 `1536x864` thuộc 2K. Việc tính phí luôn theo kích thước yêu cầu thực tế và [Giá mô hình](https://api.dwchainless.com/vi/pricing/).
-
-| Tỷ lệ     | Mục đích phổ biến                 | Kích thước 1K | Kích thước 2K | Kích thước 4K              |
-| :-------- | :-------------------------------- | :------------ | :------------ | :------------------------- |
-| `1:1`     | Ảnh đại diện vuông / ảnh sản phẩm | `1024x1024`   | `2048x2048`   | `3840x3840`                |
-| `4:3`     | Minh họa ngang / ảnh trưng bày    | `1152x896`    | `2048x1536`   | `3840x2880`                |
-| `3:4`     | Áp phích dọc / chân dung          | `896x1152`    | `1536x2048`   | `2880x3840`                |
-| `16:9`    | Bìa ngang / slide                 | `1536x864`    | `2048x1152`   | `3840x2160`                |
-| `9:16`    | Bìa dọc / hình nền điện thoại     | `864x1536`    | `1152x2048`   | `2160x3840`                |
-| `3:2`     | Nhiếp ảnh ngang                   | `1536x1024`   | `2048x1360`   | `3840x2560`                |
-| `2:3`     | Nhiếp ảnh dọc                     | `1024x1536`   | `1360x2048`   | `2560x3840`                |
-| `5:4`     | Trưng bày sản phẩm ngang          | `1280x1024`   | `2560x2048`   | `3840x3072`                |
-| `4:5`     | Sản phẩm dọc / ảnh mạng xã hội    | `1024x1280`   | `2048x2560`   | `3072x3840`                |
-| `21:9`    | Cảnh rộng / banner                | `1792x768`    | `2048x880`    | `3840x1648`                |
-| `1:4`     | Dải dọc hẹp dài                   | `512x2048`    | `768x3072`    | **Vượt giới hạn một cạnh** |
-| `4:1`     | Dải ngang hẹp dài                 | `2048x512`    | `3072x768`    | **Vượt giới hạn một cạnh** |
-| `1.414:1` | Giấy ngang gần khổ A              | `1440x1024`   | `2048x1456`   | `3840x2720`                |
-| `1:1.414` | Giấy dọc gần khổ A                | `1024x1440`   | `1456x2048`   | `2720x3840`                |
-
-### Ba cách viết size đúng
-
-Một số cổng kết nối tương thích OpenAI hỗ trợ các cách viết sau; trường có hiệu lực hay không phụ thuộc mô hình và kênh, khi không được hỗ trợ hãy quay lại pixel rõ ràng.
-
-| Cách viết                   | Đoạn yêu cầu                       | Mục đích                                                         |
-| :-------------------------- | :--------------------------------- | :--------------------------------------------------------------- |
-| Pixel rõ ràng (khuyến nghị) | `{"size":"1536x2048"}`             | Trực quan nhất, tránh khác biệt quy đổi đặt trước                |
-| Tỷ lệ + độ phân giải        | `{"size":"3:4","resolution":"2k"}` | Quy đổi theo đặt trước 2K / 3\:4                                 |
-| Kích thước tự động          | `{"size":"auto"}`                  | Mô hình chọn theo năng lực, không cam kết chiều rộng cao cố định |
-
-* Bậc K điền vào `resolution`, `size` điền pixel hoặc tỷ lệ; không viết `2k` vào `size`.
-* Dấu phân cách kích thước dùng chữ `x` thường, không dùng dấu nhân ×, X hoa, mảng hay chuỗi có dấu nhân.
-* Khi viết tỷ lệ vào `size` thì ưu tiên hơn `aspect_ratio` riêng; pixel rõ ràng hoặc `auto` ưu tiên hơn đặt trước tỷ lệ.
-* Giới hạn kích thước tùy ý chính thức của OpenAI cho gpt-image-2 là 3840×2160; tổ hợp 4K của `1:4`, `4:1` vượt giới hạn này nên được ghi là vượt giới hạn một cạnh. Giới hạn của các mô hình khác theo mô tả mô hình.
-* Gemini và Qwen dùng trường kích thước riêng, không thể áp dụng trực tiếp các cách viết trên.
-
-### Tham khảo kích thước phổ biến\: 28 loại
-
-Các nhãn dưới đây chỉ biểu thị bậc tính phí theo quy tắc theo ảnh nêu trên, không bảo đảm mô hình được chọn hỗ trợ các kích thước này. Hãy kiểm tra phạm vi hỗ trợ giao diện của mô hình trước rồi mới chọn kích thước; không dùng bậc tính phí trực tiếp làm giá trị tham số giao diện.
-
-| Mục đích / tỷ lệ             | Kích thước (pixel) và bậc tính phí                                           |
-| ---------------------------- | ---------------------------------------------------------------------------- |
-| Ảnh vuông chung · 1\:1       | 1024×1024 · 1K; 1536×1536 · 2K; 2048×2048 · 2K                               |
-| Bìa ngang · 16\:9            | 1280×720 · 2K; 1536×864 · 2K; 2048×1152 · 2K; 2560×1440 · 4K; 3840×2160 · 4K |
-| Video dọc / Story · 9\:16    | 720×1280 · 2K; 864×1536 · 2K; 1152×2048 · 2K; 1440×2560 · 4K; 2160×3840 · 4K |
-| Ảnh minh họa bài viết · 3\:2 | 1536×1024 · 2K; 1920×1280 · 2K; 2400×1600 · 4K                               |
-| Áp phích dọc · 2\:3          | 1024×1536 · 2K; 1280×1920 · 2K; 1600×2400 · 4K                               |
-| Banner rộng · 2\:1           | 1536×768 · 2K; 2048×1024 · 2K; 2560×1280 · 4K; 3840×1920 · 4K                |
-| Banner siêu rộng · 3\:1      | 1536×512 · 2K; 1920×640 · 2K; 2400×800 · 4K; 3072×1024 · 4K; 3840×1280 · 4K  |
-
-## 5. Đi sâu theo giao thức
-
-Đầy đủ tham số, cấu trúc trả về, ví dụ mã và xử lý lỗi của từng giao thức\:
-
-* [Định dạng OpenAI](/simidoc/vi/apps/api/images/openai)
-* [Định dạng Gemini](/simidoc/vi/apps/api/images/gemini)
-* [Định dạng Qwen](/simidoc/vi/apps/api/images/qwen)
-* [Định dạng Jimeng / Volcengine Ark](/simidoc/vi/apps/api/images/jimeng)
-* [Định dạng xAI Grok](/simidoc/vi/apps/api/images/grok)
-* [Định dạng BFL FLUX](/simidoc/vi/apps/api/images/flux)
-
-# Ví dụ gọi ảnh đã được sắp xếp theo giao thức
-
-Không còn dùng một hướng dẫn mã chung chỉ phù hợp OpenAI Images. Chọn giao thức thực tế\: mỗi trang theo thứ tự “định dạng và tham số yêu cầu → tham số phản hồi → ví dụ gọi”, có thông số ảnh, mã bốn ngôn ngữ, tác vụ tác tử và quy trình lưu an toàn.
-
-* [Định dạng OpenAI](/simidoc/vi/apps/api/images/openai)\: tạo / sửa bằng Images, tạo trong hội thoại bằng Responses và hiểu ảnh.
-* [Gemini gốc](/simidoc/vi/apps/api/images/gemini)\: Part văn bản / ảnh của GenerateContent và lưu Base64.
-* [Qwen gốc](/simidoc/vi/apps/api/images/qwen)\: endpoint khu vực chính thức, cấu trúc tin nhắn và lưu URL kết quả.
-
-So sánh API, hiệu ứng và thông số 1K / 2K / 4K tại [tổng quan API hình ảnh](/simidoc/vi/apps/api/images). Liên kết cũ được giữ ở đây; thao tác thực theo từng giao thức, không trộn thông tin xác thực, tham số hay trường phản hồi.
-
-# Danh sách mô hình định dạng Gemini
-
-## Tổng quan API
-
-`GET /v1beta/models` trả danh sách định dạng Gemini.
-
-Địa chỉ kết nối là `https://api.dwchainless.com`, header dùng `Authorization: Bearer $SIMIROUTER_API_KEY`. Google trực tiếp dùng `https://generativelanguage.googleapis.com`, thường với `x-goog-api-key: $GEMINI_API_KEY`, không phải khóa Bearer cổng. Chọn mô hình có quyền và hỗ trợ khả năng cần dùng.
-
-Danh sách cổng chủ yếu tìm tên mô hình, không phải danh mục khả năng đầy đủ Google.
-
-## Tham số yêu cầu
-
-Yêu cầu cổng không có thân hay tham số phân trang bắt buộc. Google models.list hỗ trợ pageSize (mặc định 50, tối đa 1000), pageToken; cổng trả toàn bộ, không bảo đảm phân trang/siêu dữ liệu tương đương.
-
-| Trường               | Kiểu                   | Bắt buộc     | Mô tả                                                                |
-| -------------------- | ---------------------- | ------------ | -------------------------------------------------------------------- |
-| Authorization        | header string          | Có           | Khóa cổng Bearer; kết nối Google trực tiếp dùng khóa Google.         |
-| pageSize / pageToken | query integer / string | Tùy chọn gốc | Chỉ phân trang danh sách gốc chính thức; không phụ thuộc cổng xử lý. |
-
-## Phản hồi
-
-| Trường                                       | Kiểu           | Mô tả                                                              |
-| -------------------------------------------- | -------------- | ------------------------------------------------------------------ |
-| models                                       | array          | Danh sách mô hình có thể rỗng.                                     |
-| models\[].name                               | string         | Tên tài nguyên thường models/\{id}, cổng có thể trả ID thuần.      |
-| models\[].displayName                        | string         | Tên dễ đọc.                                                        |
-| nextPageToken                                | string / null  | Token trang sau chính thức; cổng có thể null nếu không phân trang. |
-| models\[].version / description              | string / null  | Phiên bản, mô tả chính thức; cổng có thể thiếu/null.               |
-| models\[].inputTokenLimit / outputTokenLimit | integer / null | Giới hạn vào/ra chính thức, không suy đoán từ trường thiếu.        |
-| models\[].supportedGenerationMethods         | array / null   | Tên phương thức như generateContent; cổng có thể thiếu/null.       |
-
-```json
-{
-  "models": [
-    {
-      "name": "MODEL_ID",
-      "displayName": "MODEL_ID"
-    }
-  ],
-  "nextPageToken": null
-}
-```
-
-Trên là cấu trúc rút gọn cổng. Trước dùng name trong đường dẫn, chỉ bỏ một tiền tố models/. models.list thành công không bảo đảm generateContent vì quyền, khả năng, hạn mức.
-
-## Ví dụ mã
-
-Đặt `SIMIROUTER_API_KEY`. Để thay địa chỉ gốc mặc định của cổng, đặt `SIMIROUTER_BASE_URL` thành địa chỉ không có hậu tố phiên bản. Tất cả ví dụ gửi yêu cầu GET không có phần thân.
-
-<Tabs items={["Python","Node.js","curl","Go"]}>
-  <Tab value="Python">
-    ```python
-    import json, os, sys, urllib.request, urllib.error
-    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
-    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
-    path = '/v1beta/models'
-    request = urllib.request.Request(base + path, method="GET",
-        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(request, timeout=120) as response:
-            result = json.load(response)
-    except urllib.error.HTTPError as error:
-        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
-        raise SystemExit(1)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-    ```
-  </Tab>
-
-  <Tab value="Node.js">
-    ```javascript
-    async function main() {
-      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
-      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
-      const endpoint = "/v1beta/models";
-      const response = await fetch(base + endpoint, { method: "GET",
-        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
-        signal: AbortSignal.timeout(120000) });
-      const result = await response.text();
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
-      console.log(JSON.stringify(JSON.parse(result), null, 2));
-    }
-    main().catch(error => { console.error(error); process.exitCode = 1; });
-    ```
-  </Tab>
-
-  <Tab value="curl">
-    ```bash
-    set -eu
-    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
-    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
-    curl "${BASE_URL%/}/v1beta/models" \
-      --fail-with-body \
-      --max-time 120 \
-      -X GET \
-      -H "Authorization: Bearer $SIMIROUTER_API_KEY"
-    ```
-  </Tab>
-
-  <Tab value="Go">
-    ```go
-    package main
-
-    import (
-      "fmt"
-      "io"
-      "log"
-      "net/http"
-      "os"
-      "strings"
-      "time"
-    )
-
-    func main() {
-      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
-      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
-      endpoint := "/v1beta/models"
-      req, err := http.NewRequest("GET", base + endpoint, nil); if err != nil { log.Fatal(err) }
-      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
-      client := &http.Client{Timeout: 120 * time.Second}
-      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
-      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
-      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
-      fmt.Println(string(result))
-    }
-    ```
-  </Tab>
-</Tabs>
-
-## Mã lỗi
-
-| Trạng thái HTTP | Ý nghĩa hoặc loại lỗi hãng         | Cách xử lý                                                                  |
-| --------------- | ---------------------------------- | --------------------------------------------------------------------------- |
-| 400             | `INVALID_ARGUMENT` và lỗi tương tự | Kiểm tra JSON, tham số, MIME phương tiện và độ dài đầu vào.                 |
-| 403             | `PERMISSION_DENIED`                | Kiểm tra khóa, quyền dự án, vùng hoặc giới hạn thanh toán.                  |
-| 404             | `NOT_FOUND`                        | Kiểm tra tên mô hình và phiên bản API.                                      |
-| 429             | `RESOURCE_EXHAUSTED`               | Kiểm tra tốc độ, hạn mức; lùi thời gian số lần giới hạn nếu có thể thử lại. |
-| 500 / 503       | `INTERNAL` / `UNAVAILABLE`         | Ghi ID yêu cầu, thử lại có giới hạn hoặc sau đó.                            |
-
-Đối tượng lỗi Google gồm `error.code` (mã HTTP), `error.status` (tên enum), `error.message` và có thể có `details`. Cổng có thể lỗi xác thực, tuyến, hạn mức trước hãng; mã HTTP không chứng minh nguồn lỗi. Truy vấn nội bộ có thể HTTP 200 với success=false; kiểm tra cả cấu trúc.
-
-## Tham khảo chính thức
-
-* [Google Models API](https\://ai.google.dev/api/models)
-* [Danh mục mô hình Google](https\://ai.google.dev/gemini-api/docs/models)
-* [Khắc phục sự cố Google](https\://ai.google.dev/gemini-api/docs/troubleshooting)
-
-# Danh sách mô hình
-
-Danh sách mô hình là đầu vào của cấu hình kết nối\: lấy ID mô hình trước, sau đó theo tài liệu năng lực của hãng để chọn giao diện chat, thị giác, hình ảnh, âm thanh hoặc công cụ. Nhìn thấy không đồng nghĩa gọi được, danh sách mô hình cũng không phải kiểm tra sức khỏe theo thời gian thực.
-
-## Tổng quan
-
-| Điều bạn cần xác nhận           | Xem ở đâu                                                                           | Giải thích                                                                               |
-| ------------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Có những ID mô hình nào         | Giao diện danh sách trong mục này                                                   | Chỉ trả về các mô hình mà thông tin xác thực hiện tại nhìn thấy                          |
-| Có thực sự gọi được không       | Mô hình và giá + một yêu cầu thực tế                                                | Nhìn thấy, định tuyến được và có hạn mức là ba việc khác nhau                            |
-| Hỗ trợ những đầu vào đầu ra nào | Mô tả năng lực mô hình                                                              | Siêu dữ liệu trong danh sách thường không đầy đủ                                         |
-| Khi nào ngừng cung cấp          | Thông báo chính thức của nhà cung cấp về việc ngừng khuyến nghị hoặc ngừng cung cấp | Không dùng nữa không có nghĩa ngay lập tức không dùng được, nhưng không nên tích hợp mới |
-
-## Khái niệm cốt lõi
-
-* **ID mô hình**\: định danh duy nhất dùng trong nội dung yêu cầu, thường phân biệt chữ hoa chữ thường, phải sao chép đầy đủ, không tự viết tắt. Tên hiển thị, bí danh và ID yêu cầu thực tế có thể khác nhau.
-* **Nhìn thấy và gọi được**\: danh sách chỉ phản ánh các mô hình trong phạm vi quyền; khi kênh chưa cấu hình, số dư không đủ hoặc bị giới hạn tốc độ vẫn sẽ thất bại.
-* **Cửa sổ ngữ cảnh**\: giới hạn Token của đầu vào cộng đầu ra, khác nhau theo mô hình; giao diện danh sách thường không trả về giá trị này.
-* **Đơn vị tính phí**\: mô hình văn bản chủ yếu theo Token, mô hình hình ảnh có thể theo ảnh hoặc theo Token, mô hình video thường theo giây hoặc theo lần; trong cùng một dòng mô hình cũng có thể khác nhau.
-* **Ngày ngừng cung cấp**\: biểu thị ngày hãng dự kiến dừng dịch vụ; việc di chuyển nên hoàn tất trước hạn chứ không phải phát hiện sau khi hết hạn.
-
-## Giao diện truy vấn
-
-| Tài liệu                     | Yêu cầu            | Cấu trúc trả về                                         |
-| ---------------------------- | ------------------ | ------------------------------------------------------- |
-| [Định dạng OpenAI](/simidoc/vi/apps/api/models/openai) | GET /v1/models     | data\[].id, phù hợp với máy khách tương thích OpenAI.   |
-| [Định dạng Gemini](/simidoc/vi/apps/api/models/gemini) | GET /v1beta/models | models\[].name, phù hợp với máy khách giao thức Gemini. |
-
-## Cách gọi
-
-Truy vấn danh sách là yêu cầu JSON đồng bộ, không hỗ trợ SSE và không phải tác vụ bất đồng bộ. Nhiều tài khoản có thể truy vấn song song riêng, nhưng thông tin xác thực và kết quả không được trộn lẫn. Bộ nhớ đệm danh sách nên có thời hạn hiệu lực, đọc lại khi phát hiện mô hình không còn dùng được; không gửi yêu cầu tạo thực tế chỉ để làm mới danh sách.
-
-## Mô phỏng lệnh gọi
-
-Gửi yêu cầu GET không có phần thân. Dưới đây là phản hồi minh họa từ cổng SimiRouter\:
-
-```bash
-curl "https://api.dwchainless.com/v1/models" \
-  -H "Authorization: Bearer $SIMIROUTER_API_KEY"
-```
-
-```json
-{
-  "object": "list",
-  "success": true,
-  "data": [
-    {
-      "id": "MODEL_ID",
-      "object": "model",
-      "created": 1626777600,
-      "owned_by": "custom",
-      "context_length": 1048576,
-      "supported_endpoint_types": ["openai"]
-    }
-  ]
-}
-```
-
-Cổng trả về độ dài ngữ cảnh và các loại điểm cuối. Độ dài có thể là giá trị mặc định của nền tảng. Hãy xem tài liệu mô hình để biết giá, các dạng đầu vào và đầu ra cũng như khả năng hỗ trợ công cụ. Danh sách trống thường cho thấy thông tin xác thực hiện tại không có quyền xem mô hình nào.
-
-## Ranh giới siêu dữ liệu
-
-Đối tượng mô hình OpenAI gồm id, object, created, owned\_by; đối tượng mô hình gốc của Google có thể gồm phương thức và giới hạn Token. Cổng kết nối có thể chỉ trả về siêu dữ liệu rút gọn, vì vậy không được suy đoán giới hạn ngữ cảnh, phương thức hay hỗ trợ công cụ từ các trường bị thiếu.
-
-## Tham khảo chính thức
-
-* [OpenAI Models API](https\://developers.openai.com/api/reference/resources/models/methods/list)
-* [Google Models API](https\://ai.google.dev/api/models)
-
-# Danh sách mô hình định dạng OpenAI
-
-## Tổng quan API
-
-`GET /v1/models` trả mô hình khóa hiện tại thấy được. Dùng cho bộ chọn, không chứng minh mọi phương thức, công cụ, hạn mức hay dịch vụ đang khỏe.
-
-Địa chỉ kết nối là `https://api.dwchainless.com`, header dùng `Authorization: Bearer $SIMIROUTER_API_KEY`. OpenAI trực tiếp dùng `https://api.openai.com` và Bearer nhưng cần khóa OpenAI. Chọn mô hình tài khoản có quyền và hỗ trợ khả năng cần dùng.
-
-Chỉ Bearer, không trộn x-api-key/x-goog-api-key để tránh kích hoạt định dạng cổng khác.
-
-## Tham số yêu cầu
-
-Không có thân JSON hay tham số truy vấn bắt buộc.
-
-| Trường        | Kiểu          | Bắt buộc | Mô tả                 |
-| ------------- | ------------- | -------- | --------------------- |
-| Authorization | header string | Có       | Khóa cổng sau Bearer. |
-
-## Phản hồi
-
-| Trường                            | Kiểu                   | Mô tả                                                                                                                                                                 |
-| --------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| object                            | string                 | list.                                                                                                                                                                 |
-| data                              | array                  | Danh sách có thể rỗng.                                                                                                                                                |
-| data\[].id                        | string                 | ID dùng khi gọi sinh.                                                                                                                                                 |
-| data\[].object                    | string                 | model.                                                                                                                                                                |
-| data\[].created                   | integer                | Thời điểm Unix giây; không nhất thiết ngày hãng phát hành mô hình.                                                                                                    |
-| data\[].owned\_by                 | string                 | Nhãn sở hữu, không chứng minh yêu cầu định tuyến tới hãng đó.                                                                                                         |
-| success                           | boolean                | Cờ kết quả nghiệp vụ tùy chọn của cổng, không chuẩn OpenAI.                                                                                                           |
-| `data[].context_length`           | integer                | Độ dài ngữ cảnh tính bằng Token do cổng báo cáo. Nếu chưa cấu hình, cổng dùng giá trị mặc định của nền tảng. Hãy kiểm tra tài liệu mô hình và giới hạn của điểm cuối. |
-| `data[].supported_endpoint_types` | `array<string>` / null | Các loại điểm cuối do cổng báo cáo. Dùng thông tin này để chọn điểm cuối phù hợp.                                                                                     |
-
-```json
-{
-  "object": "list",
-  "success": true,
-  "data": [
-    {
-      "id": "MODEL_ID",
-      "object": "model",
-      "created": 1626777600,
-      "owned_by": "custom",
-      "context_length": 1048576,
-      "supported_endpoint_types": ["openai"]
-    }
-  ]
-}
-```
-
-Mảng rỗng hợp lệ, không truy cập data\[0] trực tiếp. Lỗi truy vấn nhóm cổng có thể HTTP 200, success=false/message; phải nhận diện lỗi nghiệp vụ. OpenAI có GET /v1/models/\{model}, danh sách không là mô tả khả năng đầy đủ.
-
-## Ví dụ mã
-
-Đặt `SIMIROUTER_API_KEY`. Để thay địa chỉ gốc mặc định của cổng, đặt `SIMIROUTER_BASE_URL` thành địa chỉ không có hậu tố phiên bản. Tất cả ví dụ gửi yêu cầu GET không có phần thân.
-
-<Tabs items={["Python","Node.js","curl","Go"]}>
-  <Tab value="Python">
-    ```python
-    import json, os, sys, urllib.request, urllib.error
-    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
-    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
-    path = '/v1/models'
-    request = urllib.request.Request(base + path, method="GET",
-        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(request, timeout=120) as response:
-            result = json.load(response)
-    except urllib.error.HTTPError as error:
-        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
-        raise SystemExit(1)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-    ```
-  </Tab>
-
-  <Tab value="Node.js">
-    ```javascript
-    async function main() {
-      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
-      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
-      const endpoint = "/v1/models";
-      const response = await fetch(base + endpoint, { method: "GET",
-        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
-        signal: AbortSignal.timeout(120000) });
-      const result = await response.text();
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
-      console.log(JSON.stringify(JSON.parse(result), null, 2));
-    }
-    main().catch(error => { console.error(error); process.exitCode = 1; });
-    ```
-  </Tab>
-
-  <Tab value="curl">
-    ```bash
-    set -eu
-    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
-    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
-    curl "${BASE_URL%/}/v1/models" \
-      --fail-with-body \
-      --max-time 120 \
-      -X GET \
-      -H "Authorization: Bearer $SIMIROUTER_API_KEY"
-    ```
-  </Tab>
-
-  <Tab value="Go">
-    ```go
-    package main
-
-    import (
-      "fmt"
-      "io"
-      "log"
-      "net/http"
-      "os"
-      "strings"
-      "time"
-    )
-
-    func main() {
-      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
-      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
-      endpoint := "/v1/models"
-      req, err := http.NewRequest("GET", base + endpoint, nil); if err != nil { log.Fatal(err) }
-      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
-      client := &http.Client{Timeout: 120 * time.Second}
-      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
-      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
-      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
-      fmt.Println(string(result))
-    }
-    ```
-  </Tab>
-</Tabs>
-
-## Mã lỗi
-
-| Trạng thái HTTP | Ý nghĩa hoặc loại lỗi hãng           | Cách xử lý                                                                                              |
-| --------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
-| 400             | Yêu cầu không hợp lệ                 | Kiểm tra trường bắt buộc, JSON, tham số và độ dài ngữ cảnh.                                             |
-| 401             | Xác thực thất bại                    | Kiểm tra khóa có, hợp lệ và thuộc đúng dịch vụ.                                                         |
-| 403 / 404       | Không có quyền / không có tài nguyên | Kiểm tra quyền mô hình, ID và URL.                                                                      |
-| 429             | Giới hạn tốc độ hoặc hạn mức         | Theo thân phản hồi phân biệt giới hạn tốc độ với thiếu hạn mức; thử lại không giải quyết thiếu hạn mức. |
-| 500 / 503       | Lỗi máy chủ / tạm không khả dụng     | Giữ ID yêu cầu, lùi thời gian giới hạn cho lỗi tạm.                                                     |
-
-Lỗi OpenAI gốc thường gồm `error.message`, `error.type`, `error.param`, `error.code`; `param`, `code` có thể là `null`; không mặc định luôn có hoặc bằng HTTP. Cổng có thể lỗi xác thực, tuyến, hạn mức trước hãng; mã HTTP không chứng minh nguồn lỗi. Kiểm tra success=false nghiệp vụ, khác thành công truyền tải HTTP.
-
-## Tham khảo chính thức
-
-* [OpenAI List models](https\://developers.openai.com/api/reference/resources/models/methods/list)
-* [OpenAI Retrieve model](https\://developers.openai.com/api/reference/resources/models/methods/retrieve)
-* [Xử lý lỗi OpenAI](https\://developers.openai.com/api/docs/guides/error-codes)
-
 # Âm nhạc (không hỗ trợ)
 
 Mục này tổng hợp giao thức tạo nhạc công khai của Google Lyria. SimiRouter chưa mở khả năng này; mọi ví dụ kết nối trực tiếp Gemini API của Google AI Studio qua `https://generativelanguage.googleapis.com` bằng khóa Google API. Vertex AI cần giao thức riêng chưa được kiểm chứng trong trang này; không chỉ thay địa chỉ để gọi.
@@ -8683,6 +8318,373 @@ HTTP bắt tay 400/401/403 chỉ lỗi địa chỉ, khóa, quyền, mô hình; 
 ## Tham khảo chính thức
 
 [Nhạc Google thời gian thực](https\://ai.google.dev/gemini-api/docs/realtime-music-generation), [Live Music WebSocket API](https\://ai.google.dev/api/live_music).
+
+# Danh sách mô hình định dạng Gemini
+
+## Tổng quan API
+
+`GET /v1beta/models` trả danh sách định dạng Gemini.
+
+Địa chỉ kết nối là `https://api.dwchainless.com`, header dùng `Authorization: Bearer $SIMIROUTER_API_KEY`. Google trực tiếp dùng `https://generativelanguage.googleapis.com`, thường với `x-goog-api-key: $GEMINI_API_KEY`, không phải khóa Bearer cổng. Chọn mô hình có quyền và hỗ trợ khả năng cần dùng.
+
+Danh sách cổng chủ yếu tìm tên mô hình, không phải danh mục khả năng đầy đủ Google.
+
+## Tham số yêu cầu
+
+Yêu cầu cổng không có thân hay tham số phân trang bắt buộc. Google models.list hỗ trợ pageSize (mặc định 50, tối đa 1000), pageToken; cổng trả toàn bộ, không bảo đảm phân trang/siêu dữ liệu tương đương.
+
+| Trường               | Kiểu                   | Bắt buộc     | Mô tả                                                                |
+| -------------------- | ---------------------- | ------------ | -------------------------------------------------------------------- |
+| Authorization        | header string          | Có           | Khóa cổng Bearer; kết nối Google trực tiếp dùng khóa Google.         |
+| pageSize / pageToken | query integer / string | Tùy chọn gốc | Chỉ phân trang danh sách gốc chính thức; không phụ thuộc cổng xử lý. |
+
+## Phản hồi
+
+| Trường                                       | Kiểu           | Mô tả                                                              |
+| -------------------------------------------- | -------------- | ------------------------------------------------------------------ |
+| models                                       | array          | Danh sách mô hình có thể rỗng.                                     |
+| models\[].name                               | string         | Tên tài nguyên thường models/\{id}, cổng có thể trả ID thuần.      |
+| models\[].displayName                        | string         | Tên dễ đọc.                                                        |
+| nextPageToken                                | string / null  | Token trang sau chính thức; cổng có thể null nếu không phân trang. |
+| models\[].version / description              | string / null  | Phiên bản, mô tả chính thức; cổng có thể thiếu/null.               |
+| models\[].inputTokenLimit / outputTokenLimit | integer / null | Giới hạn vào/ra chính thức, không suy đoán từ trường thiếu.        |
+| models\[].supportedGenerationMethods         | array / null   | Tên phương thức như generateContent; cổng có thể thiếu/null.       |
+
+```json
+{
+  "models": [
+    {
+      "name": "MODEL_ID",
+      "displayName": "MODEL_ID"
+    }
+  ],
+  "nextPageToken": null
+}
+```
+
+Trên là cấu trúc rút gọn cổng. Trước dùng name trong đường dẫn, chỉ bỏ một tiền tố models/. models.list thành công không bảo đảm generateContent vì quyền, khả năng, hạn mức.
+
+## Ví dụ mã
+
+Đặt `SIMIROUTER_API_KEY`. Để thay địa chỉ gốc mặc định của cổng, đặt `SIMIROUTER_BASE_URL` thành địa chỉ không có hậu tố phiên bản. Tất cả ví dụ gửi yêu cầu GET không có phần thân.
+
+<Tabs items={["Python","Node.js","curl","Go"]}>
+  <Tab value="Python">
+    ```python
+    import json, os, sys, urllib.request, urllib.error
+    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
+    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
+    path = '/v1beta/models'
+    request = urllib.request.Request(base + path, method="GET",
+        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(request, timeout=120) as response:
+            result = json.load(response)
+    except urllib.error.HTTPError as error:
+        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
+        raise SystemExit(1)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    ```
+  </Tab>
+
+  <Tab value="Node.js">
+    ```javascript
+    async function main() {
+      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
+      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
+      const endpoint = "/v1beta/models";
+      const response = await fetch(base + endpoint, { method: "GET",
+        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(120000) });
+      const result = await response.text();
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
+      console.log(JSON.stringify(JSON.parse(result), null, 2));
+    }
+    main().catch(error => { console.error(error); process.exitCode = 1; });
+    ```
+  </Tab>
+
+  <Tab value="curl">
+    ```bash
+    set -eu
+    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
+    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
+    curl "${BASE_URL%/}/v1beta/models" \
+      --fail-with-body \
+      --max-time 120 \
+      -X GET \
+      -H "Authorization: Bearer $SIMIROUTER_API_KEY"
+    ```
+  </Tab>
+
+  <Tab value="Go">
+    ```go
+    package main
+
+    import (
+      "fmt"
+      "io"
+      "log"
+      "net/http"
+      "os"
+      "strings"
+      "time"
+    )
+
+    func main() {
+      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
+      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
+      endpoint := "/v1beta/models"
+      req, err := http.NewRequest("GET", base + endpoint, nil); if err != nil { log.Fatal(err) }
+      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
+      client := &http.Client{Timeout: 120 * time.Second}
+      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
+      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
+      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
+      fmt.Println(string(result))
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Mã lỗi
+
+| Trạng thái HTTP | Ý nghĩa hoặc loại lỗi hãng         | Cách xử lý                                                                  |
+| --------------- | ---------------------------------- | --------------------------------------------------------------------------- |
+| 400             | `INVALID_ARGUMENT` và lỗi tương tự | Kiểm tra JSON, tham số, MIME phương tiện và độ dài đầu vào.                 |
+| 403             | `PERMISSION_DENIED`                | Kiểm tra khóa, quyền dự án, vùng hoặc giới hạn thanh toán.                  |
+| 404             | `NOT_FOUND`                        | Kiểm tra tên mô hình và phiên bản API.                                      |
+| 429             | `RESOURCE_EXHAUSTED`               | Kiểm tra tốc độ, hạn mức; lùi thời gian số lần giới hạn nếu có thể thử lại. |
+| 500 / 503       | `INTERNAL` / `UNAVAILABLE`         | Ghi ID yêu cầu, thử lại có giới hạn hoặc sau đó.                            |
+
+Đối tượng lỗi Google gồm `error.code` (mã HTTP), `error.status` (tên enum), `error.message` và có thể có `details`. Cổng có thể lỗi xác thực, tuyến, hạn mức trước hãng; mã HTTP không chứng minh nguồn lỗi. Truy vấn nội bộ có thể HTTP 200 với success=false; kiểm tra cả cấu trúc.
+
+## Tham khảo chính thức
+
+* [Google Models API](https\://ai.google.dev/api/models)
+* [Danh mục mô hình Google](https\://ai.google.dev/gemini-api/docs/models)
+* [Khắc phục sự cố Google](https\://ai.google.dev/gemini-api/docs/troubleshooting)
+
+# Danh sách mô hình
+
+Danh sách mô hình là đầu vào của cấu hình kết nối\: lấy ID mô hình trước, sau đó theo tài liệu năng lực của hãng để chọn giao diện chat, thị giác, hình ảnh, âm thanh hoặc công cụ. Nhìn thấy không đồng nghĩa gọi được, danh sách mô hình cũng không phải kiểm tra sức khỏe theo thời gian thực.
+
+## Tổng quan
+
+| Điều bạn cần xác nhận           | Xem ở đâu                                                                           | Giải thích                                                                               |
+| ------------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Có những ID mô hình nào         | Giao diện danh sách trong mục này                                                   | Chỉ trả về các mô hình mà thông tin xác thực hiện tại nhìn thấy                          |
+| Có thực sự gọi được không       | Mô hình và giá + một yêu cầu thực tế                                                | Nhìn thấy, định tuyến được và có hạn mức là ba việc khác nhau                            |
+| Hỗ trợ những đầu vào đầu ra nào | Mô tả năng lực mô hình                                                              | Siêu dữ liệu trong danh sách thường không đầy đủ                                         |
+| Khi nào ngừng cung cấp          | Thông báo chính thức của nhà cung cấp về việc ngừng khuyến nghị hoặc ngừng cung cấp | Không dùng nữa không có nghĩa ngay lập tức không dùng được, nhưng không nên tích hợp mới |
+
+## Khái niệm cốt lõi
+
+* **ID mô hình**\: định danh duy nhất dùng trong nội dung yêu cầu, thường phân biệt chữ hoa chữ thường, phải sao chép đầy đủ, không tự viết tắt. Tên hiển thị, bí danh và ID yêu cầu thực tế có thể khác nhau.
+* **Nhìn thấy và gọi được**\: danh sách chỉ phản ánh các mô hình trong phạm vi quyền; khi kênh chưa cấu hình, số dư không đủ hoặc bị giới hạn tốc độ vẫn sẽ thất bại.
+* **Cửa sổ ngữ cảnh**\: giới hạn Token của đầu vào cộng đầu ra, khác nhau theo mô hình; giao diện danh sách thường không trả về giá trị này.
+* **Đơn vị tính phí**\: mô hình văn bản chủ yếu theo Token, mô hình hình ảnh có thể theo ảnh hoặc theo Token, mô hình video thường theo giây hoặc theo lần; trong cùng một dòng mô hình cũng có thể khác nhau.
+* **Ngày ngừng cung cấp**\: biểu thị ngày hãng dự kiến dừng dịch vụ; việc di chuyển nên hoàn tất trước hạn chứ không phải phát hiện sau khi hết hạn.
+
+## Giao diện truy vấn
+
+| Tài liệu                     | Yêu cầu            | Cấu trúc trả về                                         |
+| ---------------------------- | ------------------ | ------------------------------------------------------- |
+| [Định dạng OpenAI](/simidoc/vi/apps/api/models/openai) | GET /v1/models     | data\[].id, phù hợp với máy khách tương thích OpenAI.   |
+| [Định dạng Gemini](/simidoc/vi/apps/api/models/gemini) | GET /v1beta/models | models\[].name, phù hợp với máy khách giao thức Gemini. |
+
+## Cách gọi
+
+Truy vấn danh sách là yêu cầu JSON đồng bộ, không hỗ trợ SSE và không phải tác vụ bất đồng bộ. Nhiều tài khoản có thể truy vấn song song riêng, nhưng thông tin xác thực và kết quả không được trộn lẫn. Bộ nhớ đệm danh sách nên có thời hạn hiệu lực, đọc lại khi phát hiện mô hình không còn dùng được; không gửi yêu cầu tạo thực tế chỉ để làm mới danh sách.
+
+## Mô phỏng lệnh gọi
+
+Gửi yêu cầu GET không có phần thân. Dưới đây là phản hồi minh họa từ cổng SimiRouter\:
+
+```bash
+curl "https://api.dwchainless.com/v1/models" \
+  -H "Authorization: Bearer $SIMIROUTER_API_KEY"
+```
+
+```json
+{
+  "object": "list",
+  "success": true,
+  "data": [
+    {
+      "id": "MODEL_ID",
+      "object": "model",
+      "created": 1626777600,
+      "owned_by": "custom",
+      "context_length": 1048576,
+      "supported_endpoint_types": ["openai"]
+    }
+  ]
+}
+```
+
+Cổng trả về độ dài ngữ cảnh và các loại điểm cuối. Độ dài có thể là giá trị mặc định của nền tảng. Hãy xem tài liệu mô hình để biết giá, các dạng đầu vào và đầu ra cũng như khả năng hỗ trợ công cụ. Danh sách trống thường cho thấy thông tin xác thực hiện tại không có quyền xem mô hình nào.
+
+## Ranh giới siêu dữ liệu
+
+Đối tượng mô hình OpenAI gồm id, object, created, owned\_by; đối tượng mô hình gốc của Google có thể gồm phương thức và giới hạn Token. Cổng kết nối có thể chỉ trả về siêu dữ liệu rút gọn, vì vậy không được suy đoán giới hạn ngữ cảnh, phương thức hay hỗ trợ công cụ từ các trường bị thiếu.
+
+## Tham khảo chính thức
+
+* [OpenAI Models API](https\://developers.openai.com/api/reference/resources/models/methods/list)
+* [Google Models API](https\://ai.google.dev/api/models)
+
+# Danh sách mô hình định dạng OpenAI
+
+## Tổng quan API
+
+`GET /v1/models` trả mô hình khóa hiện tại thấy được. Dùng cho bộ chọn, không chứng minh mọi phương thức, công cụ, hạn mức hay dịch vụ đang khỏe.
+
+Địa chỉ kết nối là `https://api.dwchainless.com`, header dùng `Authorization: Bearer $SIMIROUTER_API_KEY`. OpenAI trực tiếp dùng `https://api.openai.com` và Bearer nhưng cần khóa OpenAI. Chọn mô hình tài khoản có quyền và hỗ trợ khả năng cần dùng.
+
+Chỉ Bearer, không trộn x-api-key/x-goog-api-key để tránh kích hoạt định dạng cổng khác.
+
+## Tham số yêu cầu
+
+Không có thân JSON hay tham số truy vấn bắt buộc.
+
+| Trường        | Kiểu          | Bắt buộc | Mô tả                 |
+| ------------- | ------------- | -------- | --------------------- |
+| Authorization | header string | Có       | Khóa cổng sau Bearer. |
+
+## Phản hồi
+
+| Trường                            | Kiểu                   | Mô tả                                                                                                                                                                 |
+| --------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| object                            | string                 | list.                                                                                                                                                                 |
+| data                              | array                  | Danh sách có thể rỗng.                                                                                                                                                |
+| data\[].id                        | string                 | ID dùng khi gọi sinh.                                                                                                                                                 |
+| data\[].object                    | string                 | model.                                                                                                                                                                |
+| data\[].created                   | integer                | Thời điểm Unix giây; không nhất thiết ngày hãng phát hành mô hình.                                                                                                    |
+| data\[].owned\_by                 | string                 | Nhãn sở hữu, không chứng minh yêu cầu định tuyến tới hãng đó.                                                                                                         |
+| success                           | boolean                | Cờ kết quả nghiệp vụ tùy chọn của cổng, không chuẩn OpenAI.                                                                                                           |
+| `data[].context_length`           | integer                | Độ dài ngữ cảnh tính bằng Token do cổng báo cáo. Nếu chưa cấu hình, cổng dùng giá trị mặc định của nền tảng. Hãy kiểm tra tài liệu mô hình và giới hạn của điểm cuối. |
+| `data[].supported_endpoint_types` | `array<string>` / null | Các loại điểm cuối do cổng báo cáo. Dùng thông tin này để chọn điểm cuối phù hợp.                                                                                     |
+
+```json
+{
+  "object": "list",
+  "success": true,
+  "data": [
+    {
+      "id": "MODEL_ID",
+      "object": "model",
+      "created": 1626777600,
+      "owned_by": "custom",
+      "context_length": 1048576,
+      "supported_endpoint_types": ["openai"]
+    }
+  ]
+}
+```
+
+Mảng rỗng hợp lệ, không truy cập data\[0] trực tiếp. Lỗi truy vấn nhóm cổng có thể HTTP 200, success=false/message; phải nhận diện lỗi nghiệp vụ. OpenAI có GET /v1/models/\{model}, danh sách không là mô tả khả năng đầy đủ.
+
+## Ví dụ mã
+
+Đặt `SIMIROUTER_API_KEY`. Để thay địa chỉ gốc mặc định của cổng, đặt `SIMIROUTER_BASE_URL` thành địa chỉ không có hậu tố phiên bản. Tất cả ví dụ gửi yêu cầu GET không có phần thân.
+
+<Tabs items={["Python","Node.js","curl","Go"]}>
+  <Tab value="Python">
+    ```python
+    import json, os, sys, urllib.request, urllib.error
+    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
+    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
+    path = '/v1/models'
+    request = urllib.request.Request(base + path, method="GET",
+        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(request, timeout=120) as response:
+            result = json.load(response)
+    except urllib.error.HTTPError as error:
+        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
+        raise SystemExit(1)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    ```
+  </Tab>
+
+  <Tab value="Node.js">
+    ```javascript
+    async function main() {
+      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
+      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
+      const endpoint = "/v1/models";
+      const response = await fetch(base + endpoint, { method: "GET",
+        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(120000) });
+      const result = await response.text();
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
+      console.log(JSON.stringify(JSON.parse(result), null, 2));
+    }
+    main().catch(error => { console.error(error); process.exitCode = 1; });
+    ```
+  </Tab>
+
+  <Tab value="curl">
+    ```bash
+    set -eu
+    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
+    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
+    curl "${BASE_URL%/}/v1/models" \
+      --fail-with-body \
+      --max-time 120 \
+      -X GET \
+      -H "Authorization: Bearer $SIMIROUTER_API_KEY"
+    ```
+  </Tab>
+
+  <Tab value="Go">
+    ```go
+    package main
+
+    import (
+      "fmt"
+      "io"
+      "log"
+      "net/http"
+      "os"
+      "strings"
+      "time"
+    )
+
+    func main() {
+      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
+      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
+      endpoint := "/v1/models"
+      req, err := http.NewRequest("GET", base + endpoint, nil); if err != nil { log.Fatal(err) }
+      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
+      client := &http.Client{Timeout: 120 * time.Second}
+      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
+      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
+      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
+      fmt.Println(string(result))
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Mã lỗi
+
+| Trạng thái HTTP | Ý nghĩa hoặc loại lỗi hãng           | Cách xử lý                                                                                              |
+| --------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| 400             | Yêu cầu không hợp lệ                 | Kiểm tra trường bắt buộc, JSON, tham số và độ dài ngữ cảnh.                                             |
+| 401             | Xác thực thất bại                    | Kiểm tra khóa có, hợp lệ và thuộc đúng dịch vụ.                                                         |
+| 403 / 404       | Không có quyền / không có tài nguyên | Kiểm tra quyền mô hình, ID và URL.                                                                      |
+| 429             | Giới hạn tốc độ hoặc hạn mức         | Theo thân phản hồi phân biệt giới hạn tốc độ với thiếu hạn mức; thử lại không giải quyết thiếu hạn mức. |
+| 500 / 503       | Lỗi máy chủ / tạm không khả dụng     | Giữ ID yêu cầu, lùi thời gian giới hạn cho lỗi tạm.                                                     |
+
+Lỗi OpenAI gốc thường gồm `error.message`, `error.type`, `error.param`, `error.code`; `param`, `code` có thể là `null`; không mặc định luôn có hoặc bằng HTTP. Cổng có thể lỗi xác thực, tuyến, hạn mức trước hãng; mã HTTP không chứng minh nguồn lỗi. Kiểm tra success=false nghiệp vụ, khác thành công truyền tải HTTP.
+
+## Tham khảo chính thức
+
+* [OpenAI List models](https\://developers.openai.com/api/reference/resources/models/methods/list)
+* [OpenAI Retrieve model](https\://developers.openai.com/api/reference/resources/models/methods/retrieve)
+* [Xử lý lỗi OpenAI](https\://developers.openai.com/api/docs/guides/error-codes)
 
 # Khả năng khác và tham khảo chờ tích hợp
 
@@ -9167,6 +9169,435 @@ Ví dụ Python cần `python3 -m pip install requests`; Node.js 18+ dùng fetch
 ## Tham khảo chính thức
 
 [Cohere Rerank v2](https\://docs.cohere.com/reference/rerank).
+
+# Hiểu nội dung tệp
+
+## Tổng quan API
+
+`POST /v1/responses` input\_file đưa tệp vào mô hình hỗ trợ. Không là lưu trữ và không đảm bảo OCR đầy đủ/đúng.
+
+Địa chỉ kết nối là `https://api.dwchainless.com`, header dùng `Authorization: Bearer $SIMIROUTER_API_KEY`. OpenAI trực tiếp dùng `https://api.openai.com` và Bearer nhưng cần khóa OpenAI. Chọn mô hình tài khoản có quyền và hỗ trợ khả năng cần dùng.
+
+Cổng `/v1/files` chưa triển khai tải, lấy, xóa; trang dùng PDF Base64 không Files API. Hãng trực tiếp có thể tải rồi file\_id, nhưng không mặc định ID đó cổng truy cập được.
+
+## Tham số yêu cầu
+
+| Trường                   | Kiểu    | Bắt buộc     | Mô tả                                                                                                                                                                      |
+| ------------------------ | ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| model                    | string  | Có           | ID mô hình hỗ trợ PDF và thị giác cần.                                                                                                                                     |
+| input\[].role            | string  | Có           | Ở đây user.                                                                                                                                                                |
+| input\[].content\[].type | string  | Có           | Câu hỏi input\_text, tệp input\_file.                                                                                                                                      |
+| input\_text.text         | string  | Có           | Tác vụ tệp như tóm tắt, trích trường, hỏi đáp.                                                                                                                             |
+| input\_file.filename     | string  | Có điều kiện | Tên tệp nội tuyến, giữ đuôi thật.                                                                                                                                          |
+| input\_file.file\_data   | string  | Có điều kiện | Dữ liệu Base64 của PDF; mã trong trang dùng tiền tố data\:application/pdf;base64,... . Đặc tả chính thức chỉ yêu cầu Base64, hãy bỏ tiền tố data\:... nếu kênh không nhận. |
+| input\_file.file\_id     | string  | Có điều kiện | ID từ tải chính thức, tùy Files của dịch vụ đó.                                                                                                                            |
+| input\_file.file\_url    | string  | Có điều kiện | URL hãng đọc được, chọn một nguồn thay dữ liệu nội tuyến.                                                                                                                  |
+| max\_output\_tokens      | integer | Không        | Giới hạn đầu ra mô hình.                                                                                                                                                   |
+| stream                   | boolean | Không        | true dùng Responses SSE.                                                                                                                                                   |
+
+Không gửi đường dẫn máy làm file\_url hay cùng điền file\_data, file\_id, file\_url. Kích thước phải đáp ứng cổng và hãng. Base64 lớn hơn gốc, ảnh trang PDF tăng token.
+
+### Cấu trúc yêu cầu
+
+BASE64\_PDF\_BYTES là PDF Base64 gốc; bốn mã đọc PDF\_PATH để điền.
+
+```json
+{
+  "model": "MODEL_ID",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+        },
+        {
+          "type": "input_file",
+          "filename": "document.pdf",
+          "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+        }
+      ]
+    }
+  ],
+  "max_output_tokens": 1024,
+  "stream": false
+}
+```
+
+## Phản hồi
+
+Trả đối tượng Responses chuẩn, không ID tác vụ tệp riêng.
+
+| Trường                                               | Kiểu             | Mô tả                                                                                                                                   |
+| ---------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| id / object                                          | string           | ID phản hồi; object=response.                                                                                                           |
+| created\_at / model                                  | integer / string | Thời điểm Unix giây và mô hình.                                                                                                         |
+| status                                               | string           | completed, incomplete, failed, queued, in\_progress hoặc cancelled; các trạng thái này có thể xuất hiện cả trong luồng và phản hồi nền. |
+| output\[]                                            | array            | Mục có kiểu có thể gồm message, reasoning, function\_call, web\_search\_call; không cố định output\[0].                                 |
+| output\[].type / id / status                         | string           | Loại, ID và trạng thái mục nếu áp dụng.                                                                                                 |
+| output\[].role                                       | string           | Tin đầu ra thường assistant.                                                                                                            |
+| output\[].content\[]                                 | array            | Nội dung\: type=output\_text cho chữ, type=refusal cho từ chối.                                                                         |
+| output\[].content\[].text / annotations              | string / array   | Chữ và chú thích như trích dẫn.                                                                                                         |
+| output\[].call\_id / name / arguments                | string           | ID liên kết, tên và tham số chuỗi JSON của function\_call.                                                                              |
+| error                                                | object / null    | Lỗi, thường null khi hoàn tất thường.                                                                                                   |
+| incomplete\_details                                  | object / null    | Lý do chưa đầy đủ như max\_output\_tokens, không coi thành công đầy đủ.                                                                 |
+| usage.input\_tokens / output\_tokens / total\_tokens | integer          | Token vào, ra và tổng.                                                                                                                  |
+| usage.\*\_tokens\_details                            | object           | Chi tiết tùy chọn về cache, suy luận.                                                                                                   |
+
+```json
+{
+  "id": "resp_file_example",
+  "object": "response",
+  "status": "completed",
+  "error": null,
+  "incomplete_details": null,
+  "output": [
+    {
+      "id": "msg_file_example",
+      "type": "message",
+      "role": "assistant",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "这份文档主要讨论项目背景、实施步骤和风险。部分扫描页较模糊，无法确认细小文字。",
+          "annotations": []
+        }
+      ]
+    }
+  ],
+  "usage": {
+    "input_tokens": 1800,
+    "output_tokens": 75,
+    "total_tokens": 1875
+  }
+}
+```
+
+Chat Completions cũng hỗ trợ `type=file` và file.filename/file\_data lồng cho PDF, khác Responses input\_file. TXT, bảng hay zip Base64 không được mọi API hỗ trợ. Ứng dụng có thể giải chữ rồi gửi dạng chữ; loại khác kiểm hãng/mô hình.
+
+## Ví dụ mã
+
+Đặt `SIMIROUTER_API_KEY`, `SIMIROUTER_FILE_MODEL`; `SIMIROUTER_BASE_URL` để ghi đè địa chỉ cổng mặc định; không thêm `/v1`. `PDF_PATH` trỏ tới tệp cục bộ có thật. Python 3, Node.js 18+ và Go dùng thư viện chuẩn; curl dùng Python 3 mã hóa JSON an toàn.
+
+<Tabs items={["Python","Node.js","curl","Go"]}>
+  <Tab value="Python">
+    ```python
+    import json, os, sys, urllib.request, urllib.error
+    import base64
+    from pathlib import Path
+    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
+    if not os.environ.get("SIMIROUTER_FILE_MODEL"): raise RuntimeError("请设置 SIMIROUTER_FILE_MODEL")
+    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
+    body = json.loads(r'''{
+      "model": "MODEL_ID",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+            },
+            {
+              "type": "input_file",
+              "filename": "document.pdf",
+              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 1024,
+      "stream": false
+    }''')
+    body["model"] = os.environ["SIMIROUTER_FILE_MODEL"]
+    p = Path(os.environ["PDF_PATH"])
+    if not p.is_file(): raise FileNotFoundError(p)
+    mime = {'.pdf': 'application/pdf'}.get(p.suffix.lower())
+    if not mime: raise ValueError("不支持的文件扩展名")
+    data = p.read_bytes()
+    if not data: raise ValueError("输入文件为空")
+    encoded = base64.b64encode(data).decode("ascii")
+    body["input"][0]["content"][1].update({"filename": p.name, "file_data": "data:" + mime + ";base64," + encoded})
+    path = '/v1/responses'
+    request = urllib.request.Request(base + path, data=json.dumps(body).encode("utf-8"), method="POST",
+        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(request, timeout=120) as response:
+            result = json.load(response)
+    except urllib.error.HTTPError as error:
+        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
+        raise SystemExit(1)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    ```
+  </Tab>
+
+  <Tab value="Node.js">
+    ```javascript
+    async function main() {
+      const fs = require("node:fs");
+      const path = require("node:path");
+      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
+      if (!process.env.SIMIROUTER_FILE_MODEL) throw new Error("请设置 SIMIROUTER_FILE_MODEL");
+      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
+      const body = {
+      "model": "MODEL_ID",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+            },
+            {
+              "type": "input_file",
+              "filename": "document.pdf",
+              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 1024,
+      "stream": false
+    };
+      body.model = process.env.SIMIROUTER_FILE_MODEL;
+      const filename = process.env.PDF_PATH;
+      if (!filename) throw new Error("请设置 PDF_PATH");
+      const mime = {".pdf": "application/pdf"}[path.extname(filename).toLowerCase()];
+      if (!mime) throw new Error("不支持的文件扩展名");
+      const data = fs.readFileSync(filename);
+      if (!data.length) throw new Error("输入文件为空");
+      const encoded = data.toString("base64");
+      Object.assign(body.input[0].content[1], { filename: path.basename(filename), file_data: `data:${mime};base64,${encoded}` });
+      const endpoint = "/v1/responses";
+      const response = await fetch(base + endpoint, { method: "POST",
+        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: AbortSignal.timeout(120000) });
+      const result = await response.text();
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
+      console.log(JSON.stringify(JSON.parse(result), null, 2));
+    }
+    main().catch(error => { console.error(error); process.exitCode = 1; });
+    ```
+  </Tab>
+
+  <Tab value="curl">
+    ```bash
+    set -eu
+    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
+    : "${SIMIROUTER_FILE_MODEL:?请设置 SIMIROUTER_FILE_MODEL}"
+    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
+    BODY=$(python3 - <<'PYBODY'
+    import json, os
+    import base64
+    from pathlib import Path
+    body = json.loads(r'''{
+      "model": "MODEL_ID",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+            },
+            {
+              "type": "input_file",
+              "filename": "document.pdf",
+              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 1024,
+      "stream": false
+    }''')
+    body["model"] = os.environ["SIMIROUTER_FILE_MODEL"]
+    p = Path(os.environ["PDF_PATH"])
+    if not p.is_file(): raise FileNotFoundError(p)
+    mime = {'.pdf': 'application/pdf'}.get(p.suffix.lower())
+    if not mime: raise ValueError("不支持的文件扩展名")
+    data = p.read_bytes()
+    if not data: raise ValueError("输入文件为空")
+    encoded = base64.b64encode(data).decode("ascii")
+    body["input"][0]["content"][1].update({"filename": p.name, "file_data": "data:" + mime + ";base64," + encoded})
+    print(json.dumps(body, ensure_ascii=False))
+    PYBODY
+    )
+    curl "${BASE_URL%/}/v1/responses" \
+      --fail-with-body \
+      --max-time 120 \
+      -X POST \
+      -H "Authorization: Bearer $SIMIROUTER_API_KEY" \
+      -H "Content-Type: application/json" \
+      --data-binary "$BODY"
+    ```
+  </Tab>
+
+  <Tab value="Go">
+    ```go
+    package main
+
+    import (
+      "bytes"
+      "fmt"
+      "io"
+      "log"
+      "net/http"
+      "os"
+      "strings"
+      "time"
+      "encoding/json"
+      "encoding/base64"
+      "path/filepath"
+    )
+
+    func main() {
+      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
+      model := os.Getenv("SIMIROUTER_FILE_MODEL"); if model == "" { log.Fatal("请设置 SIMIROUTER_FILE_MODEL") }
+      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
+      var body map[string]any
+      if err := json.Unmarshal([]byte(`{
+      "model": "MODEL_ID",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+            },
+            {
+              "type": "input_file",
+              "filename": "document.pdf",
+              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 1024,
+      "stream": false
+    }`), &body); err != nil { log.Fatal(err) }
+      body["model"] = model
+      filename := os.Getenv("PDF_PATH"); if filename == "" { log.Fatal("请设置 PDF_PATH") }
+      mime := map[string]string{".pdf":"application/pdf"}[strings.ToLower(filepath.Ext(filename))]
+      if mime == "" { log.Fatal("不支持的文件扩展名") }
+      data, err := os.ReadFile(filename); if err != nil { log.Fatal(err) }; if len(data) == 0 { log.Fatal("输入文件为空") }
+      encoded := base64.StdEncoding.EncodeToString(data)
+      item := body["input"].([]any)[0].(map[string]any)["content"].([]any)[1].(map[string]any); item["filename"] = filepath.Base(filename); item["file_data"] = "data:" + mime + ";base64," + encoded
+      endpoint := "/v1/responses"
+      payload, err := json.Marshal(body); if err != nil { log.Fatal(err) }
+      req, err := http.NewRequest("POST", base + endpoint, bytes.NewReader(payload)); if err != nil { log.Fatal(err) }
+      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
+      client := &http.Client{Timeout: 120 * time.Second}
+      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
+      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
+      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
+      fmt.Println(string(result))
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Mã lỗi
+
+| Trạng thái HTTP | Ý nghĩa hoặc loại lỗi hãng           | Cách xử lý                                                                                              |
+| --------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| 400             | Yêu cầu không hợp lệ                 | Kiểm tra trường bắt buộc, JSON, tham số và độ dài ngữ cảnh.                                             |
+| 401             | Xác thực thất bại                    | Kiểm tra khóa có, hợp lệ và thuộc đúng dịch vụ.                                                         |
+| 403 / 404       | Không có quyền / không có tài nguyên | Kiểm tra quyền mô hình, ID và URL.                                                                      |
+| 429             | Giới hạn tốc độ hoặc hạn mức         | Theo thân phản hồi phân biệt giới hạn tốc độ với thiếu hạn mức; thử lại không giải quyết thiếu hạn mức. |
+| 500 / 503       | Lỗi máy chủ / tạm không khả dụng     | Giữ ID yêu cầu, lùi thời gian giới hạn cho lỗi tạm.                                                     |
+
+Lỗi OpenAI gốc thường gồm `error.message`, `error.type`, `error.param`, `error.code`; `param`, `code` có thể là `null`; không mặc định luôn có hoặc bằng HTTP. Cổng có thể lỗi trước hãng. Tệp hỏng, khóa mật khẩu, quá giới hạn, không hỗ trợ cần sửa; không thử nguyên tệp lỗi hay giả nhận dạng thành công.
+
+## Tham khảo chính thức
+
+* [Đầu vào tệp OpenAI](https\://developers.openai.com/api/docs/guides/file-inputs)
+* [OpenAI Responses API](https\://developers.openai.com/api/reference/resources/responses/methods/create)
+* [OpenAI Files API](https\://developers.openai.com/api/reference/resources/files/methods/create)
+* [Xử lý lỗi OpenAI](https\://developers.openai.com/api/docs/guides/error-codes)
+
+# Tệp và hiểu nội dung
+
+Hai tầng\: API tải quản lý tài nguyên, API mô hình đọc và trả lời. Đính tệp vào sinh không nghĩa lưu thành tài nguyên tái dùng.
+
+## Tổng quan
+
+| Bạn muốn làm gì                        | Cách nhập                                             | Tệp đi đâu                    | Có cần tải lên trước không |
+| -------------------------------------- | ----------------------------------------------------- | ----------------------------- | -------------------------- |
+| Cho mô hình đọc một PDF                | Base64 nội tuyến trong yêu cầu hoặc URL truy cập được | Chỉ tồn tại trong yêu cầu này | Không                      |
+| Tái sử dụng tệp qua nhiều lượt yêu cầu | file\_id hoặc tham chiếu tệp của hãng                 | Tài nguyên tệp của hãng       | Có (Files API chính thức)  |
+| Tiền xử lý tệp hàng loạt hoặc quá dài  | Tải lên rồi chờ xử lý xong                            | Tài nguyên tệp của hãng       | Có, và có vòng đời         |
+
+## Khái niệm cốt lõi
+
+* **Đầu vào nội tuyến**\: tệp được mã hóa vào thân yêu cầu và gửi cùng tin nhắn; yêu cầu kết thúc là kết thúc, không có file\_id cũng không có bước xóa sau đó.
+* **Tài nguyên tệp**\: tải lên trước để lấy id, sau đó tham chiếu trong nhiều yêu cầu; tài nguyên có quyền sở hữu, thời hạn và hạn mức, cần xóa tường minh.
+* **Vòng đời**\: tải lên xong không có nghĩa đã trích xuất xong văn bản, cũng không có nghĩa mô hình đã hiểu; phải truy vấn đến trạng thái có thể xử lý rồi mới suy luận.
+* **Kích thước và định dạng**\: giới hạn được đặt riêng theo kích thước tệp, số trang, thời lượng; nén ảnh không chuyển đổi loại tệp, PDF dạng quét còn cần khả năng OCR.
+* **Lưu trữ dữ liệu**\: chính sách lưu giữ nội dung tệp và kết quả nhận dạng khác nhau giữa các hãng; tài liệu nhạy cảm cần xác nhận quyền và cách xóa trước.
+
+## Yêu cầu và khả năng
+
+| Mục đích                                        | Yêu cầu                                       | Giới hạn                                                       |
+| ----------------------------------------------- | --------------------------------------------- | -------------------------------------------------------------- |
+| [Hiểu nội dung PDF](/simidoc/vi/apps/api/upload/file-recognition)         | POST /v1/responses + input\_file              | Base64 nội tuyến, không cần Files API.                         |
+| Đầu vào PDF Chat                                | POST /v1/chat/completions + type=file         | Dùng file Chat, không cấu trúc Responses.                      |
+| [Files API](/simidoc/vi/apps/api/pending/files)                   | /v1/files                                     | Cổng chưa triển khai; hãng có tải gốc không nghĩa nền tảng mở. |
+| [Hiểu phương tiện Gemini](/simidoc/vi/apps/api/chat/gemini-media) | POST /v1beta/models/\{model}\:generateContent | inlineData hoặc fileData phù hợp.                              |
+
+## Cách gọi
+
+Nội tuyến trả JSON đồng bộ hoặc sự kiện chữ luồng, đều một yêu cầu. Tải/tiền xử lý hãng có thể chờ tài nguyên, là vòng đời tài nguyên không tự chạy mô hình nền. Nhiều tệp cùng yêu cầu hoặc song song có ngữ cảnh, phí, giới hạn khác.
+
+Trước tải tệp nhạy cảm, xác nhận quyền và chính sách dữ liệu. Chọn trang/đoạn liên quan thay tăng vô hạn. Giữ bất định kết quả; tiền, mã và kết luận luật/y cần người kiểm.
+
+## Mô phỏng lệnh gọi
+
+Nhận dạng nội tuyến hoàn tất trong một yêu cầu, tệp được đặt dưới dạng Base64 trong `input_file`\:
+
+```json
+{
+  "model": "gpt-5.5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        { "type": "input_text", "text": "总结这份合同的付款条款。" },
+        { "type": "input_file", "filename": "contract.pdf", "file_data": "data:application/pdf;base64,JVBERi0xLjQK..." }
+      ]
+    }
+  ]
+}
+```
+
+Phản hồi là tin nhắn mô hình thông thường, kết quả nhận dạng nằm trong `output_text`\:
+
+```json
+{
+  "status": "completed",
+  "output": [
+    {
+      "type": "message",
+      "content": [
+        { "type": "output_text", "text": "（示意）合同约定分三期付款……" }
+      ]
+    }
+  ]
+}
+```
+
+Toàn bộ quá trình không có bước tải lên và cũng không có file\_id tái sử dụng; muốn hỏi lại cùng một tệp, cần gửi lại Base64 hoặc chuyển sang tài nguyên tệp chính thức.
+
+## Tham khảo chính thức
+
+* [Đầu vào tệp OpenAI](https\://developers.openai.com/api/docs/guides/file-inputs)
+* [OpenAI Files API](https\://developers.openai.com/api/reference/resources/files/methods/create)
+* [Đầu vào tệp Google](https\://ai.google.dev/gemini-api/docs/file-input-methods)
 
 # Gọi công cụ hàm
 
@@ -10119,435 +10550,6 @@ Lỗi OpenAI gốc thường gồm `error.message`, `error.type`, `error.param`,
 * [Tìm kiếm web OpenAI](https\://developers.openai.com/api/docs/guides/tools-web-search)
 * [OpenAI Responses API](https\://developers.openai.com/api/reference/resources/responses/methods/create)
 * [Xử lý lỗi OpenAI](https\://developers.openai.com/api/docs/guides/error-codes)
-
-# Hiểu nội dung tệp
-
-## Tổng quan API
-
-`POST /v1/responses` input\_file đưa tệp vào mô hình hỗ trợ. Không là lưu trữ và không đảm bảo OCR đầy đủ/đúng.
-
-Địa chỉ kết nối là `https://api.dwchainless.com`, header dùng `Authorization: Bearer $SIMIROUTER_API_KEY`. OpenAI trực tiếp dùng `https://api.openai.com` và Bearer nhưng cần khóa OpenAI. Chọn mô hình tài khoản có quyền và hỗ trợ khả năng cần dùng.
-
-Cổng `/v1/files` chưa triển khai tải, lấy, xóa; trang dùng PDF Base64 không Files API. Hãng trực tiếp có thể tải rồi file\_id, nhưng không mặc định ID đó cổng truy cập được.
-
-## Tham số yêu cầu
-
-| Trường                   | Kiểu    | Bắt buộc     | Mô tả                                                                                                                                                                      |
-| ------------------------ | ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| model                    | string  | Có           | ID mô hình hỗ trợ PDF và thị giác cần.                                                                                                                                     |
-| input\[].role            | string  | Có           | Ở đây user.                                                                                                                                                                |
-| input\[].content\[].type | string  | Có           | Câu hỏi input\_text, tệp input\_file.                                                                                                                                      |
-| input\_text.text         | string  | Có           | Tác vụ tệp như tóm tắt, trích trường, hỏi đáp.                                                                                                                             |
-| input\_file.filename     | string  | Có điều kiện | Tên tệp nội tuyến, giữ đuôi thật.                                                                                                                                          |
-| input\_file.file\_data   | string  | Có điều kiện | Dữ liệu Base64 của PDF; mã trong trang dùng tiền tố data\:application/pdf;base64,... . Đặc tả chính thức chỉ yêu cầu Base64, hãy bỏ tiền tố data\:... nếu kênh không nhận. |
-| input\_file.file\_id     | string  | Có điều kiện | ID từ tải chính thức, tùy Files của dịch vụ đó.                                                                                                                            |
-| input\_file.file\_url    | string  | Có điều kiện | URL hãng đọc được, chọn một nguồn thay dữ liệu nội tuyến.                                                                                                                  |
-| max\_output\_tokens      | integer | Không        | Giới hạn đầu ra mô hình.                                                                                                                                                   |
-| stream                   | boolean | Không        | true dùng Responses SSE.                                                                                                                                                   |
-
-Không gửi đường dẫn máy làm file\_url hay cùng điền file\_data, file\_id, file\_url. Kích thước phải đáp ứng cổng và hãng. Base64 lớn hơn gốc, ảnh trang PDF tăng token.
-
-### Cấu trúc yêu cầu
-
-BASE64\_PDF\_BYTES là PDF Base64 gốc; bốn mã đọc PDF\_PATH để điền.
-
-```json
-{
-  "model": "MODEL_ID",
-  "input": [
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "input_text",
-          "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-        },
-        {
-          "type": "input_file",
-          "filename": "document.pdf",
-          "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-        }
-      ]
-    }
-  ],
-  "max_output_tokens": 1024,
-  "stream": false
-}
-```
-
-## Phản hồi
-
-Trả đối tượng Responses chuẩn, không ID tác vụ tệp riêng.
-
-| Trường                                               | Kiểu             | Mô tả                                                                                                                                   |
-| ---------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| id / object                                          | string           | ID phản hồi; object=response.                                                                                                           |
-| created\_at / model                                  | integer / string | Thời điểm Unix giây và mô hình.                                                                                                         |
-| status                                               | string           | completed, incomplete, failed, queued, in\_progress hoặc cancelled; các trạng thái này có thể xuất hiện cả trong luồng và phản hồi nền. |
-| output\[]                                            | array            | Mục có kiểu có thể gồm message, reasoning, function\_call, web\_search\_call; không cố định output\[0].                                 |
-| output\[].type / id / status                         | string           | Loại, ID và trạng thái mục nếu áp dụng.                                                                                                 |
-| output\[].role                                       | string           | Tin đầu ra thường assistant.                                                                                                            |
-| output\[].content\[]                                 | array            | Nội dung\: type=output\_text cho chữ, type=refusal cho từ chối.                                                                         |
-| output\[].content\[].text / annotations              | string / array   | Chữ và chú thích như trích dẫn.                                                                                                         |
-| output\[].call\_id / name / arguments                | string           | ID liên kết, tên và tham số chuỗi JSON của function\_call.                                                                              |
-| error                                                | object / null    | Lỗi, thường null khi hoàn tất thường.                                                                                                   |
-| incomplete\_details                                  | object / null    | Lý do chưa đầy đủ như max\_output\_tokens, không coi thành công đầy đủ.                                                                 |
-| usage.input\_tokens / output\_tokens / total\_tokens | integer          | Token vào, ra và tổng.                                                                                                                  |
-| usage.\*\_tokens\_details                            | object           | Chi tiết tùy chọn về cache, suy luận.                                                                                                   |
-
-```json
-{
-  "id": "resp_file_example",
-  "object": "response",
-  "status": "completed",
-  "error": null,
-  "incomplete_details": null,
-  "output": [
-    {
-      "id": "msg_file_example",
-      "type": "message",
-      "role": "assistant",
-      "status": "completed",
-      "content": [
-        {
-          "type": "output_text",
-          "text": "这份文档主要讨论项目背景、实施步骤和风险。部分扫描页较模糊，无法确认细小文字。",
-          "annotations": []
-        }
-      ]
-    }
-  ],
-  "usage": {
-    "input_tokens": 1800,
-    "output_tokens": 75,
-    "total_tokens": 1875
-  }
-}
-```
-
-Chat Completions cũng hỗ trợ `type=file` và file.filename/file\_data lồng cho PDF, khác Responses input\_file. TXT, bảng hay zip Base64 không được mọi API hỗ trợ. Ứng dụng có thể giải chữ rồi gửi dạng chữ; loại khác kiểm hãng/mô hình.
-
-## Ví dụ mã
-
-Đặt `SIMIROUTER_API_KEY`, `SIMIROUTER_FILE_MODEL`; `SIMIROUTER_BASE_URL` để ghi đè địa chỉ cổng mặc định; không thêm `/v1`. `PDF_PATH` trỏ tới tệp cục bộ có thật. Python 3, Node.js 18+ và Go dùng thư viện chuẩn; curl dùng Python 3 mã hóa JSON an toàn.
-
-<Tabs items={["Python","Node.js","curl","Go"]}>
-  <Tab value="Python">
-    ```python
-    import json, os, sys, urllib.request, urllib.error
-    import base64
-    from pathlib import Path
-    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
-    if not os.environ.get("SIMIROUTER_FILE_MODEL"): raise RuntimeError("请设置 SIMIROUTER_FILE_MODEL")
-    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
-    body = json.loads(r'''{
-      "model": "MODEL_ID",
-      "input": [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "input_text",
-              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-            },
-            {
-              "type": "input_file",
-              "filename": "document.pdf",
-              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-            }
-          ]
-        }
-      ],
-      "max_output_tokens": 1024,
-      "stream": false
-    }''')
-    body["model"] = os.environ["SIMIROUTER_FILE_MODEL"]
-    p = Path(os.environ["PDF_PATH"])
-    if not p.is_file(): raise FileNotFoundError(p)
-    mime = {'.pdf': 'application/pdf'}.get(p.suffix.lower())
-    if not mime: raise ValueError("不支持的文件扩展名")
-    data = p.read_bytes()
-    if not data: raise ValueError("输入文件为空")
-    encoded = base64.b64encode(data).decode("ascii")
-    body["input"][0]["content"][1].update({"filename": p.name, "file_data": "data:" + mime + ";base64," + encoded})
-    path = '/v1/responses'
-    request = urllib.request.Request(base + path, data=json.dumps(body).encode("utf-8"), method="POST",
-        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(request, timeout=120) as response:
-            result = json.load(response)
-    except urllib.error.HTTPError as error:
-        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
-        raise SystemExit(1)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-    ```
-  </Tab>
-
-  <Tab value="Node.js">
-    ```javascript
-    async function main() {
-      const fs = require("node:fs");
-      const path = require("node:path");
-      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
-      if (!process.env.SIMIROUTER_FILE_MODEL) throw new Error("请设置 SIMIROUTER_FILE_MODEL");
-      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
-      const body = {
-      "model": "MODEL_ID",
-      "input": [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "input_text",
-              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-            },
-            {
-              "type": "input_file",
-              "filename": "document.pdf",
-              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-            }
-          ]
-        }
-      ],
-      "max_output_tokens": 1024,
-      "stream": false
-    };
-      body.model = process.env.SIMIROUTER_FILE_MODEL;
-      const filename = process.env.PDF_PATH;
-      if (!filename) throw new Error("请设置 PDF_PATH");
-      const mime = {".pdf": "application/pdf"}[path.extname(filename).toLowerCase()];
-      if (!mime) throw new Error("不支持的文件扩展名");
-      const data = fs.readFileSync(filename);
-      if (!data.length) throw new Error("输入文件为空");
-      const encoded = data.toString("base64");
-      Object.assign(body.input[0].content[1], { filename: path.basename(filename), file_data: `data:${mime};base64,${encoded}` });
-      const endpoint = "/v1/responses";
-      const response = await fetch(base + endpoint, { method: "POST",
-        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-        signal: AbortSignal.timeout(120000) });
-      const result = await response.text();
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
-      console.log(JSON.stringify(JSON.parse(result), null, 2));
-    }
-    main().catch(error => { console.error(error); process.exitCode = 1; });
-    ```
-  </Tab>
-
-  <Tab value="curl">
-    ```bash
-    set -eu
-    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
-    : "${SIMIROUTER_FILE_MODEL:?请设置 SIMIROUTER_FILE_MODEL}"
-    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
-    BODY=$(python3 - <<'PYBODY'
-    import json, os
-    import base64
-    from pathlib import Path
-    body = json.loads(r'''{
-      "model": "MODEL_ID",
-      "input": [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "input_text",
-              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-            },
-            {
-              "type": "input_file",
-              "filename": "document.pdf",
-              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-            }
-          ]
-        }
-      ],
-      "max_output_tokens": 1024,
-      "stream": false
-    }''')
-    body["model"] = os.environ["SIMIROUTER_FILE_MODEL"]
-    p = Path(os.environ["PDF_PATH"])
-    if not p.is_file(): raise FileNotFoundError(p)
-    mime = {'.pdf': 'application/pdf'}.get(p.suffix.lower())
-    if not mime: raise ValueError("不支持的文件扩展名")
-    data = p.read_bytes()
-    if not data: raise ValueError("输入文件为空")
-    encoded = base64.b64encode(data).decode("ascii")
-    body["input"][0]["content"][1].update({"filename": p.name, "file_data": "data:" + mime + ";base64," + encoded})
-    print(json.dumps(body, ensure_ascii=False))
-    PYBODY
-    )
-    curl "${BASE_URL%/}/v1/responses" \
-      --fail-with-body \
-      --max-time 120 \
-      -X POST \
-      -H "Authorization: Bearer $SIMIROUTER_API_KEY" \
-      -H "Content-Type: application/json" \
-      --data-binary "$BODY"
-    ```
-  </Tab>
-
-  <Tab value="Go">
-    ```go
-    package main
-
-    import (
-      "bytes"
-      "fmt"
-      "io"
-      "log"
-      "net/http"
-      "os"
-      "strings"
-      "time"
-      "encoding/json"
-      "encoding/base64"
-      "path/filepath"
-    )
-
-    func main() {
-      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
-      model := os.Getenv("SIMIROUTER_FILE_MODEL"); if model == "" { log.Fatal("请设置 SIMIROUTER_FILE_MODEL") }
-      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
-      var body map[string]any
-      if err := json.Unmarshal([]byte(`{
-      "model": "MODEL_ID",
-      "input": [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "input_text",
-              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-            },
-            {
-              "type": "input_file",
-              "filename": "document.pdf",
-              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-            }
-          ]
-        }
-      ],
-      "max_output_tokens": 1024,
-      "stream": false
-    }`), &body); err != nil { log.Fatal(err) }
-      body["model"] = model
-      filename := os.Getenv("PDF_PATH"); if filename == "" { log.Fatal("请设置 PDF_PATH") }
-      mime := map[string]string{".pdf":"application/pdf"}[strings.ToLower(filepath.Ext(filename))]
-      if mime == "" { log.Fatal("不支持的文件扩展名") }
-      data, err := os.ReadFile(filename); if err != nil { log.Fatal(err) }; if len(data) == 0 { log.Fatal("输入文件为空") }
-      encoded := base64.StdEncoding.EncodeToString(data)
-      item := body["input"].([]any)[0].(map[string]any)["content"].([]any)[1].(map[string]any); item["filename"] = filepath.Base(filename); item["file_data"] = "data:" + mime + ";base64," + encoded
-      endpoint := "/v1/responses"
-      payload, err := json.Marshal(body); if err != nil { log.Fatal(err) }
-      req, err := http.NewRequest("POST", base + endpoint, bytes.NewReader(payload)); if err != nil { log.Fatal(err) }
-      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
-      client := &http.Client{Timeout: 120 * time.Second}
-      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
-      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
-      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
-      fmt.Println(string(result))
-    }
-    ```
-  </Tab>
-</Tabs>
-
-## Mã lỗi
-
-| Trạng thái HTTP | Ý nghĩa hoặc loại lỗi hãng           | Cách xử lý                                                                                              |
-| --------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
-| 400             | Yêu cầu không hợp lệ                 | Kiểm tra trường bắt buộc, JSON, tham số và độ dài ngữ cảnh.                                             |
-| 401             | Xác thực thất bại                    | Kiểm tra khóa có, hợp lệ và thuộc đúng dịch vụ.                                                         |
-| 403 / 404       | Không có quyền / không có tài nguyên | Kiểm tra quyền mô hình, ID và URL.                                                                      |
-| 429             | Giới hạn tốc độ hoặc hạn mức         | Theo thân phản hồi phân biệt giới hạn tốc độ với thiếu hạn mức; thử lại không giải quyết thiếu hạn mức. |
-| 500 / 503       | Lỗi máy chủ / tạm không khả dụng     | Giữ ID yêu cầu, lùi thời gian giới hạn cho lỗi tạm.                                                     |
-
-Lỗi OpenAI gốc thường gồm `error.message`, `error.type`, `error.param`, `error.code`; `param`, `code` có thể là `null`; không mặc định luôn có hoặc bằng HTTP. Cổng có thể lỗi trước hãng. Tệp hỏng, khóa mật khẩu, quá giới hạn, không hỗ trợ cần sửa; không thử nguyên tệp lỗi hay giả nhận dạng thành công.
-
-## Tham khảo chính thức
-
-* [Đầu vào tệp OpenAI](https\://developers.openai.com/api/docs/guides/file-inputs)
-* [OpenAI Responses API](https\://developers.openai.com/api/reference/resources/responses/methods/create)
-* [OpenAI Files API](https\://developers.openai.com/api/reference/resources/files/methods/create)
-* [Xử lý lỗi OpenAI](https\://developers.openai.com/api/docs/guides/error-codes)
-
-# Tệp và hiểu nội dung
-
-Hai tầng\: API tải quản lý tài nguyên, API mô hình đọc và trả lời. Đính tệp vào sinh không nghĩa lưu thành tài nguyên tái dùng.
-
-## Tổng quan
-
-| Bạn muốn làm gì                        | Cách nhập                                             | Tệp đi đâu                    | Có cần tải lên trước không |
-| -------------------------------------- | ----------------------------------------------------- | ----------------------------- | -------------------------- |
-| Cho mô hình đọc một PDF                | Base64 nội tuyến trong yêu cầu hoặc URL truy cập được | Chỉ tồn tại trong yêu cầu này | Không                      |
-| Tái sử dụng tệp qua nhiều lượt yêu cầu | file\_id hoặc tham chiếu tệp của hãng                 | Tài nguyên tệp của hãng       | Có (Files API chính thức)  |
-| Tiền xử lý tệp hàng loạt hoặc quá dài  | Tải lên rồi chờ xử lý xong                            | Tài nguyên tệp của hãng       | Có, và có vòng đời         |
-
-## Khái niệm cốt lõi
-
-* **Đầu vào nội tuyến**\: tệp được mã hóa vào thân yêu cầu và gửi cùng tin nhắn; yêu cầu kết thúc là kết thúc, không có file\_id cũng không có bước xóa sau đó.
-* **Tài nguyên tệp**\: tải lên trước để lấy id, sau đó tham chiếu trong nhiều yêu cầu; tài nguyên có quyền sở hữu, thời hạn và hạn mức, cần xóa tường minh.
-* **Vòng đời**\: tải lên xong không có nghĩa đã trích xuất xong văn bản, cũng không có nghĩa mô hình đã hiểu; phải truy vấn đến trạng thái có thể xử lý rồi mới suy luận.
-* **Kích thước và định dạng**\: giới hạn được đặt riêng theo kích thước tệp, số trang, thời lượng; nén ảnh không chuyển đổi loại tệp, PDF dạng quét còn cần khả năng OCR.
-* **Lưu trữ dữ liệu**\: chính sách lưu giữ nội dung tệp và kết quả nhận dạng khác nhau giữa các hãng; tài liệu nhạy cảm cần xác nhận quyền và cách xóa trước.
-
-## Yêu cầu và khả năng
-
-| Mục đích                                        | Yêu cầu                                       | Giới hạn                                                       |
-| ----------------------------------------------- | --------------------------------------------- | -------------------------------------------------------------- |
-| [Hiểu nội dung PDF](/simidoc/vi/apps/api/upload/file-recognition)         | POST /v1/responses + input\_file              | Base64 nội tuyến, không cần Files API.                         |
-| Đầu vào PDF Chat                                | POST /v1/chat/completions + type=file         | Dùng file Chat, không cấu trúc Responses.                      |
-| [Files API](/simidoc/vi/apps/api/pending/files)                   | /v1/files                                     | Cổng chưa triển khai; hãng có tải gốc không nghĩa nền tảng mở. |
-| [Hiểu phương tiện Gemini](/simidoc/vi/apps/api/chat/gemini-media) | POST /v1beta/models/\{model}\:generateContent | inlineData hoặc fileData phù hợp.                              |
-
-## Cách gọi
-
-Nội tuyến trả JSON đồng bộ hoặc sự kiện chữ luồng, đều một yêu cầu. Tải/tiền xử lý hãng có thể chờ tài nguyên, là vòng đời tài nguyên không tự chạy mô hình nền. Nhiều tệp cùng yêu cầu hoặc song song có ngữ cảnh, phí, giới hạn khác.
-
-Trước tải tệp nhạy cảm, xác nhận quyền và chính sách dữ liệu. Chọn trang/đoạn liên quan thay tăng vô hạn. Giữ bất định kết quả; tiền, mã và kết luận luật/y cần người kiểm.
-
-## Mô phỏng lệnh gọi
-
-Nhận dạng nội tuyến hoàn tất trong một yêu cầu, tệp được đặt dưới dạng Base64 trong `input_file`\:
-
-```json
-{
-  "model": "gpt-5.5",
-  "input": [
-    {
-      "role": "user",
-      "content": [
-        { "type": "input_text", "text": "总结这份合同的付款条款。" },
-        { "type": "input_file", "filename": "contract.pdf", "file_data": "data:application/pdf;base64,JVBERi0xLjQK..." }
-      ]
-    }
-  ]
-}
-```
-
-Phản hồi là tin nhắn mô hình thông thường, kết quả nhận dạng nằm trong `output_text`\:
-
-```json
-{
-  "status": "completed",
-  "output": [
-    {
-      "type": "message",
-      "content": [
-        { "type": "output_text", "text": "（示意）合同约定分三期付款……" }
-      ]
-    }
-  ]
-}
-```
-
-Toàn bộ quá trình không có bước tải lên và cũng không có file\_id tái sử dụng; muốn hỏi lại cùng một tệp, cần gửi lại Base64 hoặc chuyển sang tài nguyên tệp chính thức.
-
-## Tham khảo chính thức
-
-* [Đầu vào tệp OpenAI](https\://developers.openai.com/api/docs/guides/file-inputs)
-* [OpenAI Files API](https\://developers.openai.com/api/reference/resources/files/methods/create)
-* [Đầu vào tệp Google](https\://ai.google.dev/gemini-api/docs/file-input-methods)
 
 # Video
 

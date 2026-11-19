@@ -635,13 +635,15 @@ claude
 
 儲存庫提供 Bash 與 PowerShell 指令碼。執行前請確保已安裝並啟動過 Codex CLI 或 Codex 桌面版；先下載並審閱指令碼，再執行本機檔案。
 
-* [下載 Bash 指令碼](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
-* [下載 PowerShell 指令碼](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [下載 Bash 指令碼（CDN）](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [下載 Bash 指令碼（GitHub Raw 備用）](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [下載 PowerShell 指令碼（CDN）](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [下載 PowerShell 指令碼（GitHub Raw 備用）](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
 
 macOS / Linux 使用者在終端機中執行：
 
 <Callout type="warn" title="">
-  以下步驟會從文件網站下載指令碼，但不會把網路回應直接交給直譯器。請先審閱儲存的檔案再執行。若網站尚未提供檔案，請使用儲存庫 `public/scripts/` 中的相同檔案，或使用下方手動設定。
+  以下步驟會從上方的 CDN 或 GitHub Raw 連結下載指令碼，但不會把網路回應直接交給直譯器。請先審閱儲存的本機檔案再執行。
   指令碼會將 API 金鑰寫入 `experimental_bearer_token` in `config.toml`，不會建立或修改 `auth.json`。請將此設定檔視為含明文秘密。
 </Callout>
 
@@ -1779,41 +1781,6 @@ Roo Code 支援自訂 OpenAI 相容提供者。透過 SimiRouter 串接時，只
 
 [WorkBuddy 自訂模型設定](https\://www.codebuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Model)。
 
-# 使用記錄與稽核記錄權限
-
-這篇指南說明使用記錄與稽核記錄在不同角色下的可見範圍，以及如何確認實際處理請求的管道。
-
-## 使用記錄
-
-### 超級管理員
-
-超級管理員可以查看所有使用者的完整記錄。打開[使用記錄](https://api.dwchainless.com/usage-logs/common)，在類型篩選中選擇 **僅看錯誤**，即可顯示所有使用者的錯誤呼叫。即使最終請求成功，重試期間發生的錯誤仍會保留在篩選結果中。
-
-管道欄表示這次請求實際使用的管道。排查路由時，應以記錄中的實際管道、模型、狀態和請求 ID 為準，不要只依據用戶端顯示的模型名稱。
-
-### 管理員
-
-管理員只能查看自己的請求、儲值、管理操作和錯誤呼叫記錄。使用者名稱、角色參數或 URL 不能擴大這個範圍。管理員沒有全域的 **僅看錯誤** 篩選，但自己的錯誤記錄仍會按權限顯示。
-
-### 一般使用者
-
-一般使用者只能查看自己的請求、儲值和管理員操作相關記錄，不能查看錯誤記錄或其他使用者的記錄。
-
-## 稽核記錄
-
-超級管理員可以查看所有使用者的稽核事件並按使用者名稱篩選。管理員和一般使用者只能查看目前已驗證帳戶自己的稽核事件；頁面參數不能擴大伺服器端權限範圍。
-
-## 管道狀態更新
-
-稽核事件 `channel.status_update` 表示一次手動的單一管道狀態操作。目前程式碼記錄的目標狀態為啟用或手動停用；`changed=false` 表示請求成功但管道狀態沒有變化。批次操作對應 `channel.status_update_batch`。需要確認具體操作時，請查看事件詳情、操作人和時間。
-
-## 錯誤排查
-
-1. 先確認時間範圍和請求 ID。
-2. 超級管理員排查全域錯誤時，選擇 **僅看錯誤**。
-3. 核對實際管道、模型和狀態，不要只依據用戶端標籤。
-4. 對逾時、5xx 回應或串流中斷，先查看現有記錄和請求 ID，再決定是否重試，避免重複扣費。
-
 # 聯繫與支援
 
 <ContactSupport locale="zh-Hant" />
@@ -1919,6 +1886,53 @@ Roo Code 支援自訂 OpenAI 相容提供者。透過 SimiRouter 串接時，只
 客服入口：請登入後台，通過線上客服提交退款申請。
 
 本說明適用於 SimiRouter 退款處理。如平台規則調整，以最新公告或客服說明為準。
+
+# 使用記錄與稽核記錄權限
+
+這篇指南說明使用記錄與稽核記錄在不同角色下的可見範圍，以及如何確認實際處理請求的管道。
+
+## 使用記錄
+
+### 超級管理員
+
+超級管理員可以查看所有使用者的完整記錄。打開[使用記錄](https://api.dwchainless.com/usage-logs/common)，在類型篩選中選擇 **僅看錯誤**，即可顯示所有使用者的錯誤呼叫。即使最終請求成功，重試期間發生的錯誤仍會保留在篩選結果中。
+
+管道欄表示這次請求實際使用的管道。排查路由時，應以記錄中的實際管道、模型、狀態和請求 ID 為準，不要只依據用戶端顯示的模型名稱。
+
+### 管理員
+
+管理員只能查看自己的請求、儲值、管理操作和錯誤呼叫記錄。使用者名稱、角色參數或 URL 不能擴大這個範圍。管理員沒有全域的 **僅看錯誤** 篩選，但自己的錯誤記錄仍會按權限顯示。
+
+### 一般使用者
+
+一般使用者只能查看自己的請求、儲值和管理員操作相關記錄，不能查看錯誤記錄或其他使用者的記錄。
+
+## 稽核記錄
+
+超級管理員可以查看所有使用者的稽核事件並按使用者名稱篩選。管理員和一般使用者只能查看目前已驗證帳戶自己的稽核事件；頁面參數不能擴大伺服器端權限範圍。
+
+## 管道狀態更新
+
+稽核事件 `channel.status_update` 表示一次手動的單一管道狀態操作。目前程式碼記錄的目標狀態為啟用或手動停用；`changed=false` 表示請求成功但管道狀態沒有變化。批次操作對應 `channel.status_update_batch`。需要確認具體操作時，請查看事件詳情、操作人和時間。
+
+## 錯誤排查
+
+1. 先確認時間範圍和請求 ID。
+2. 超級管理員排查全域錯誤時，選擇 **僅看錯誤**。
+3. 核對實際管道、模型和狀態，不要只依據用戶端標籤。
+4. 對逾時、5xx 回應或串流中斷，先查看現有記錄和請求 ID，再決定是否重試，避免重複扣費。
+
+# 定價
+
+## 查看目前模型價格
+
+打開 [模型廣場](https://api.dwchainless.com/zh-Hant/pricing/)，選擇模型與群組查看目前計價。模型的輸入、輸出、快取或按次價格可能不同，請以頁面實際顯示和帳戶群組權限為準。
+
+![模型與價格頁面：選擇計價群組後，表格列出模型 ID、規格與價格](/simidoc/assets/guide/pricing-2026-11.png)
+
+*截圖來自本機部署，更新於 2026-11-17，僅用於說明頁面位置，不作為價格承諾。點按圖片可查看原圖。*
+
+儲值與到帳額度不是模型價格本身。首次串接前，建議先發起小規模請求，再到 [使用記錄](https://api.dwchainless.com/usage-logs/common) 核對實際消耗。
 
 # 新站上線三重福利
 
@@ -2348,18 +2362,6 @@ Roo Code 支援自訂 OpenAI 相容提供者。透過 SimiRouter 串接時，只
 * 借助代充、洗錢、盜刷或其他違法違規方式參與活動；
 * 組織或協助他人實施惡意套利；
 * 其他違反公平誠信原則、使用者協議或法律法規的行為。
-
-# 定價
-
-## 查看目前模型價格
-
-打開 [模型廣場](https://api.dwchainless.com/zh-Hant/pricing/)，選擇模型與群組查看目前計價。模型的輸入、輸出、快取或按次價格可能不同，請以頁面實際顯示和帳戶群組權限為準。
-
-![模型與價格頁面：選擇計價群組後，表格列出模型 ID、規格與價格](/simidoc/assets/guide/pricing-2026-11.png)
-
-*截圖來自本機部署，更新於 2026-11-17，僅用於說明頁面位置，不作為價格承諾。點按圖片可查看原圖。*
-
-儲值與到帳額度不是模型價格本身。首次串接前，建議先發起小規模請求，再到 [使用記錄](https://api.dwchainless.com/usage-logs/common) 核對實際消耗。
 
 # 儲值
 
@@ -5558,6 +5560,249 @@ Python 範例需 `python3 -m pip install requests`；Node.js 範例使用 Node.j
 
 [OpenAI Create translation](https\://developers.openai.com/api/reference/resources/audio/subresources/translations/methods/create)。
 
+# 智慧代理圖片呼叫已合併到協議文件
+
+智慧代理呼叫任務已分散到三個協議，每個協議均有生成和編輯模板、配置準備、結果儲存與失敗處理，不再單獨維護一套偏向 OpenAI Images 的教學：
+
+* [OpenAI 格式的智慧代理呼叫](/simidoc/zh-Hant/apps/api/images/openai)：Images 生成、JSON 編輯及最終事件檢查。
+* [Gemini 原生格式的智慧代理呼叫](/simidoc/zh-Hant/apps/api/images/gemini)：GenerateContent 圖片 Part、MIME 與多輪上下文。
+* [Qwen 原生格式的智慧代理呼叫](/simidoc/zh-Hant/apps/api/images/qwen)：百煉區域配置、原生同步呼叫和圖片 URL 下載。
+
+智慧代理仍須具備本地執行和回傳結果檢查能力；這些文件不會安裝遠端 Skill。真實請求可能收費，呼叫前確認模型、規格、數量和輸出位置；不洩露金鑰、不覆蓋檔案、不自動重試。介面、效果與規格比較見[圖片 API 總覽](/simidoc/zh-Hant/apps/api/images)。
+
+# 畫圖
+
+先選 **API 協議**，再確定要做的 **效果**，最後核對 **尺寸、品質、格式和張數**。協議決定請求與回應結構，效果由模型能力和提示詞共同決定，規格決定輸出要求；三者不能混為一談。
+
+生成和編輯回傳圖片；圖片理解以圖片為輸入，回傳文字或結構化結果。普通文字模型不會因為加入圖片參數就獲得生圖能力。呼叫前從[模型與價格](https://api.dwchainless.com/zh-Hant/pricing/)確認準確模型 ID、介面支援、計費分組和額度，真實請求可能產生費用。
+
+## 概覽
+
+| 你要做什麼     | 輸入             | 輸出        | 典型端點                          |
+| --------- | -------------- | --------- | ----------------------------- |
+| 從文字生成圖片   | 提示詞            | 新圖片       | `POST /v1/images/generations` |
+| 修改已有圖片    | 提示詞 + 一張或多張參考圖 | 編輯後的圖片    | `POST /v1/images/edits`       |
+| 在對話中邊聊邊生圖 | 對話訊息 + 圖像工具    | 圖片與文字混合結果 | `POST /v1/responses`          |
+| 讓模型看圖說話   | 圖片 + 問題        | 文字，不是新圖片  | `POST /v1/chat/completions`   |
+
+## 核心概念
+
+先分清三類數字，後面的參數和價格才說得通：
+
+* **像素尺寸**：真實的寬 × 高，例如 `1024x1024`。它決定檔案的實際解析度，不是檔案大小，也不等於品質檔位。
+* **寬高比**：`1:1`、`16:9`、`9:16` 這類比例，只決定畫幅形狀。同一比例可以對應多種像素尺寸；只說比例不等於指定了輸出大小。
+* **解析度檔位**：`1K`、`2K`、`4K` 這類檔位。廠商的原生檔位按最長邊或產品線定義，本站的按張計費檔位則按最長邊歸檔；兩者名稱相同，邊界不一定相同，不能直接互相推斷。
+
+還有三個常見誤解：`quality` 控制渲染品質，不是壓縮品質；PNG、JPEG、WebP 是檔案格式，改副檔名不會轉換格式；Base64 與 URL 只是交付方式，不是解析度。逐項對照見下文「四、圖片規格與計費」。
+
+## 一、各種 API：按協議選擇
+
+三套協議各有獨立的請求參數、回傳參數和範例。指令碼呼叫、智慧代理使用、結果儲存與失敗處理也在各自協議中說明，不需要先讀一套僅適用於 OpenAI 的通用教學。
+
+| 協議        | API / 能力         | 請求端點                                                  | 主要結果                                      | 文件                                          |
+| --------- | ---------------- | ----------------------------------------------------- | ----------------------------------------- | ------------------------------------------- |
+| OpenAI    | 文生圖              | `POST /v1/images/generations`                         | `data[].b64_json`；相容模型也可能回傳 URL           | [生成](/simidoc/zh-Hant/apps/api/images/openai/generations)                  |
+| OpenAI    | 圖片編輯 / 以圖生圖      | `POST /v1/images/edits`                               | 編輯後的圖片                                    | [編輯](/simidoc/zh-Hant/apps/api/images/openai/edits)                        |
+| OpenAI    | 對話式生圖            | `POST /v1/responses`，使用 `image_generation` 工具         | `output[]` 中的圖像工具結果                       | [對話式生圖](/simidoc/zh-Hant/apps/api/images/openai/chat-format)               |
+| OpenAI    | 圖片理解             | `POST /v1/chat/completions`，輸入 `image_url`            | 文字分析，不是生成圖片                               | [圖片理解](/simidoc/zh-Hant/apps/api/images/openai/vision)                     |
+| Gemini    | 文生圖              | `POST /v1beta/models/{model}:generateContent`         | `candidates[].content.parts[].inlineData` | [生成](/simidoc/zh-Hant/apps/api/images/gemini/generate)                     |
+| Gemini    | 圖片編輯 / 多輪改圖      | 同上，混合輸入文字和圖片                                          | 回傳內容項中的圖片                                 | [編輯](/simidoc/zh-Hant/apps/api/images/gemini/edits)                        |
+| Gemini    | 圖片理解             | 同上，使用支援視覺輸入的模型                                        | 文字分析                                      | [媒體識別](/simidoc/zh-Hant/apps/api/chat/gemini-media)                |
+| 通義千問      | 文生圖 / 圖片編輯       | `POST /v1/images/generations`、`POST /v1/images/edits` | `data[].url` 或 `data[].b64_json`          | [生成](/simidoc/zh-Hant/apps/api/images/qwen/generations)、[編輯](/simidoc/zh-Hant/apps/api/images/qwen/edits) |
+| 即夢 / 火山方舟 | 文生圖 / 參考圖生成      | `POST /api/v3/images/generations`                     | `data[].url` 或 `data[].b64_json`          | [生成](/simidoc/zh-Hant/apps/api/images/jimeng)                              |
+| xAI Grok  | 文生圖 / 多張生成       | `POST /v1/images/generations`                         | `data[].url` 或 `data[].b64_json`          | [生成](/simidoc/zh-Hant/apps/api/images/grok)                                |
+| BFL FLUX  | 文生圖 / 參考圖生成（非同步） | `POST /v1/flux-pro-1.1` 等                             | 先取 `polling_url`，完成後取 `result.sample`     | [生成](/simidoc/zh-Hant/apps/api/images/flux)                                |
+
+**通義千問這一節使用 Qwen 原生請求體，透過本站閘道的 `/v1/images/generations` 與 `/v1/images/edits` 呼叫，回傳統一為 `data[]`。** 不要把正文改寫成 OpenAI 的 `prompt` 欄位；模型 ID 應使用本站管道實際提供的名稱。即夢使用火山方舟原生請求主體；Grok 的路徑與 OpenAI Images 相同，但畫幅參數換成了 `aspect_ratio` 與 `resolution`；FLUX 沒有同步出圖，必須先提交任務再輪詢 `polling_url`。三者不能互相照搬欄位。
+
+呼叫方式也要隨協議區分：OpenAI Images 普通請求等待完整結果，支援的模型才可使用圖像事件流；Gemini 串流使用 `streamGenerateContent?alt=sse`；本目錄通義千問與即夢範例使用同步回傳；Grok 預設同步，也可用 `deferred` 轉為延遲任務；FLUX 則固定為非同步輪詢。它們都不能僅靠新增「非同步」參數變成通用任務佇列。具體請求、輸出和完成判定見 [OpenAI](/simidoc/zh-Hant/apps/api/images/openai)、[Gemini](/simidoc/zh-Hant/apps/api/images/gemini)、[通義千問](/simidoc/zh-Hant/apps/api/images/qwen)、[即夢](/simidoc/zh-Hant/apps/api/images/jimeng)、[Grok](/simidoc/zh-Hant/apps/api/images/grok)、[FLUX](/simidoc/zh-Hant/apps/api/images/flux)各自說明。
+
+## 二、各種效果：按目標選擇
+
+「水彩」「換背景」「商品合成」等通常是生成或編輯任務，不是各自獨立的 API。以下是任務分類，不是全模型能力承諾；先在對應協議和模型說明中確認支援範圍。
+
+| 想要的效果              | 輸入與提示詞重點              | 介面選擇與限制                          |
+| ------------------ | --------------------- | -------------------------------- |
+| 從零創作：插畫、封面、海報、寫實畫面 | 描述主體、構圖、風格、光線與需要呈現的文字 | 選文生圖；文字與細節需檢查                    |
+| 參考圖變體：沿用主體或構圖重新生成  | 提供參考圖，分別說明保留項與改變項     | 選圖片編輯 / 以圖生圖；不能保證逐像素保持           |
+| 風格轉換：照片轉水彩、線稿等     | 參考圖加目標風格，說明主體和佈局是否保留  | 選支援參考圖的編輯模型                      |
+| 背景替換、增刪元素、局部修改     | 明確修改區域；支援時提供蒙版        | 選編輯介面；蒙版支援和規則隨模型變化               |
+| 多圖組合：商品、人物與場景合成    | 給出各參考圖的用途、主體關係和最終佈局   | 選支援多圖輸入的編輯模型，核對圖片數量上限            |
+| 多輪迭代：基於上一張繼續修改     | 保留協議要求的歷史內容或引用資訊      | 選支援多輪圖像工作的介面；不能只儲存一段文字就假定圖像上下文仍在 |
+| 透明背景素材             | 明確需要真實透明通道，而非白底或棋盤格畫面 | 僅在模型支援時選擇透明背景和可保留透明通道的輸出格式       |
+| 識圖、提取文字、圖表問答       | 輸入圖片並說明分析目標           | 選圖片理解介面，回傳文字而非編輯後的圖              |
+
+這些能力與限制可參考 [OpenAI 圖像生成](https\://developers.openai.com/api/docs/guides/image-generation)、[Gemini 圖像生成與編輯](https\://ai.google.dev/gemini-api/docs/image-generation)、[Qwen 圖像編輯](https\://www.alibabacloud.com/help/en/model-studio/qwen-image-edit-api)。官方範例不代表目前閘道管道已開放相同能力。
+
+## 三、發起呼叫：四步完成第一張圖
+
+無論選擇哪套協議，呼叫都遵循同一順序：確認設定、選擇端點、傳送最小請求、讀取並驗收結果。下面只描述通用流程，具體欄位以對應協議頁面為準。
+
+### 1. 確認請求位址、金鑰與模型
+
+* **請求位址**：本站閘道為 `https://api.dwchainless.com`，端點路徑隨協議和操作變化。
+* **金鑰**：在 [API 金鑰管理](https://api.dwchainless.com/keys) 建立，請求時透過 `Authorization: Bearer $API_KEY` 攜帶；不要寫進提示詞、原始碼、截圖或 Git。
+* **模型**：從[模型與價格](https://api.dwchainless.com/zh-Hant/pricing/)複製完整模型 ID，並確認它支援目標端點。生成、編輯和圖片理解可能由不同模型提供。
+
+### 2. 選擇端點與請求格式
+
+按上方的協議表選擇端點，再確認請求主體格式：
+
+| 操作          | 端點（OpenAI 格式）                 | 請求格式                        |
+| ----------- | ----------------------------- | --------------------------- |
+| 文字生圖        | `POST /v1/images/generations` | JSON                        |
+| 圖片編輯 / 以圖生圖 | `POST /v1/images/edits`       | JSON `images[]` 或 multipart |
+| 對話式生圖       | `POST /v1/responses`          | JSON，啟用圖像工具                 |
+| 圖片理解        | `POST /v1/chat/completions`   | JSON，內容項含 `image_url`       |
+
+Gemini、通義千問、即夢、Grok 和 FLUX 使用各自的原生請求欄位，不能把 OpenAI 欄位直接照搬過去。
+
+### 3. 傳送最小請求
+
+第一次呼叫只生成一張、不使用串流，先確認鑑權、模型和參數都有效。以下以 OpenAI 生圖為例：
+
+```bash
+API_URL="https://api.dwchainless.com/v1/images/generations"
+API_KEY="PASTE_API_KEY_HERE"
+curl "$API_URL" \
+  -H "Authorization: Bearer $API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-image-2",
+    "prompt": "一只小机器人在图书馆阅读，水彩插画，不要文字。",
+    "n": 1,
+    "size": "1024x1024",
+    "output_format": "png"
+  }'
+```
+
+確認回傳正常後，再按需增加 `n`、調整尺寸或開啟串流。完整的多語言範例見[生成](/simidoc/zh-Hant/apps/api/images/openai/generations)和[編輯](/simidoc/zh-Hant/apps/api/images/openai/edits)。
+
+**回傳形態（示意）**：真實回應的 Base64 很長，這裡只保留開頭；成功時看 `data[]` 而不只是 HTTP 200。
+
+```json
+{
+  "created": 1763366400,
+  "data": [{ "b64_json": "iVBORw0KGgoAAAANSUhEUg..." }],
+  "usage": { "input_tokens": 28, "output_tokens": 4160, "total_tokens": 4188 }
+}
+```
+
+### 4. 讀取結果並驗收
+
+1. **檢查狀態**：只有 2xx 表示請求成功；4xx 檢查參數和權限，5xx 或逾時先確認請求是否已執行。
+2. **讀取結果**：從 `data[]` 取圖片，GPT Image 回傳 `data[].b64_json`，相容模型可能回傳 `data[].url`；不要假定一定有第一項。
+3. **儲存圖片**：Base64 先解碼為二進位，並按實際 MIME 類型選擇副檔名；URL 及時下載，下載時不要附帶 API Key。
+4. **驗收**：檢查檔案能否開啟、實際像素尺寸、透明效果和內容，再核對使用紀錄。HTTP 200、空 `data[]` 或串流中間預覽都不等於最終圖片已經儲存。
+
+## 四、圖片規格與計費
+
+### 請求中各項規格分別控制什麼
+
+| 規格    | 含義與例子                              | 容易混淆的地方                                    |
+| ----- | ---------------------------------- | ------------------------------------------ |
+| 像素尺寸  | 實際寬 × 高，例如 `1024x1024`、`1536x1024` | 不是檔案大小，也不自動代表品質檔位                          |
+| 寬高比   | `1:1` 方圖、`16:9` 橫圖、`9:16` 直式圖      | 相同比例可有多種解析度；只選比例沒有指定全部像素尺寸                 |
+| 解析度檔位 | 某些模型使用 `1K`、`2K`、`4K` 等原生參數        | 廠商檔位的實際寬高還取決於模型和比例，不應直接等同本站按張計費的像素邊界       |
+| 生成品質  | 如 OpenAI 的 `quality`，控制模型的渲染品質選擇   | 不是 `size`，也不是 JPEG/WebP 的壓縮品質；不同模型不一定有同名參數 |
+| 檔案格式  | PNG、JPEG、WebP 等，以實際回傳的 MIME 類型為準   | Base64 和 URL 是交付方式，不是圖片格式；改副檔名不能轉換格式       |
+| 透明背景  | 圖片包含透明通道，適合素材疊加                    | 需要模型、參數和檔案格式共同支援；寫「透明背景」不保證結果一定帶透明通道       |
+| 張數    | 生成數量或候選數量，欄位和上限隨協議、模型變化            | 提示詞寫「生成三張」不等於設定 API 張數；多圖輸入也不等於多圖輸出        |
+
+同一寬高比下，邊長翻倍會讓總像素數變為四倍，但不保證畫面細節或清晰度按同樣倍數提升。選擇時先滿足使用場景，再核對模型支援、耗時與價格，不必一律使用最高檔。
+
+具體欄位、可用值和程式碼範例分別見 [OpenAI 請求格式](/simidoc/zh-Hant/apps/api/images/openai/generations)、[Gemini 請求格式](/simidoc/zh-Hant/apps/api/images/gemini/generate)、[通義千問請求格式](/simidoc/zh-Hant/apps/api/images/qwen/generations)、[即夢請求格式](/simidoc/zh-Hant/apps/api/images/jimeng)、[Grok 請求格式](/simidoc/zh-Hant/apps/api/images/grok)、[FLUX 請求格式](/simidoc/zh-Hant/apps/api/images/flux)。其中 OpenAI 的輸出品質、格式和透明參數見[官方輸出設定](https\://developers.openai.com/api/docs/guides/image-generation#customize-image-output)；Qwen 的尺寸與輸出要求見[官方規格](https\://www.alibabacloud.com/help/en/model-studio/qwen-image-api)。不要把某個協議的參數直接複製給另一協議。
+
+### 本站 1K、2K、4K 按張計費有什麼區別
+
+只有在[模型價格](https://api.dwchainless.com/zh-Hant/pricing/)中明確採用 1K / 2K / 4K 三檔按張計費的模型，才適用下表。按 Token 計費或其他固定單價的模型仍按各自規則結算，不能僅憑「圖片模型」名稱判斷收費方式。
+
+| 計費檔位 | 最長邊                    | 範例尺寸（像素）            |
+| ---- | ---------------------- | ------------------- |
+| 1K   | 兩邊均 ≤ 1024 像素          | 1024×1024           |
+| 2K   | 最長邊 > 1024 且 ≤ 2048 像素 | 1280×720、1536×1024  |
+| 4K   | 任一邊 > 2048 像素          | 2560×1440、3840×2160 |
+
+**總價 = 目前檔位單張價格 × 計費張數。** 支援按完成結果結算的介面按實際完成張數計費；串流中間預覽不算完成圖片。單張價格、分組和最終扣費以目前模型價格及使用紀錄為準，本頁不固定價格數值。
+
+採用上述三檔按張規則時，只有在未指定其他有效尺寸檔位的情況下，省略 `size` 或使用 `auto` 才預設按 1K 檔計費；顯式指定的原生解析度欄位仍決定計費檔位。按以下邊界歸檔：1K 為兩邊均 ≤ 1024；2K 為最長邊 > 1024 且 ≤ 2048；4K 為任一邊 > 2048。例如 `1280x720` 屬於 2K，`2560x1440` 屬於 4K。
+
+**計費檔位不是輸出尺寸承諾。** Gemini 的 `generationConfig.imageConfig.imageSize` 是模型的原生解析度選擇，實際像素尺寸應結合模型與比例確認；本站按支援的請求欄位計算計費檔位，不據此承諾統一的輸出寬高。不要同時填寫相互衝突的尺寸欄位，也不要把按張規則套用到官方直連或按 Token 計費模型。
+
+### 常用比例速查：14 種比例 × 1K / 2K / 4K
+
+下表按比例列出常見的 1K、2K、4K 預設尺寸，方便快速挑選畫幅。它是尺寸速查，不是模型支援清單：可用比例、預設名稱和單邊上限隨模型與管道變化，請求前仍須以模型說明或介面錯誤為準。
+
+K 檔位是預設名稱，不是本頁的按張計費檔位。部分「1K」預設的最長邊已超過 1024 像素，按本站規則會歸入 2K 檔；例如 16\:9 的 1K 預設 `1536x864` 屬於 2K。計費始終按實際請求尺寸和[模型價格](https://api.dwchainless.com/zh-Hant/pricing/)計算。
+
+| 比例        | 常見用途        | 1K size     | 2K size     | 4K size     |
+| :-------- | :---------- | :---------- | :---------- | :---------- |
+| `1:1`     | 方形頭像 / 產品圖  | `1024x1024` | `2048x2048` | `3840x3840` |
+| `4:3`     | 橫向插畫 / 展示圖  | `1152x896`  | `2048x1536` | `3840x2880` |
+| `3:4`     | 直式海報 / 人像   | `896x1152`  | `1536x2048` | `2880x3840` |
+| `16:9`    | 橫屏封面 / 簡報   | `1536x864`  | `2048x1152` | `3840x2160` |
+| `9:16`    | 直式封面 / 手機背景 | `864x1536`  | `1152x2048` | `2160x3840` |
+| `3:2`     | 橫向攝影        | `1536x1024` | `2048x1360` | `3840x2560` |
+| `2:3`     | 直式攝影        | `1024x1536` | `1360x2048` | `2560x3840` |
+| `5:4`     | 橫向商品展示      | `1280x1024` | `2560x2048` | `3840x3072` |
+| `4:5`     | 直式商品 / 社群圖  | `1024x1280` | `2048x2560` | `3072x3840` |
+| `21:9`    | 寬幅場景 / 橫幅   | `1792x768`  | `2048x880`  | `3840x1648` |
+| `1:4`     | 窄長直幅        | `512x2048`  | `768x3072`  | **超出單邊上限**  |
+| `4:1`     | 窄長橫幅        | `2048x512`  | `3072x768`  | **超出單邊上限**  |
+| `1.414:1` | 近似 A 系列橫向紙張 | `1440x1024` | `2048x1456` | `3840x2720` |
+| `1:1.414` | 近似 A 系列直式紙張 | `1024x1440` | `1456x2048` | `2720x3840` |
+
+### size 的三種正確寫法
+
+部分 OpenAI 相容閘道支援以下寫法；欄位是否生效取決於模型與管道，不被支援時應退回明確像素。
+
+| 寫法       | 請求片段                               | 用途               |
+| :------- | :--------------------------------- | :--------------- |
+| 明確像素（推薦） | `{"size":"1536x2048"}`             | 最直觀，避免預設換算差異     |
+| 比例 + 解析度 | `{"size":"3:4","resolution":"2k"}` | 按 2K / 3\:4 預設換算 |
+| 自動尺寸     | `{"size":"auto"}`                  | 由模型按能力選擇，不承諾固定寬高 |
+
+* K 檔位填 `resolution`，`size` 填像素或比例；不要把 `2k` 寫進 `size`。
+* 尺寸分隔符使用小寫英文字母 `x`，不要用乘號 ×、大寫 X、陣列或帶乘號的字串。
+* 比例寫進 `size` 時優先於單獨的 `aspect_ratio`；明確像素或 `auto` 優先於比例預設。
+* OpenAI 官方對 gpt-image-2 的任意尺寸上限為 3840×2160；`1:4`、`4:1` 的 4K 組合超過該上限，因此標註超出單邊上限。其他模型的上限以模型說明為準。
+* Gemini 與 Qwen 使用各自的尺寸欄位，不能直接套用上述寫法。
+
+### 常用尺寸參考：28 種
+
+以下標記僅表示上述按張規則的計費檔位，不保證所選模型支援這些尺寸。先檢查模型介面支援範圍，再選擇尺寸；不要把計費檔位直接當成介面參數值。
+
+| 用途 / 比例              | 尺寸（像素）與計費檔位                                                              |
+| -------------------- | ------------------------------------------------------------------------ |
+| 通用方圖 · 1\:1          | 1024×1024 · 1K；1536×1536 · 2K；2048×2048 · 2K                             |
+| 橫版封面 · 16\:9         | 1280×720 · 2K；1536×864 · 2K；2048×1152 · 2K；2560×1440 · 4K；3840×2160 · 4K |
+| 直式影片 / Story · 9\:16 | 720×1280 · 2K；864×1536 · 2K；1152×2048 · 2K；1440×2560 · 4K；2160×3840 · 4K |
+| 文章配圖 · 3\:2          | 1536×1024 · 2K；1920×1280 · 2K；2400×1600 · 4K                             |
+| 直式海報 · 2\:3          | 1024×1536 · 2K；1280×1920 · 2K；1600×2400 · 4K                             |
+| 寬橫幅 · 2\:1           | 1536×768 · 2K；2048×1024 · 2K；2560×1280 · 4K；3840×1920 · 4K               |
+| 超寬橫幅 · 3\:1          | 1536×512 · 2K；1920×640 · 2K；2400×800 · 4K；3072×1024 · 4K；3840×1280 · 4K  |
+
+## 五、按協議深入
+
+各協議的完整參數、回傳結構、程式碼範例和錯誤處理：
+
+* [OpenAI 格式](/simidoc/zh-Hant/apps/api/images/openai)
+* [Gemini 格式](/simidoc/zh-Hant/apps/api/images/gemini)
+* [通義千問格式](/simidoc/zh-Hant/apps/api/images/qwen)
+* [即夢 / 火山方舟格式](/simidoc/zh-Hant/apps/api/images/jimeng)
+* [xAI Grok 格式](/simidoc/zh-Hant/apps/api/images/grok)
+* [BFL FLUX 格式](/simidoc/zh-Hant/apps/api/images/flux)
+
+# 圖片呼叫範例已按協議整理
+
+圖片呼叫不再使用一份僅適用於 OpenAI Images 的通用指令碼教學。請先選擇實際使用的協議，每個協議頁均按“請求格式與參數 → 回傳參數 → 呼叫範例”整理，包含圖片規格、四語言程式碼入口、智慧代理任務與安全儲存流程：
+
+* [OpenAI 格式](/simidoc/zh-Hant/apps/api/images/openai)：Images 生成與編輯、Responses 對話式生圖及圖片理解。
+* [Gemini 原生格式](/simidoc/zh-Hant/apps/api/images/gemini)：GenerateContent 的文字與圖片 Part、Base64 圖片儲存。
+* [Qwen 原生格式](/simidoc/zh-Hant/apps/api/images/qwen)：百煉官方區域端點、原生訊息結構及結果 URL 儲存。
+
+比較介面、效果和 1K / 2K / 4K 規格，請看[圖片 API 總覽](/simidoc/zh-Hant/apps/api/images)。已有連結保留在此，具體呼叫以對應協議為準；不同協議的憑據、參數和回傳欄位不可混用。
+
 # Claude Messages
 
 ## 介面說明
@@ -7679,616 +7924,6 @@ OpenAI 原生錯誤通常包含 `error.message`、`error.type`、`error.param`�
 * [OpenAI 背景模式](https\://developers.openai.com/api/docs/guides/background)
 * [OpenAI 錯誤處理](https\://developers.openai.com/api/docs/guides/error-codes)
 
-# 智慧代理圖片呼叫已合併到協議文件
-
-智慧代理呼叫任務已分散到三個協議，每個協議均有生成和編輯模板、配置準備、結果儲存與失敗處理，不再單獨維護一套偏向 OpenAI Images 的教學：
-
-* [OpenAI 格式的智慧代理呼叫](/simidoc/zh-Hant/apps/api/images/openai)：Images 生成、JSON 編輯及最終事件檢查。
-* [Gemini 原生格式的智慧代理呼叫](/simidoc/zh-Hant/apps/api/images/gemini)：GenerateContent 圖片 Part、MIME 與多輪上下文。
-* [Qwen 原生格式的智慧代理呼叫](/simidoc/zh-Hant/apps/api/images/qwen)：百煉區域配置、原生同步呼叫和圖片 URL 下載。
-
-智慧代理仍須具備本地執行和回傳結果檢查能力；這些文件不會安裝遠端 Skill。真實請求可能收費，呼叫前確認模型、規格、數量和輸出位置；不洩露金鑰、不覆蓋檔案、不自動重試。介面、效果與規格比較見[圖片 API 總覽](/simidoc/zh-Hant/apps/api/images)。
-
-# 畫圖
-
-先選 **API 協議**，再確定要做的 **效果**，最後核對 **尺寸、品質、格式和張數**。協議決定請求與回應結構，效果由模型能力和提示詞共同決定，規格決定輸出要求；三者不能混為一談。
-
-生成和編輯回傳圖片；圖片理解以圖片為輸入，回傳文字或結構化結果。普通文字模型不會因為加入圖片參數就獲得生圖能力。呼叫前從[模型與價格](https://api.dwchainless.com/zh-Hant/pricing/)確認準確模型 ID、介面支援、計費分組和額度，真實請求可能產生費用。
-
-## 概覽
-
-| 你要做什麼     | 輸入             | 輸出        | 典型端點                          |
-| --------- | -------------- | --------- | ----------------------------- |
-| 從文字生成圖片   | 提示詞            | 新圖片       | `POST /v1/images/generations` |
-| 修改已有圖片    | 提示詞 + 一張或多張參考圖 | 編輯後的圖片    | `POST /v1/images/edits`       |
-| 在對話中邊聊邊生圖 | 對話訊息 + 圖像工具    | 圖片與文字混合結果 | `POST /v1/responses`          |
-| 讓模型看圖說話   | 圖片 + 問題        | 文字，不是新圖片  | `POST /v1/chat/completions`   |
-
-## 核心概念
-
-先分清三類數字，後面的參數和價格才說得通：
-
-* **像素尺寸**：真實的寬 × 高，例如 `1024x1024`。它決定檔案的實際解析度，不是檔案大小，也不等於品質檔位。
-* **寬高比**：`1:1`、`16:9`、`9:16` 這類比例，只決定畫幅形狀。同一比例可以對應多種像素尺寸；只說比例不等於指定了輸出大小。
-* **解析度檔位**：`1K`、`2K`、`4K` 這類檔位。廠商的原生檔位按最長邊或產品線定義，本站的按張計費檔位則按最長邊歸檔；兩者名稱相同，邊界不一定相同，不能直接互相推斷。
-
-還有三個常見誤解：`quality` 控制渲染品質，不是壓縮品質；PNG、JPEG、WebP 是檔案格式，改副檔名不會轉換格式；Base64 與 URL 只是交付方式，不是解析度。逐項對照見下文「四、圖片規格與計費」。
-
-## 一、各種 API：按協議選擇
-
-三套協議各有獨立的請求參數、回傳參數和範例。指令碼呼叫、智慧代理使用、結果儲存與失敗處理也在各自協議中說明，不需要先讀一套僅適用於 OpenAI 的通用教學。
-
-| 協議        | API / 能力         | 請求端點                                                  | 主要結果                                      | 文件                                          |
-| --------- | ---------------- | ----------------------------------------------------- | ----------------------------------------- | ------------------------------------------- |
-| OpenAI    | 文生圖              | `POST /v1/images/generations`                         | `data[].b64_json`；相容模型也可能回傳 URL           | [生成](/simidoc/zh-Hant/apps/api/images/openai/generations)                  |
-| OpenAI    | 圖片編輯 / 以圖生圖      | `POST /v1/images/edits`                               | 編輯後的圖片                                    | [編輯](/simidoc/zh-Hant/apps/api/images/openai/edits)                        |
-| OpenAI    | 對話式生圖            | `POST /v1/responses`，使用 `image_generation` 工具         | `output[]` 中的圖像工具結果                       | [對話式生圖](/simidoc/zh-Hant/apps/api/images/openai/chat-format)               |
-| OpenAI    | 圖片理解             | `POST /v1/chat/completions`，輸入 `image_url`            | 文字分析，不是生成圖片                               | [圖片理解](/simidoc/zh-Hant/apps/api/images/openai/vision)                     |
-| Gemini    | 文生圖              | `POST /v1beta/models/{model}:generateContent`         | `candidates[].content.parts[].inlineData` | [生成](/simidoc/zh-Hant/apps/api/images/gemini/generate)                     |
-| Gemini    | 圖片編輯 / 多輪改圖      | 同上，混合輸入文字和圖片                                          | 回傳內容項中的圖片                                 | [編輯](/simidoc/zh-Hant/apps/api/images/gemini/edits)                        |
-| Gemini    | 圖片理解             | 同上，使用支援視覺輸入的模型                                        | 文字分析                                      | [媒體識別](/simidoc/zh-Hant/apps/api/chat/gemini-media)                |
-| 通義千問      | 文生圖 / 圖片編輯       | `POST /v1/images/generations`、`POST /v1/images/edits` | `data[].url` 或 `data[].b64_json`          | [生成](/simidoc/zh-Hant/apps/api/images/qwen/generations)、[編輯](/simidoc/zh-Hant/apps/api/images/qwen/edits) |
-| 即夢 / 火山方舟 | 文生圖 / 參考圖生成      | `POST /api/v3/images/generations`                     | `data[].url` 或 `data[].b64_json`          | [生成](/simidoc/zh-Hant/apps/api/images/jimeng)                              |
-| xAI Grok  | 文生圖 / 多張生成       | `POST /v1/images/generations`                         | `data[].url` 或 `data[].b64_json`          | [生成](/simidoc/zh-Hant/apps/api/images/grok)                                |
-| BFL FLUX  | 文生圖 / 參考圖生成（非同步） | `POST /v1/flux-pro-1.1` 等                             | 先取 `polling_url`，完成後取 `result.sample`     | [生成](/simidoc/zh-Hant/apps/api/images/flux)                                |
-
-**通義千問這一節使用 Qwen 原生請求體，透過本站閘道的 `/v1/images/generations` 與 `/v1/images/edits` 呼叫，回傳統一為 `data[]`。** 不要把正文改寫成 OpenAI 的 `prompt` 欄位；模型 ID 應使用本站管道實際提供的名稱。即夢使用火山方舟原生請求主體；Grok 的路徑與 OpenAI Images 相同，但畫幅參數換成了 `aspect_ratio` 與 `resolution`；FLUX 沒有同步出圖，必須先提交任務再輪詢 `polling_url`。三者不能互相照搬欄位。
-
-呼叫方式也要隨協議區分：OpenAI Images 普通請求等待完整結果，支援的模型才可使用圖像事件流；Gemini 串流使用 `streamGenerateContent?alt=sse`；本目錄通義千問與即夢範例使用同步回傳；Grok 預設同步，也可用 `deferred` 轉為延遲任務；FLUX 則固定為非同步輪詢。它們都不能僅靠新增「非同步」參數變成通用任務佇列。具體請求、輸出和完成判定見 [OpenAI](/simidoc/zh-Hant/apps/api/images/openai)、[Gemini](/simidoc/zh-Hant/apps/api/images/gemini)、[通義千問](/simidoc/zh-Hant/apps/api/images/qwen)、[即夢](/simidoc/zh-Hant/apps/api/images/jimeng)、[Grok](/simidoc/zh-Hant/apps/api/images/grok)、[FLUX](/simidoc/zh-Hant/apps/api/images/flux)各自說明。
-
-## 二、各種效果：按目標選擇
-
-「水彩」「換背景」「商品合成」等通常是生成或編輯任務，不是各自獨立的 API。以下是任務分類，不是全模型能力承諾；先在對應協議和模型說明中確認支援範圍。
-
-| 想要的效果              | 輸入與提示詞重點              | 介面選擇與限制                          |
-| ------------------ | --------------------- | -------------------------------- |
-| 從零創作：插畫、封面、海報、寫實畫面 | 描述主體、構圖、風格、光線與需要呈現的文字 | 選文生圖；文字與細節需檢查                    |
-| 參考圖變體：沿用主體或構圖重新生成  | 提供參考圖，分別說明保留項與改變項     | 選圖片編輯 / 以圖生圖；不能保證逐像素保持           |
-| 風格轉換：照片轉水彩、線稿等     | 參考圖加目標風格，說明主體和佈局是否保留  | 選支援參考圖的編輯模型                      |
-| 背景替換、增刪元素、局部修改     | 明確修改區域；支援時提供蒙版        | 選編輯介面；蒙版支援和規則隨模型變化               |
-| 多圖組合：商品、人物與場景合成    | 給出各參考圖的用途、主體關係和最終佈局   | 選支援多圖輸入的編輯模型，核對圖片數量上限            |
-| 多輪迭代：基於上一張繼續修改     | 保留協議要求的歷史內容或引用資訊      | 選支援多輪圖像工作的介面；不能只儲存一段文字就假定圖像上下文仍在 |
-| 透明背景素材             | 明確需要真實透明通道，而非白底或棋盤格畫面 | 僅在模型支援時選擇透明背景和可保留透明通道的輸出格式       |
-| 識圖、提取文字、圖表問答       | 輸入圖片並說明分析目標           | 選圖片理解介面，回傳文字而非編輯後的圖              |
-
-這些能力與限制可參考 [OpenAI 圖像生成](https\://developers.openai.com/api/docs/guides/image-generation)、[Gemini 圖像生成與編輯](https\://ai.google.dev/gemini-api/docs/image-generation)、[Qwen 圖像編輯](https\://www.alibabacloud.com/help/en/model-studio/qwen-image-edit-api)。官方範例不代表目前閘道管道已開放相同能力。
-
-## 三、發起呼叫：四步完成第一張圖
-
-無論選擇哪套協議，呼叫都遵循同一順序：確認設定、選擇端點、傳送最小請求、讀取並驗收結果。下面只描述通用流程，具體欄位以對應協議頁面為準。
-
-### 1. 確認請求位址、金鑰與模型
-
-* **請求位址**：本站閘道為 `https://api.dwchainless.com`，端點路徑隨協議和操作變化。
-* **金鑰**：在 [API 金鑰管理](https://api.dwchainless.com/keys) 建立，請求時透過 `Authorization: Bearer $API_KEY` 攜帶；不要寫進提示詞、原始碼、截圖或 Git。
-* **模型**：從[模型與價格](https://api.dwchainless.com/zh-Hant/pricing/)複製完整模型 ID，並確認它支援目標端點。生成、編輯和圖片理解可能由不同模型提供。
-
-### 2. 選擇端點與請求格式
-
-按上方的協議表選擇端點，再確認請求主體格式：
-
-| 操作          | 端點（OpenAI 格式）                 | 請求格式                        |
-| ----------- | ----------------------------- | --------------------------- |
-| 文字生圖        | `POST /v1/images/generations` | JSON                        |
-| 圖片編輯 / 以圖生圖 | `POST /v1/images/edits`       | JSON `images[]` 或 multipart |
-| 對話式生圖       | `POST /v1/responses`          | JSON，啟用圖像工具                 |
-| 圖片理解        | `POST /v1/chat/completions`   | JSON，內容項含 `image_url`       |
-
-Gemini、通義千問、即夢、Grok 和 FLUX 使用各自的原生請求欄位，不能把 OpenAI 欄位直接照搬過去。
-
-### 3. 傳送最小請求
-
-第一次呼叫只生成一張、不使用串流，先確認鑑權、模型和參數都有效。以下以 OpenAI 生圖為例：
-
-```bash
-API_URL="https://api.dwchainless.com/v1/images/generations"
-API_KEY="PASTE_API_KEY_HERE"
-curl "$API_URL" \
-  -H "Authorization: Bearer $API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "gpt-image-2",
-    "prompt": "一只小机器人在图书馆阅读，水彩插画，不要文字。",
-    "n": 1,
-    "size": "1024x1024",
-    "output_format": "png"
-  }'
-```
-
-確認回傳正常後，再按需增加 `n`、調整尺寸或開啟串流。完整的多語言範例見[生成](/simidoc/zh-Hant/apps/api/images/openai/generations)和[編輯](/simidoc/zh-Hant/apps/api/images/openai/edits)。
-
-**回傳形態（示意）**：真實回應的 Base64 很長，這裡只保留開頭；成功時看 `data[]` 而不只是 HTTP 200。
-
-```json
-{
-  "created": 1763366400,
-  "data": [{ "b64_json": "iVBORw0KGgoAAAANSUhEUg..." }],
-  "usage": { "input_tokens": 28, "output_tokens": 4160, "total_tokens": 4188 }
-}
-```
-
-### 4. 讀取結果並驗收
-
-1. **檢查狀態**：只有 2xx 表示請求成功；4xx 檢查參數和權限，5xx 或逾時先確認請求是否已執行。
-2. **讀取結果**：從 `data[]` 取圖片，GPT Image 回傳 `data[].b64_json`，相容模型可能回傳 `data[].url`；不要假定一定有第一項。
-3. **儲存圖片**：Base64 先解碼為二進位，並按實際 MIME 類型選擇副檔名；URL 及時下載，下載時不要附帶 API Key。
-4. **驗收**：檢查檔案能否開啟、實際像素尺寸、透明效果和內容，再核對使用紀錄。HTTP 200、空 `data[]` 或串流中間預覽都不等於最終圖片已經儲存。
-
-## 四、圖片規格與計費
-
-### 請求中各項規格分別控制什麼
-
-| 規格    | 含義與例子                              | 容易混淆的地方                                    |
-| ----- | ---------------------------------- | ------------------------------------------ |
-| 像素尺寸  | 實際寬 × 高，例如 `1024x1024`、`1536x1024` | 不是檔案大小，也不自動代表品質檔位                          |
-| 寬高比   | `1:1` 方圖、`16:9` 橫圖、`9:16` 直式圖      | 相同比例可有多種解析度；只選比例沒有指定全部像素尺寸                 |
-| 解析度檔位 | 某些模型使用 `1K`、`2K`、`4K` 等原生參數        | 廠商檔位的實際寬高還取決於模型和比例，不應直接等同本站按張計費的像素邊界       |
-| 生成品質  | 如 OpenAI 的 `quality`，控制模型的渲染品質選擇   | 不是 `size`，也不是 JPEG/WebP 的壓縮品質；不同模型不一定有同名參數 |
-| 檔案格式  | PNG、JPEG、WebP 等，以實際回傳的 MIME 類型為準   | Base64 和 URL 是交付方式，不是圖片格式；改副檔名不能轉換格式       |
-| 透明背景  | 圖片包含透明通道，適合素材疊加                    | 需要模型、參數和檔案格式共同支援；寫「透明背景」不保證結果一定帶透明通道       |
-| 張數    | 生成數量或候選數量，欄位和上限隨協議、模型變化            | 提示詞寫「生成三張」不等於設定 API 張數；多圖輸入也不等於多圖輸出        |
-
-同一寬高比下，邊長翻倍會讓總像素數變為四倍，但不保證畫面細節或清晰度按同樣倍數提升。選擇時先滿足使用場景，再核對模型支援、耗時與價格，不必一律使用最高檔。
-
-具體欄位、可用值和程式碼範例分別見 [OpenAI 請求格式](/simidoc/zh-Hant/apps/api/images/openai/generations)、[Gemini 請求格式](/simidoc/zh-Hant/apps/api/images/gemini/generate)、[通義千問請求格式](/simidoc/zh-Hant/apps/api/images/qwen/generations)、[即夢請求格式](/simidoc/zh-Hant/apps/api/images/jimeng)、[Grok 請求格式](/simidoc/zh-Hant/apps/api/images/grok)、[FLUX 請求格式](/simidoc/zh-Hant/apps/api/images/flux)。其中 OpenAI 的輸出品質、格式和透明參數見[官方輸出設定](https\://developers.openai.com/api/docs/guides/image-generation#customize-image-output)；Qwen 的尺寸與輸出要求見[官方規格](https\://www.alibabacloud.com/help/en/model-studio/qwen-image-api)。不要把某個協議的參數直接複製給另一協議。
-
-### 本站 1K、2K、4K 按張計費有什麼區別
-
-只有在[模型價格](https://api.dwchainless.com/zh-Hant/pricing/)中明確採用 1K / 2K / 4K 三檔按張計費的模型，才適用下表。按 Token 計費或其他固定單價的模型仍按各自規則結算，不能僅憑「圖片模型」名稱判斷收費方式。
-
-| 計費檔位 | 最長邊                    | 範例尺寸（像素）            |
-| ---- | ---------------------- | ------------------- |
-| 1K   | 兩邊均 ≤ 1024 像素          | 1024×1024           |
-| 2K   | 最長邊 > 1024 且 ≤ 2048 像素 | 1280×720、1536×1024  |
-| 4K   | 任一邊 > 2048 像素          | 2560×1440、3840×2160 |
-
-**總價 = 目前檔位單張價格 × 計費張數。** 支援按完成結果結算的介面按實際完成張數計費；串流中間預覽不算完成圖片。單張價格、分組和最終扣費以目前模型價格及使用紀錄為準，本頁不固定價格數值。
-
-採用上述三檔按張規則時，只有在未指定其他有效尺寸檔位的情況下，省略 `size` 或使用 `auto` 才預設按 1K 檔計費；顯式指定的原生解析度欄位仍決定計費檔位。按以下邊界歸檔：1K 為兩邊均 ≤ 1024；2K 為最長邊 > 1024 且 ≤ 2048；4K 為任一邊 > 2048。例如 `1280x720` 屬於 2K，`2560x1440` 屬於 4K。
-
-**計費檔位不是輸出尺寸承諾。** Gemini 的 `generationConfig.imageConfig.imageSize` 是模型的原生解析度選擇，實際像素尺寸應結合模型與比例確認；本站按支援的請求欄位計算計費檔位，不據此承諾統一的輸出寬高。不要同時填寫相互衝突的尺寸欄位，也不要把按張規則套用到官方直連或按 Token 計費模型。
-
-### 常用比例速查：14 種比例 × 1K / 2K / 4K
-
-下表按比例列出常見的 1K、2K、4K 預設尺寸，方便快速挑選畫幅。它是尺寸速查，不是模型支援清單：可用比例、預設名稱和單邊上限隨模型與管道變化，請求前仍須以模型說明或介面錯誤為準。
-
-K 檔位是預設名稱，不是本頁的按張計費檔位。部分「1K」預設的最長邊已超過 1024 像素，按本站規則會歸入 2K 檔；例如 16\:9 的 1K 預設 `1536x864` 屬於 2K。計費始終按實際請求尺寸和[模型價格](https://api.dwchainless.com/zh-Hant/pricing/)計算。
-
-| 比例        | 常見用途        | 1K size     | 2K size     | 4K size     |
-| :-------- | :---------- | :---------- | :---------- | :---------- |
-| `1:1`     | 方形頭像 / 產品圖  | `1024x1024` | `2048x2048` | `3840x3840` |
-| `4:3`     | 橫向插畫 / 展示圖  | `1152x896`  | `2048x1536` | `3840x2880` |
-| `3:4`     | 直式海報 / 人像   | `896x1152`  | `1536x2048` | `2880x3840` |
-| `16:9`    | 橫屏封面 / 簡報   | `1536x864`  | `2048x1152` | `3840x2160` |
-| `9:16`    | 直式封面 / 手機背景 | `864x1536`  | `1152x2048` | `2160x3840` |
-| `3:2`     | 橫向攝影        | `1536x1024` | `2048x1360` | `3840x2560` |
-| `2:3`     | 直式攝影        | `1024x1536` | `1360x2048` | `2560x3840` |
-| `5:4`     | 橫向商品展示      | `1280x1024` | `2560x2048` | `3840x3072` |
-| `4:5`     | 直式商品 / 社群圖  | `1024x1280` | `2048x2560` | `3072x3840` |
-| `21:9`    | 寬幅場景 / 橫幅   | `1792x768`  | `2048x880`  | `3840x1648` |
-| `1:4`     | 窄長直幅        | `512x2048`  | `768x3072`  | **超出單邊上限**  |
-| `4:1`     | 窄長橫幅        | `2048x512`  | `3072x768`  | **超出單邊上限**  |
-| `1.414:1` | 近似 A 系列橫向紙張 | `1440x1024` | `2048x1456` | `3840x2720` |
-| `1:1.414` | 近似 A 系列直式紙張 | `1024x1440` | `1456x2048` | `2720x3840` |
-
-### size 的三種正確寫法
-
-部分 OpenAI 相容閘道支援以下寫法；欄位是否生效取決於模型與管道，不被支援時應退回明確像素。
-
-| 寫法       | 請求片段                               | 用途               |
-| :------- | :--------------------------------- | :--------------- |
-| 明確像素（推薦） | `{"size":"1536x2048"}`             | 最直觀，避免預設換算差異     |
-| 比例 + 解析度 | `{"size":"3:4","resolution":"2k"}` | 按 2K / 3\:4 預設換算 |
-| 自動尺寸     | `{"size":"auto"}`                  | 由模型按能力選擇，不承諾固定寬高 |
-
-* K 檔位填 `resolution`，`size` 填像素或比例；不要把 `2k` 寫進 `size`。
-* 尺寸分隔符使用小寫英文字母 `x`，不要用乘號 ×、大寫 X、陣列或帶乘號的字串。
-* 比例寫進 `size` 時優先於單獨的 `aspect_ratio`；明確像素或 `auto` 優先於比例預設。
-* OpenAI 官方對 gpt-image-2 的任意尺寸上限為 3840×2160；`1:4`、`4:1` 的 4K 組合超過該上限，因此標註超出單邊上限。其他模型的上限以模型說明為準。
-* Gemini 與 Qwen 使用各自的尺寸欄位，不能直接套用上述寫法。
-
-### 常用尺寸參考：28 種
-
-以下標記僅表示上述按張規則的計費檔位，不保證所選模型支援這些尺寸。先檢查模型介面支援範圍，再選擇尺寸；不要把計費檔位直接當成介面參數值。
-
-| 用途 / 比例              | 尺寸（像素）與計費檔位                                                              |
-| -------------------- | ------------------------------------------------------------------------ |
-| 通用方圖 · 1\:1          | 1024×1024 · 1K；1536×1536 · 2K；2048×2048 · 2K                             |
-| 橫版封面 · 16\:9         | 1280×720 · 2K；1536×864 · 2K；2048×1152 · 2K；2560×1440 · 4K；3840×2160 · 4K |
-| 直式影片 / Story · 9\:16 | 720×1280 · 2K；864×1536 · 2K；1152×2048 · 2K；1440×2560 · 4K；2160×3840 · 4K |
-| 文章配圖 · 3\:2          | 1536×1024 · 2K；1920×1280 · 2K；2400×1600 · 4K                             |
-| 直式海報 · 2\:3          | 1024×1536 · 2K；1280×1920 · 2K；1600×2400 · 4K                             |
-| 寬橫幅 · 2\:1           | 1536×768 · 2K；2048×1024 · 2K；2560×1280 · 4K；3840×1920 · 4K               |
-| 超寬橫幅 · 3\:1          | 1536×512 · 2K；1920×640 · 2K；2400×800 · 4K；3072×1024 · 4K；3840×1280 · 4K  |
-
-## 五、按協議深入
-
-各協議的完整參數、回傳結構、程式碼範例和錯誤處理：
-
-* [OpenAI 格式](/simidoc/zh-Hant/apps/api/images/openai)
-* [Gemini 格式](/simidoc/zh-Hant/apps/api/images/gemini)
-* [通義千問格式](/simidoc/zh-Hant/apps/api/images/qwen)
-* [即夢 / 火山方舟格式](/simidoc/zh-Hant/apps/api/images/jimeng)
-* [xAI Grok 格式](/simidoc/zh-Hant/apps/api/images/grok)
-* [BFL FLUX 格式](/simidoc/zh-Hant/apps/api/images/flux)
-
-# 圖片呼叫範例已按協議整理
-
-圖片呼叫不再使用一份僅適用於 OpenAI Images 的通用指令碼教學。請先選擇實際使用的協議，每個協議頁均按“請求格式與參數 → 回傳參數 → 呼叫範例”整理，包含圖片規格、四語言程式碼入口、智慧代理任務與安全儲存流程：
-
-* [OpenAI 格式](/simidoc/zh-Hant/apps/api/images/openai)：Images 生成與編輯、Responses 對話式生圖及圖片理解。
-* [Gemini 原生格式](/simidoc/zh-Hant/apps/api/images/gemini)：GenerateContent 的文字與圖片 Part、Base64 圖片儲存。
-* [Qwen 原生格式](/simidoc/zh-Hant/apps/api/images/qwen)：百煉官方區域端點、原生訊息結構及結果 URL 儲存。
-
-比較介面、效果和 1K / 2K / 4K 規格，請看[圖片 API 總覽](/simidoc/zh-Hant/apps/api/images)。已有連結保留在此，具體呼叫以對應協議為準；不同協議的憑據、參數和回傳欄位不可混用。
-
-# Gemini 格式模型清單
-
-## 介面說明
-
-`GET /v1beta/models` 回傳 Gemini 格式的模型清單。
-
-串接位址為 `https://api.dwchainless.com`，請求標頭使用 `Authorization: Bearer $SIMIROUTER_API_KEY`。Google 官方直連為 `https://generativelanguage.googleapis.com`，通常使用 `x-goog-api-key: $GEMINI_API_KEY`，不是閘道的 Bearer Key。 模型名稱應選用帳戶可存取且支援目標能力的模型。
-
-閘道清單主要用於發現模型名稱，不能視為 Google 原生完整模型能力目錄。
-
-## 請求參數
-
-閘道請求無請求主體，不要求分頁參數。Google 原生 models.list 支援 pageSize（預設 50、最大 1000）和 pageToken，但目前閘道回傳完整清單，不提供相同的分頁與模型元資料保證。
-
-| 欄位                   | 型別                     | 必填   | 說明                               |
-| -------------------- | ---------------------- | ---- | -------------------------------- |
-| Authorization        | header string          | 是    | Bearer 閘道 Key；官方直連改用 Google Key。 |
-| pageSize / pageToken | query integer / string | 原生選用 | 僅官方原生清單的分頁請求；不要依賴閘道處理它們。         |
-
-## 回傳值
-
-| 欄位                                           | 型別             | 說明                                         |
-| -------------------------------------------- | -------------- | ------------------------------------------ |
-| models                                       | array          | 模型清單，可為空。                                  |
-| models\[].name                               | string         | 模型資源名；官方通常為 models/\{id}，閘道也可能直接回傳模型 ID。   |
-| models\[].displayName                        | string         | 可讀名稱。                                      |
-| nextPageToken                                | string / null  | 官方的下一頁權杖；閘道可回傳 null 表示無分頁。                 |
-| models\[].version / description              | string / null  | 官方可提供的版本與說明；閘道清單可缺失或為 null。                |
-| models\[].inputTokenLimit / outputTokenLimit | integer / null | 官方可提供的輸入與輸出限制，不應從缺失值推斷。                    |
-| models\[].supportedGenerationMethods         | array / null   | 官方可提供 generateContent 等方法名；閘道清單可缺失或為 null。 |
-
-```json
-{
-  "models": [
-    {
-      "name": "MODEL_ID",
-      "displayName": "MODEL_ID"
-    }
-  ],
-  "nextPageToken": null
-}
-```
-
-以上為閘道精簡結構範例。將 name 用於路徑前，應只去掉一次開頭的 models/。即使 models.list 成功，後續 generateContent 仍可能因權限、模型能力或配額失敗。
-
-## 程式碼範例
-
-設定 `SIMIROUTER_API_KEY`。可用 `SIMIROUTER_BASE_URL` 覆寫預設閘道根位址，末尾須去掉版本路徑。所有範例都傳送無請求主體的 GET。
-
-<Tabs items={["Python","Node.js","curl","Go"]}>
-  <Tab value="Python">
-    ```python
-    import json, os, sys, urllib.request, urllib.error
-    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
-    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
-    path = '/v1beta/models'
-    request = urllib.request.Request(base + path, method="GET",
-        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(request, timeout=120) as response:
-            result = json.load(response)
-    except urllib.error.HTTPError as error:
-        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
-        raise SystemExit(1)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-    ```
-  </Tab>
-
-  <Tab value="Node.js">
-    ```javascript
-    async function main() {
-      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
-      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
-      const endpoint = "/v1beta/models";
-      const response = await fetch(base + endpoint, { method: "GET",
-        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
-        signal: AbortSignal.timeout(120000) });
-      const result = await response.text();
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
-      console.log(JSON.stringify(JSON.parse(result), null, 2));
-    }
-    main().catch(error => { console.error(error); process.exitCode = 1; });
-    ```
-  </Tab>
-
-  <Tab value="curl">
-    ```bash
-    set -eu
-    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
-    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
-    curl "${BASE_URL%/}/v1beta/models" \
-      --fail-with-body \
-      --max-time 120 \
-      -X GET \
-      -H "Authorization: Bearer $SIMIROUTER_API_KEY"
-    ```
-  </Tab>
-
-  <Tab value="Go">
-    ```go
-    package main
-
-    import (
-      "fmt"
-      "io"
-      "log"
-      "net/http"
-      "os"
-      "strings"
-      "time"
-    )
-
-    func main() {
-      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
-      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
-      endpoint := "/v1beta/models"
-      req, err := http.NewRequest("GET", base + endpoint, nil); if err != nil { log.Fatal(err) }
-      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
-      client := &http.Client{Timeout: 120 * time.Second}
-      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
-      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
-      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
-      fmt.Println(string(result))
-    }
-    ```
-  </Tab>
-</Tabs>
-
-## 錯誤碼
-
-| HTTP 狀態   | 含義或廠商錯誤型別                  | 處理方式                        |
-| --------- | -------------------------- | --------------------------- |
-| 400       | `INVALID_ARGUMENT` 等       | 檢查 JSON、模型參數、媒體 MIME 和輸入長度。 |
-| 403       | `PERMISSION_DENIED`        | 檢查 Key、項目權限、區域或帳單限制。        |
-| 404       | `NOT_FOUND`                | 檢查模型名稱和 API 版本。             |
-| 429       | `RESOURCE_EXHAUSTED`       | 檢查限流與配額；可重試情況採用有限次數退避。      |
-| 500 / 503 | `INTERNAL` / `UNAVAILABLE` | 記錄請求識別碼，有限重試或稍後再試。          |
-
-Google 原生錯誤物件包含 `error.code`（HTTP 數字）、`error.status`（枚舉名稱）、`error.message`，可能帶 `details`。 閘道可能在請求到達廠商前回傳驗證、路由或額度錯誤；不得僅憑 HTTP 數字判定錯誤來自上游。 閘道內部查詢還可能回傳 success=false 的 HTTP 200 業務錯誤，須同時檢查回應結構。
-
-## 官方參考
-
-* [Google Models API](https\://ai.google.dev/api/models)
-* [Google 模型目錄](https\://ai.google.dev/gemini-api/docs/models)
-* [Google 故障排查](https\://ai.google.dev/gemini-api/docs/troubleshooting)
-
-# 模型清單
-
-模型清單是接入設定的入口：先取得模型 ID，再根據廠商能力文件選擇聊天、視覺、圖片、音訊或工具介面。可見不等於可呼叫，模型清單也不代表即時健康檢查。
-
-## 概覽
-
-| 你要確認的事   | 在哪裡看           | 說明                |
-| -------- | -------------- | ----------------- |
-| 有哪些模型 ID | 本節的清單介面        | 只回傳目前憑證可見的模型      |
-| 能不能真正呼叫  | 模型與價格 + 一次真實請求 | 可見、可路由、有額度是三件不同的事 |
-| 支援哪些輸入輸出 | 模型能力說明         | 清單元資料通常不完整        |
-| 什麼時候下線   | 廠商發布的棄用或停用公告   | 棄用不等於立即不可用，但不應新接入 |
-
-## 核心概念
-
-* **模型 ID**：請求主體中使用的唯一識別碼，通常區分大小寫，必須完整複製，不要自行縮寫。顯示名稱、別名和實際請求 ID 可能不同。
-* **可見與可呼叫**：清單只反映權限範圍內的模型，管道未設定、餘額不足或限流時仍會失敗。
-* **上下文視窗**：輸入加輸出的 Token 上限，按模型區分；清單介面經常不回傳該值。
-* **計費單位**：文字模型多按 Token，圖片模型可按張或按 Token，影片模型常按秒或按次；同一模型族內也可能不同。
-* **下線日期**：表示廠商計畫停止服務的日期，遷移應在到期前完成，而不是到期後才發現。
-
-## 查詢介面
-
-| 文件                    | 請求                 | 回傳結構                            |
-| --------------------- | ------------------ | ------------------------------- |
-| [OpenAI 格式](/simidoc/zh-Hant/apps/api/models/openai) | GET /v1/models     | data\[].id，適合 OpenAI 相容用戶端。     |
-| [Gemini 格式](/simidoc/zh-Hant/apps/api/models/gemini) | GET /v1beta/models | models\[].name，適合 Gemini 協議用戶端。 |
-
-## 呼叫方式
-
-清單查詢為同步 JSON 請求，不支援 SSE，也不是非同步任務。多個帳戶可分別平行查詢，但憑證和結果不能混用。清單快取應設有效期，發現模型不再可用時重新讀取；不要為重新整理清單傳送真實生成請求。
-
-## 模擬呼叫
-
-查詢使用 GET，無需請求主體。以下是 SimiRouter 閘道的回應範例：
-
-```bash
-curl "https://api.dwchainless.com/v1/models" \
-  -H "Authorization: Bearer $SIMIROUTER_API_KEY"
-```
-
-```json
-{
-  "object": "list",
-  "success": true,
-  "data": [
-    {
-      "id": "MODEL_ID",
-      "object": "model",
-      "created": 1626777600,
-      "owned_by": "custom",
-      "context_length": 1048576,
-      "supported_endpoint_types": ["openai"]
-    }
-  ]
-}
-```
-
-閘道會回傳上下文長度和介面類型。上下文長度可能是平台預設值，價格、輸入輸出模態和工具支援仍應查閱模型說明。清單為空通常表示目前憑證沒有可見模型。
-
-## 元資料邊界
-
-OpenAI 模型物件包含 id、object、created、owned\_by；Google 原生模型物件可包含方法與 Token 限制。閘道可以只回傳精簡元資料，因此不能根據缺失欄位臆測上下文上限、模態或工具支援。
-
-## 官方參考
-
-* [OpenAI Models API](https\://developers.openai.com/api/reference/resources/models/methods/list)
-* [Google Models API](https\://ai.google.dev/api/models)
-
-# OpenAI 格式模型清單
-
-## 介面說明
-
-`GET /v1/models` 回傳目前 Key 可見的模型清單。清單可用於設定介面的模型選擇，不證明模型具備所有模態、工具、可用額度或即時服務能力。
-
-串接位址為 `https://api.dwchainless.com`，請求標頭使用 `Authorization: Bearer $SIMIROUTER_API_KEY`。OpenAI 官方直連為 `https://api.openai.com`，同樣使用 Bearer 身分驗證，但必須換成 OpenAI 的 Key。 模型名稱應選用帳戶可存取且支援目標能力的模型。
-
-只傳送 Bearer 驗證，不混用 x-api-key 或 x-goog-api-key，以免觸發閘道其他回傳格式。
-
-## 請求參數
-
-該清單請求無 JSON 請求主體，也沒有必填查詢參數。
-
-| 欄位            | 型別            | 必填 | 說明                |
-| ------------- | ------------- | -- | ----------------- |
-| Authorization | header string | 是  | Bearer 後攜帶閘道 Key。 |
-
-## 回傳值
-
-| 欄位                                | 型別                     | 說明                                            |
-| --------------------------------- | ---------------------- | --------------------------------------------- |
-| object                            | string                 | list。                                         |
-| data                              | array                  | 模型清單，允許為空。                                    |
-| data\[].id                        | string                 | 呼叫生成介面時使用的模型 ID。                              |
-| data\[].object                    | string                 | model。                                        |
-| data\[].created                   | integer                | Unix 秒時間戳；閘道元資料不一定等於廠商模型發佈日期。                 |
-| data\[].owned\_by                 | string                 | 模型歸屬標籤，不能據此證明請求一定路由到某一廠商。                     |
-| success                           | boolean                | 閘道可附加的業務結果標誌，不是 OpenAI 標準欄位。                  |
-| `data[].context_length`           | integer                | 閘道提供的上下文長度（Token），未設定時使用平台預設值。以模型說明和實際介面限制為準。 |
-| `data[].supported_endpoint_types` | `array<string>` / null | 閘道公布的介面類型。可作為選擇介面的參考。                         |
-
-```json
-{
-  "object": "list",
-  "success": true,
-  "data": [
-    {
-      "id": "MODEL_ID",
-      "object": "model",
-      "created": 1626777600,
-      "owned_by": "custom",
-      "context_length": 1048576,
-      "supported_endpoint_types": ["openai"]
-    }
-  ]
-}
-```
-
-空陣列是合法清單，不要直接存取 data\[0]。閘道查詢使用者群組失敗時可回傳 HTTP 200 且 success=false/message；用戶端仍須識別業務失敗。官方 OpenAI 另有 GET /v1/models/\{model} 查詢單模型，不應將清單元資料當作完整能力說明。
-
-## 程式碼範例
-
-設定 `SIMIROUTER_API_KEY`。可用 `SIMIROUTER_BASE_URL` 覆寫預設閘道根位址，末尾須去掉版本路徑。所有範例都傳送無請求主體的 GET。
-
-<Tabs items={["Python","Node.js","curl","Go"]}>
-  <Tab value="Python">
-    ```python
-    import json, os, sys, urllib.request, urllib.error
-    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
-    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
-    path = '/v1/models'
-    request = urllib.request.Request(base + path, method="GET",
-        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(request, timeout=120) as response:
-            result = json.load(response)
-    except urllib.error.HTTPError as error:
-        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
-        raise SystemExit(1)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-    ```
-  </Tab>
-
-  <Tab value="Node.js">
-    ```javascript
-    async function main() {
-      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
-      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
-      const endpoint = "/v1/models";
-      const response = await fetch(base + endpoint, { method: "GET",
-        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
-        signal: AbortSignal.timeout(120000) });
-      const result = await response.text();
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
-      console.log(JSON.stringify(JSON.parse(result), null, 2));
-    }
-    main().catch(error => { console.error(error); process.exitCode = 1; });
-    ```
-  </Tab>
-
-  <Tab value="curl">
-    ```bash
-    set -eu
-    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
-    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
-    curl "${BASE_URL%/}/v1/models" \
-      --fail-with-body \
-      --max-time 120 \
-      -X GET \
-      -H "Authorization: Bearer $SIMIROUTER_API_KEY"
-    ```
-  </Tab>
-
-  <Tab value="Go">
-    ```go
-    package main
-
-    import (
-      "fmt"
-      "io"
-      "log"
-      "net/http"
-      "os"
-      "strings"
-      "time"
-    )
-
-    func main() {
-      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
-      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
-      endpoint := "/v1/models"
-      req, err := http.NewRequest("GET", base + endpoint, nil); if err != nil { log.Fatal(err) }
-      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
-      client := &http.Client{Timeout: 120 * time.Second}
-      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
-      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
-      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
-      fmt.Println(string(result))
-    }
-    ```
-  </Tab>
-</Tabs>
-
-## 錯誤碼
-
-| HTTP 狀態   | 含義或廠商錯誤型別    | 處理方式                       |
-| --------- | ------------ | -------------------------- |
-| 400       | 請求無效         | 檢查必填欄位、JSON、模型參數和上下文長度。    |
-| 401       | 驗證失敗         | 檢查 Key 是否存在、有效及歸屬正確。       |
-| 403 / 404 | 無權存取 / 資源不存在 | 檢查模型權限、資源 ID 和 URL。        |
-| 429       | 速率或配額限制      | 結合回應主體區分限流與額度不足，後者不能靠重試解決。 |
-| 500 / 503 | 服務錯誤 / 暫時不可用 | 保留請求識別碼，對暫時故障做有限次數退避。      |
-
-OpenAI 原生錯誤通常包含 `error.message`、`error.type`、`error.param`、`error.code`；`param`、`code` 可為 `null`，不能假定其始終存在或等於 HTTP 狀態碼。 閘道可能在請求到達廠商前回傳驗證、路由或額度錯誤；不得僅憑 HTTP 數字判定錯誤來自上游。 還需檢查閘道 success=false 的業務錯誤；這與 HTTP 傳輸成功不同。
-
-## 官方參考
-
-* [OpenAI List models](https\://developers.openai.com/api/reference/resources/models/methods/list)
-* [OpenAI Retrieve model](https\://developers.openai.com/api/reference/resources/models/methods/retrieve)
-* [OpenAI 錯誤處理](https\://developers.openai.com/api/docs/guides/error-codes)
-
 # 音樂（不支援）
 
 本節整理 Google Lyria 的公開生成通訊協定。SimiRouter 尚未開放該能力，以下範例均直接連接 Google AI Studio Gemini API，使用 `https://generativelanguage.googleapis.com` 與 Google API 金鑰。Vertex AI 需要獨立通訊協定，本頁尚未驗證，請勿直接替換位址呼叫。
@@ -8692,6 +8327,373 @@ Google 錯誤物件使用 `error.code`、`error.status`、`error.message`，不�
 ## 官方參考
 
 [Google 即時音樂](https\://ai.google.dev/gemini-api/docs/realtime-music-generation)、[Live Music WebSocket API](https\://ai.google.dev/api/live_music)。
+
+# Gemini 格式模型清單
+
+## 介面說明
+
+`GET /v1beta/models` 回傳 Gemini 格式的模型清單。
+
+串接位址為 `https://api.dwchainless.com`，請求標頭使用 `Authorization: Bearer $SIMIROUTER_API_KEY`。Google 官方直連為 `https://generativelanguage.googleapis.com`，通常使用 `x-goog-api-key: $GEMINI_API_KEY`，不是閘道的 Bearer Key。 模型名稱應選用帳戶可存取且支援目標能力的模型。
+
+閘道清單主要用於發現模型名稱，不能視為 Google 原生完整模型能力目錄。
+
+## 請求參數
+
+閘道請求無請求主體，不要求分頁參數。Google 原生 models.list 支援 pageSize（預設 50、最大 1000）和 pageToken，但目前閘道回傳完整清單，不提供相同的分頁與模型元資料保證。
+
+| 欄位                   | 型別                     | 必填   | 說明                               |
+| -------------------- | ---------------------- | ---- | -------------------------------- |
+| Authorization        | header string          | 是    | Bearer 閘道 Key；官方直連改用 Google Key。 |
+| pageSize / pageToken | query integer / string | 原生選用 | 僅官方原生清單的分頁請求；不要依賴閘道處理它們。         |
+
+## 回傳值
+
+| 欄位                                           | 型別             | 說明                                         |
+| -------------------------------------------- | -------------- | ------------------------------------------ |
+| models                                       | array          | 模型清單，可為空。                                  |
+| models\[].name                               | string         | 模型資源名；官方通常為 models/\{id}，閘道也可能直接回傳模型 ID。   |
+| models\[].displayName                        | string         | 可讀名稱。                                      |
+| nextPageToken                                | string / null  | 官方的下一頁權杖；閘道可回傳 null 表示無分頁。                 |
+| models\[].version / description              | string / null  | 官方可提供的版本與說明；閘道清單可缺失或為 null。                |
+| models\[].inputTokenLimit / outputTokenLimit | integer / null | 官方可提供的輸入與輸出限制，不應從缺失值推斷。                    |
+| models\[].supportedGenerationMethods         | array / null   | 官方可提供 generateContent 等方法名；閘道清單可缺失或為 null。 |
+
+```json
+{
+  "models": [
+    {
+      "name": "MODEL_ID",
+      "displayName": "MODEL_ID"
+    }
+  ],
+  "nextPageToken": null
+}
+```
+
+以上為閘道精簡結構範例。將 name 用於路徑前，應只去掉一次開頭的 models/。即使 models.list 成功，後續 generateContent 仍可能因權限、模型能力或配額失敗。
+
+## 程式碼範例
+
+設定 `SIMIROUTER_API_KEY`。可用 `SIMIROUTER_BASE_URL` 覆寫預設閘道根位址，末尾須去掉版本路徑。所有範例都傳送無請求主體的 GET。
+
+<Tabs items={["Python","Node.js","curl","Go"]}>
+  <Tab value="Python">
+    ```python
+    import json, os, sys, urllib.request, urllib.error
+    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
+    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
+    path = '/v1beta/models'
+    request = urllib.request.Request(base + path, method="GET",
+        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(request, timeout=120) as response:
+            result = json.load(response)
+    except urllib.error.HTTPError as error:
+        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
+        raise SystemExit(1)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    ```
+  </Tab>
+
+  <Tab value="Node.js">
+    ```javascript
+    async function main() {
+      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
+      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
+      const endpoint = "/v1beta/models";
+      const response = await fetch(base + endpoint, { method: "GET",
+        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(120000) });
+      const result = await response.text();
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
+      console.log(JSON.stringify(JSON.parse(result), null, 2));
+    }
+    main().catch(error => { console.error(error); process.exitCode = 1; });
+    ```
+  </Tab>
+
+  <Tab value="curl">
+    ```bash
+    set -eu
+    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
+    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
+    curl "${BASE_URL%/}/v1beta/models" \
+      --fail-with-body \
+      --max-time 120 \
+      -X GET \
+      -H "Authorization: Bearer $SIMIROUTER_API_KEY"
+    ```
+  </Tab>
+
+  <Tab value="Go">
+    ```go
+    package main
+
+    import (
+      "fmt"
+      "io"
+      "log"
+      "net/http"
+      "os"
+      "strings"
+      "time"
+    )
+
+    func main() {
+      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
+      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
+      endpoint := "/v1beta/models"
+      req, err := http.NewRequest("GET", base + endpoint, nil); if err != nil { log.Fatal(err) }
+      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
+      client := &http.Client{Timeout: 120 * time.Second}
+      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
+      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
+      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
+      fmt.Println(string(result))
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## 錯誤碼
+
+| HTTP 狀態   | 含義或廠商錯誤型別                  | 處理方式                        |
+| --------- | -------------------------- | --------------------------- |
+| 400       | `INVALID_ARGUMENT` 等       | 檢查 JSON、模型參數、媒體 MIME 和輸入長度。 |
+| 403       | `PERMISSION_DENIED`        | 檢查 Key、項目權限、區域或帳單限制。        |
+| 404       | `NOT_FOUND`                | 檢查模型名稱和 API 版本。             |
+| 429       | `RESOURCE_EXHAUSTED`       | 檢查限流與配額；可重試情況採用有限次數退避。      |
+| 500 / 503 | `INTERNAL` / `UNAVAILABLE` | 記錄請求識別碼，有限重試或稍後再試。          |
+
+Google 原生錯誤物件包含 `error.code`（HTTP 數字）、`error.status`（枚舉名稱）、`error.message`，可能帶 `details`。 閘道可能在請求到達廠商前回傳驗證、路由或額度錯誤；不得僅憑 HTTP 數字判定錯誤來自上游。 閘道內部查詢還可能回傳 success=false 的 HTTP 200 業務錯誤，須同時檢查回應結構。
+
+## 官方參考
+
+* [Google Models API](https\://ai.google.dev/api/models)
+* [Google 模型目錄](https\://ai.google.dev/gemini-api/docs/models)
+* [Google 故障排查](https\://ai.google.dev/gemini-api/docs/troubleshooting)
+
+# 模型清單
+
+模型清單是接入設定的入口：先取得模型 ID，再根據廠商能力文件選擇聊天、視覺、圖片、音訊或工具介面。可見不等於可呼叫，模型清單也不代表即時健康檢查。
+
+## 概覽
+
+| 你要確認的事   | 在哪裡看           | 說明                |
+| -------- | -------------- | ----------------- |
+| 有哪些模型 ID | 本節的清單介面        | 只回傳目前憑證可見的模型      |
+| 能不能真正呼叫  | 模型與價格 + 一次真實請求 | 可見、可路由、有額度是三件不同的事 |
+| 支援哪些輸入輸出 | 模型能力說明         | 清單元資料通常不完整        |
+| 什麼時候下線   | 廠商發布的棄用或停用公告   | 棄用不等於立即不可用，但不應新接入 |
+
+## 核心概念
+
+* **模型 ID**：請求主體中使用的唯一識別碼，通常區分大小寫，必須完整複製，不要自行縮寫。顯示名稱、別名和實際請求 ID 可能不同。
+* **可見與可呼叫**：清單只反映權限範圍內的模型，管道未設定、餘額不足或限流時仍會失敗。
+* **上下文視窗**：輸入加輸出的 Token 上限，按模型區分；清單介面經常不回傳該值。
+* **計費單位**：文字模型多按 Token，圖片模型可按張或按 Token，影片模型常按秒或按次；同一模型族內也可能不同。
+* **下線日期**：表示廠商計畫停止服務的日期，遷移應在到期前完成，而不是到期後才發現。
+
+## 查詢介面
+
+| 文件                    | 請求                 | 回傳結構                            |
+| --------------------- | ------------------ | ------------------------------- |
+| [OpenAI 格式](/simidoc/zh-Hant/apps/api/models/openai) | GET /v1/models     | data\[].id，適合 OpenAI 相容用戶端。     |
+| [Gemini 格式](/simidoc/zh-Hant/apps/api/models/gemini) | GET /v1beta/models | models\[].name，適合 Gemini 協議用戶端。 |
+
+## 呼叫方式
+
+清單查詢為同步 JSON 請求，不支援 SSE，也不是非同步任務。多個帳戶可分別平行查詢，但憑證和結果不能混用。清單快取應設有效期，發現模型不再可用時重新讀取；不要為重新整理清單傳送真實生成請求。
+
+## 模擬呼叫
+
+查詢使用 GET，無需請求主體。以下是 SimiRouter 閘道的回應範例：
+
+```bash
+curl "https://api.dwchainless.com/v1/models" \
+  -H "Authorization: Bearer $SIMIROUTER_API_KEY"
+```
+
+```json
+{
+  "object": "list",
+  "success": true,
+  "data": [
+    {
+      "id": "MODEL_ID",
+      "object": "model",
+      "created": 1626777600,
+      "owned_by": "custom",
+      "context_length": 1048576,
+      "supported_endpoint_types": ["openai"]
+    }
+  ]
+}
+```
+
+閘道會回傳上下文長度和介面類型。上下文長度可能是平台預設值，價格、輸入輸出模態和工具支援仍應查閱模型說明。清單為空通常表示目前憑證沒有可見模型。
+
+## 元資料邊界
+
+OpenAI 模型物件包含 id、object、created、owned\_by；Google 原生模型物件可包含方法與 Token 限制。閘道可以只回傳精簡元資料，因此不能根據缺失欄位臆測上下文上限、模態或工具支援。
+
+## 官方參考
+
+* [OpenAI Models API](https\://developers.openai.com/api/reference/resources/models/methods/list)
+* [Google Models API](https\://ai.google.dev/api/models)
+
+# OpenAI 格式模型清單
+
+## 介面說明
+
+`GET /v1/models` 回傳目前 Key 可見的模型清單。清單可用於設定介面的模型選擇，不證明模型具備所有模態、工具、可用額度或即時服務能力。
+
+串接位址為 `https://api.dwchainless.com`，請求標頭使用 `Authorization: Bearer $SIMIROUTER_API_KEY`。OpenAI 官方直連為 `https://api.openai.com`，同樣使用 Bearer 身分驗證，但必須換成 OpenAI 的 Key。 模型名稱應選用帳戶可存取且支援目標能力的模型。
+
+只傳送 Bearer 驗證，不混用 x-api-key 或 x-goog-api-key，以免觸發閘道其他回傳格式。
+
+## 請求參數
+
+該清單請求無 JSON 請求主體，也沒有必填查詢參數。
+
+| 欄位            | 型別            | 必填 | 說明                |
+| ------------- | ------------- | -- | ----------------- |
+| Authorization | header string | 是  | Bearer 後攜帶閘道 Key。 |
+
+## 回傳值
+
+| 欄位                                | 型別                     | 說明                                            |
+| --------------------------------- | ---------------------- | --------------------------------------------- |
+| object                            | string                 | list。                                         |
+| data                              | array                  | 模型清單，允許為空。                                    |
+| data\[].id                        | string                 | 呼叫生成介面時使用的模型 ID。                              |
+| data\[].object                    | string                 | model。                                        |
+| data\[].created                   | integer                | Unix 秒時間戳；閘道元資料不一定等於廠商模型發佈日期。                 |
+| data\[].owned\_by                 | string                 | 模型歸屬標籤，不能據此證明請求一定路由到某一廠商。                     |
+| success                           | boolean                | 閘道可附加的業務結果標誌，不是 OpenAI 標準欄位。                  |
+| `data[].context_length`           | integer                | 閘道提供的上下文長度（Token），未設定時使用平台預設值。以模型說明和實際介面限制為準。 |
+| `data[].supported_endpoint_types` | `array<string>` / null | 閘道公布的介面類型。可作為選擇介面的參考。                         |
+
+```json
+{
+  "object": "list",
+  "success": true,
+  "data": [
+    {
+      "id": "MODEL_ID",
+      "object": "model",
+      "created": 1626777600,
+      "owned_by": "custom",
+      "context_length": 1048576,
+      "supported_endpoint_types": ["openai"]
+    }
+  ]
+}
+```
+
+空陣列是合法清單，不要直接存取 data\[0]。閘道查詢使用者群組失敗時可回傳 HTTP 200 且 success=false/message；用戶端仍須識別業務失敗。官方 OpenAI 另有 GET /v1/models/\{model} 查詢單模型，不應將清單元資料當作完整能力說明。
+
+## 程式碼範例
+
+設定 `SIMIROUTER_API_KEY`。可用 `SIMIROUTER_BASE_URL` 覆寫預設閘道根位址，末尾須去掉版本路徑。所有範例都傳送無請求主體的 GET。
+
+<Tabs items={["Python","Node.js","curl","Go"]}>
+  <Tab value="Python">
+    ```python
+    import json, os, sys, urllib.request, urllib.error
+    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
+    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
+    path = '/v1/models'
+    request = urllib.request.Request(base + path, method="GET",
+        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(request, timeout=120) as response:
+            result = json.load(response)
+    except urllib.error.HTTPError as error:
+        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
+        raise SystemExit(1)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    ```
+  </Tab>
+
+  <Tab value="Node.js">
+    ```javascript
+    async function main() {
+      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
+      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
+      const endpoint = "/v1/models";
+      const response = await fetch(base + endpoint, { method: "GET",
+        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(120000) });
+      const result = await response.text();
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
+      console.log(JSON.stringify(JSON.parse(result), null, 2));
+    }
+    main().catch(error => { console.error(error); process.exitCode = 1; });
+    ```
+  </Tab>
+
+  <Tab value="curl">
+    ```bash
+    set -eu
+    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
+    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
+    curl "${BASE_URL%/}/v1/models" \
+      --fail-with-body \
+      --max-time 120 \
+      -X GET \
+      -H "Authorization: Bearer $SIMIROUTER_API_KEY"
+    ```
+  </Tab>
+
+  <Tab value="Go">
+    ```go
+    package main
+
+    import (
+      "fmt"
+      "io"
+      "log"
+      "net/http"
+      "os"
+      "strings"
+      "time"
+    )
+
+    func main() {
+      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
+      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
+      endpoint := "/v1/models"
+      req, err := http.NewRequest("GET", base + endpoint, nil); if err != nil { log.Fatal(err) }
+      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
+      client := &http.Client{Timeout: 120 * time.Second}
+      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
+      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
+      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
+      fmt.Println(string(result))
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## 錯誤碼
+
+| HTTP 狀態   | 含義或廠商錯誤型別    | 處理方式                       |
+| --------- | ------------ | -------------------------- |
+| 400       | 請求無效         | 檢查必填欄位、JSON、模型參數和上下文長度。    |
+| 401       | 驗證失敗         | 檢查 Key 是否存在、有效及歸屬正確。       |
+| 403 / 404 | 無權存取 / 資源不存在 | 檢查模型權限、資源 ID 和 URL。        |
+| 429       | 速率或配額限制      | 結合回應主體區分限流與額度不足，後者不能靠重試解決。 |
+| 500 / 503 | 服務錯誤 / 暫時不可用 | 保留請求識別碼，對暫時故障做有限次數退避。      |
+
+OpenAI 原生錯誤通常包含 `error.message`、`error.type`、`error.param`、`error.code`；`param`、`code` 可為 `null`，不能假定其始終存在或等於 HTTP 狀態碼。 閘道可能在請求到達廠商前回傳驗證、路由或額度錯誤；不得僅憑 HTTP 數字判定錯誤來自上游。 還需檢查閘道 success=false 的業務錯誤；這與 HTTP 傳輸成功不同。
+
+## 官方參考
+
+* [OpenAI List models](https\://developers.openai.com/api/reference/resources/models/methods/list)
+* [OpenAI Retrieve model](https\://developers.openai.com/api/reference/resources/models/methods/retrieve)
+* [OpenAI 錯誤處理](https\://developers.openai.com/api/docs/guides/error-codes)
 
 # 其他能力與待串接參考
 
@@ -9176,6 +9178,435 @@ Python 範例需 `python3 -m pip install requests`；Node.js 範例使用 Node.j
 ## 官方參考
 
 [Cohere Rerank v2](https\://docs.cohere.com/reference/rerank)。
+
+# 檔案內容識別
+
+## 介面說明
+
+`POST /v1/responses` 的 input\_file 內容項可以把檔案交給支援該格式的模型處理。檔案識別不是檔案儲存服務，也不等於 OCR 已保證完整正確。
+
+串接位址為 `https://api.dwchainless.com`，請求標頭使用 `Authorization: Bearer $SIMIROUTER_API_KEY`。OpenAI 官方直連為 `https://api.openai.com`，同樣使用 Bearer 身分驗證，但必須換成 OpenAI 的 Key。 模型名稱應選用帳戶可存取且支援目標能力的模型。
+
+閘道的 `/v1/files` 上傳、查詢和刪除端點未實現；本頁使用 Base64 行內 PDF，不依賴 Files API。官方直連還可先上傳檔案再用 file\_id 引用，但不能把官方 file\_id 自動當作閘道可存取資源。
+
+## 請求參數
+
+| 欄位                       | 型別      | 必填 | 說明                                                                                                   |
+| ------------------------ | ------- | -- | ---------------------------------------------------------------------------------------------------- |
+| model                    | string  | 是  | 支援 PDF 輸入及相關視覺能力的模型 ID。                                                                              |
+| input\[].role            | string  | 是  | 此處為 user。                                                                                            |
+| input\[].content\[].type | string  | 是  | 問題用 input\_text，檔案用 input\_file。                                                                     |
+| input\_text.text         | string  | 是  | 對檔案提出的任務，如總結、提取欄位或問答。                                                                                |
+| input\_file.filename     | string  | 條件 | 行內資料的檔名，保留真實副檔名。                                                                                     |
+| input\_file.file\_data   | string  | 條件 | PDF 的 Base64 資料；本頁程式碼使用 data\:application/pdf;base64,... 前綴。官方規範只要求 Base64，通路不接受前綴時請去掉 data\:... 部分。 |
+| input\_file.file\_id     | string  | 條件 | 官方上傳後得到的檔案 ID；依賴對應服務的 Files 支援。                                                                      |
+| input\_file.file\_url    | string  | 條件 | 廠商可存取的檔案 URL；與行內資料選擇一種來源。                                                                            |
+| max\_output\_tokens      | integer | 否  | 模型輸出上限。                                                                                              |
+| stream                   | boolean | 否  | true 使用 Responses SSE。                                                                               |
+
+不要傳送本機路徑作為 file\_url，也不要同時填滿 file\_data、file\_id 和 file\_url。單次請求大小必須同時滿足閘道限制與官方檔案輸入限制；Base64 比原檔案更大，PDF 的頁圖還會增加模型輸入 Token。
+
+### 請求結構
+
+BASE64\_PDF\_BYTES 表示原始 PDF 的 Base64；四語言程式碼讀取 PDF\_PATH 後填入。
+
+```json
+{
+  "model": "MODEL_ID",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+        },
+        {
+          "type": "input_file",
+          "filename": "document.pdf",
+          "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+        }
+      ]
+    }
+  ],
+  "max_output_tokens": 1024,
+  "stream": false
+}
+```
+
+## 回傳值
+
+檔案輸入不會回傳獨立檔案任務 ID；回傳標準 Responses 物件。
+
+| 欄位                                                   | 型別               | 說明                                                                                  |
+| ---------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------- |
+| id / object                                          | string           | 回應 ID；object=response。                                                              |
+| created\_at / model                                  | integer / string | 建立時間（Unix 秒）與模型。                                                                    |
+| status                                               | string           | completed、incomplete、failed、queued、in\_progress、cancelled；串流與背景回應都可能出現這些狀態。         |
+| output\[]                                            | array            | 有型別的輸出項，可能混合 message、reasoning、function\_call、web\_search\_call 等；不可固定讀 output\[0]。 |
+| output\[].type / id / status                         | string           | 輸出項型別、ID 和項狀態（視型別出現）。                                                               |
+| output\[].role                                       | string           | 訊息輸出通常為 assistant。                                                                  |
+| output\[].content\[]                                 | array            | 訊息內容項，文字為 type=output\_text；拒絕為 type=refusal。                                       |
+| output\[].content\[].text / annotations              | string / array   | 本文與引用等注釋。                                                                           |
+| output\[].call\_id / name / arguments                | string           | function\_call 的關聯 ID、函式名、JSON 字串參數。                                                |
+| error                                                | object / null    | 失敗資訊；正常完成時通常為 null。                                                                 |
+| incomplete\_details                                  | object / null    | 不完整原因，如 max\_output\_tokens，不應當作完整成功。                                               |
+| usage.input\_tokens / output\_tokens / total\_tokens | integer          | 輸入、輸出和總 Token。                                                                      |
+| usage.\*\_tokens\_details                            | object           | 選用快取和推理等用量明細。                                                                       |
+
+```json
+{
+  "id": "resp_file_example",
+  "object": "response",
+  "status": "completed",
+  "error": null,
+  "incomplete_details": null,
+  "output": [
+    {
+      "id": "msg_file_example",
+      "type": "message",
+      "role": "assistant",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "这份文档主要讨论项目背景、实施步骤和风险。部分扫描页较模糊，无法确认细小文字。",
+          "annotations": []
+        }
+      ]
+    }
+  ],
+  "usage": {
+    "input_tokens": 1800,
+    "output_tokens": 75,
+    "total_tokens": 1875
+  }
+}
+```
+
+Chat Completions 也支援 `type=file`、嵌套 file.filename/file\_data 的 PDF 輸入，但結構與 Responses 的 input\_file 不同。不要把任意 TXT、表格或壓縮包的 Base64 當成所有介面都支援的檔案格式；文字可由應用解碼後作為文字傳送，其他檔案型別應先核對廠商與模型能力。
+
+## 程式碼範例
+
+設定 `SIMIROUTER_API_KEY`、`SIMIROUTER_FILE_MODEL`；`SIMIROUTER_BASE_URL` 可覆蓋預設閘道位址，不要在末尾追加 `/v1`。 `PDF_PATH` 指向已有的本機檔案。 Python 3、Node.js 18+ 和 Go 範例只使用標準函式庫；curl 範例的 JSON 由 Python 3 安全編碼。
+
+<Tabs items={["Python","Node.js","curl","Go"]}>
+  <Tab value="Python">
+    ```python
+    import json, os, sys, urllib.request, urllib.error
+    import base64
+    from pathlib import Path
+    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
+    if not os.environ.get("SIMIROUTER_FILE_MODEL"): raise RuntimeError("请设置 SIMIROUTER_FILE_MODEL")
+    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
+    body = json.loads(r'''{
+      "model": "MODEL_ID",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+            },
+            {
+              "type": "input_file",
+              "filename": "document.pdf",
+              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 1024,
+      "stream": false
+    }''')
+    body["model"] = os.environ["SIMIROUTER_FILE_MODEL"]
+    p = Path(os.environ["PDF_PATH"])
+    if not p.is_file(): raise FileNotFoundError(p)
+    mime = {'.pdf': 'application/pdf'}.get(p.suffix.lower())
+    if not mime: raise ValueError("不支持的文件扩展名")
+    data = p.read_bytes()
+    if not data: raise ValueError("输入文件为空")
+    encoded = base64.b64encode(data).decode("ascii")
+    body["input"][0]["content"][1].update({"filename": p.name, "file_data": "data:" + mime + ";base64," + encoded})
+    path = '/v1/responses'
+    request = urllib.request.Request(base + path, data=json.dumps(body).encode("utf-8"), method="POST",
+        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(request, timeout=120) as response:
+            result = json.load(response)
+    except urllib.error.HTTPError as error:
+        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
+        raise SystemExit(1)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    ```
+  </Tab>
+
+  <Tab value="Node.js">
+    ```javascript
+    async function main() {
+      const fs = require("node:fs");
+      const path = require("node:path");
+      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
+      if (!process.env.SIMIROUTER_FILE_MODEL) throw new Error("请设置 SIMIROUTER_FILE_MODEL");
+      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
+      const body = {
+      "model": "MODEL_ID",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+            },
+            {
+              "type": "input_file",
+              "filename": "document.pdf",
+              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 1024,
+      "stream": false
+    };
+      body.model = process.env.SIMIROUTER_FILE_MODEL;
+      const filename = process.env.PDF_PATH;
+      if (!filename) throw new Error("请设置 PDF_PATH");
+      const mime = {".pdf": "application/pdf"}[path.extname(filename).toLowerCase()];
+      if (!mime) throw new Error("不支持的文件扩展名");
+      const data = fs.readFileSync(filename);
+      if (!data.length) throw new Error("输入文件为空");
+      const encoded = data.toString("base64");
+      Object.assign(body.input[0].content[1], { filename: path.basename(filename), file_data: `data:${mime};base64,${encoded}` });
+      const endpoint = "/v1/responses";
+      const response = await fetch(base + endpoint, { method: "POST",
+        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: AbortSignal.timeout(120000) });
+      const result = await response.text();
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
+      console.log(JSON.stringify(JSON.parse(result), null, 2));
+    }
+    main().catch(error => { console.error(error); process.exitCode = 1; });
+    ```
+  </Tab>
+
+  <Tab value="curl">
+    ```bash
+    set -eu
+    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
+    : "${SIMIROUTER_FILE_MODEL:?请设置 SIMIROUTER_FILE_MODEL}"
+    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
+    BODY=$(python3 - <<'PYBODY'
+    import json, os
+    import base64
+    from pathlib import Path
+    body = json.loads(r'''{
+      "model": "MODEL_ID",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+            },
+            {
+              "type": "input_file",
+              "filename": "document.pdf",
+              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 1024,
+      "stream": false
+    }''')
+    body["model"] = os.environ["SIMIROUTER_FILE_MODEL"]
+    p = Path(os.environ["PDF_PATH"])
+    if not p.is_file(): raise FileNotFoundError(p)
+    mime = {'.pdf': 'application/pdf'}.get(p.suffix.lower())
+    if not mime: raise ValueError("不支持的文件扩展名")
+    data = p.read_bytes()
+    if not data: raise ValueError("输入文件为空")
+    encoded = base64.b64encode(data).decode("ascii")
+    body["input"][0]["content"][1].update({"filename": p.name, "file_data": "data:" + mime + ";base64," + encoded})
+    print(json.dumps(body, ensure_ascii=False))
+    PYBODY
+    )
+    curl "${BASE_URL%/}/v1/responses" \
+      --fail-with-body \
+      --max-time 120 \
+      -X POST \
+      -H "Authorization: Bearer $SIMIROUTER_API_KEY" \
+      -H "Content-Type: application/json" \
+      --data-binary "$BODY"
+    ```
+  </Tab>
+
+  <Tab value="Go">
+    ```go
+    package main
+
+    import (
+      "bytes"
+      "fmt"
+      "io"
+      "log"
+      "net/http"
+      "os"
+      "strings"
+      "time"
+      "encoding/json"
+      "encoding/base64"
+      "path/filepath"
+    )
+
+    func main() {
+      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
+      model := os.Getenv("SIMIROUTER_FILE_MODEL"); if model == "" { log.Fatal("请设置 SIMIROUTER_FILE_MODEL") }
+      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
+      var body map[string]any
+      if err := json.Unmarshal([]byte(`{
+      "model": "MODEL_ID",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
+            },
+            {
+              "type": "input_file",
+              "filename": "document.pdf",
+              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 1024,
+      "stream": false
+    }`), &body); err != nil { log.Fatal(err) }
+      body["model"] = model
+      filename := os.Getenv("PDF_PATH"); if filename == "" { log.Fatal("请设置 PDF_PATH") }
+      mime := map[string]string{".pdf":"application/pdf"}[strings.ToLower(filepath.Ext(filename))]
+      if mime == "" { log.Fatal("不支持的文件扩展名") }
+      data, err := os.ReadFile(filename); if err != nil { log.Fatal(err) }; if len(data) == 0 { log.Fatal("输入文件为空") }
+      encoded := base64.StdEncoding.EncodeToString(data)
+      item := body["input"].([]any)[0].(map[string]any)["content"].([]any)[1].(map[string]any); item["filename"] = filepath.Base(filename); item["file_data"] = "data:" + mime + ";base64," + encoded
+      endpoint := "/v1/responses"
+      payload, err := json.Marshal(body); if err != nil { log.Fatal(err) }
+      req, err := http.NewRequest("POST", base + endpoint, bytes.NewReader(payload)); if err != nil { log.Fatal(err) }
+      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
+      client := &http.Client{Timeout: 120 * time.Second}
+      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
+      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
+      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
+      fmt.Println(string(result))
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## 錯誤碼
+
+| HTTP 狀態   | 含義或廠商錯誤型別    | 處理方式                       |
+| --------- | ------------ | -------------------------- |
+| 400       | 請求無效         | 檢查必填欄位、JSON、模型參數和上下文長度。    |
+| 401       | 驗證失敗         | 檢查 Key 是否存在、有效及歸屬正確。       |
+| 403 / 404 | 無權存取 / 資源不存在 | 檢查模型權限、資源 ID 和 URL。        |
+| 429       | 速率或配額限制      | 結合回應主體區分限流與額度不足，後者不能靠重試解決。 |
+| 500 / 503 | 服務錯誤 / 暫時不可用 | 保留請求識別碼，對暫時故障做有限次數退避。      |
+
+OpenAI 原生錯誤通常包含 `error.message`、`error.type`、`error.param`、`error.code`；`param`、`code` 可為 `null`，不能假定其始終存在或等於 HTTP 狀態碼。 閘道可能在請求到達廠商前回傳驗證、路由或額度錯誤；不得僅憑 HTTP 數字判定錯誤來自上游。 檔案損壞、密碼保護、超限或模型不支援該檔案格式，應修正輸入；不要重試同一錯誤檔案並偽造識別成功。
+
+## 官方參考
+
+* [OpenAI 檔案輸入](https\://developers.openai.com/api/docs/guides/file-inputs)
+* [OpenAI Responses API](https\://developers.openai.com/api/reference/resources/responses/methods/create)
+* [OpenAI Files API](https\://developers.openai.com/api/reference/resources/files/methods/create)
+* [OpenAI 錯誤處理](https\://developers.openai.com/api/docs/guides/error-codes)
+
+# 檔案與內容識別
+
+檔案相關流程有兩層：上傳 API 管理檔案資源，模型輸入 API 讀取檔案內容並生成答案。把檔案附加到生成請求不等於將它儲存為可重複使用的檔案資源。
+
+## 概覽
+
+| 你要做的事        | 輸入方式                 | 檔案去哪     | 是否需要先上傳         |
+| ------------ | -------------------- | -------- | --------------- |
+| 讓模型讀一份 PDF   | 請求行內 Base64 或可存取 URL | 只存在於本次請求 | 否               |
+| 在多輪請求中重複使用檔案 | file\_id 或廠商檔案引用     | 廠商檔案資源   | 是（官方 Files API） |
+| 批次或超長檔案預處理   | 上傳後等待處理完成            | 廠商檔案資源   | 是，且有生命週期        |
+
+## 核心概念
+
+* **行內輸入**：檔案編碼進請求體隨訊息發送，請求結束即結束，沒有 file\_id，也沒有後續刪除步驟。
+* **檔案資源**：先上傳取得 id，再在多次請求中引用；資源有歸屬、有效期和配額，需要顯式刪除。
+* **生命週期**：上傳完成不等於文字抽取完成，也不等於模型已經理解；輪詢到可處理狀態後才能推理。
+* **大小與格式**：限制按檔案大小、頁數、時長分別設定；壓縮圖片不會轉換檔案類型，掃描版 PDF 還需要 OCR 能力。
+* **資料保留**：各廠商對檔案內容與識別結果的保留策略不同，敏感材料先確認授權與刪除方式。
+
+## 請求與能力
+
+| 用途                                  | 請求                                            | 邊界                                 |
+| ----------------------------------- | --------------------------------------------- | ---------------------------------- |
+| [PDF 內容識別](/simidoc/zh-Hant/apps/api/upload/file-recognition)      | POST /v1/responses + input\_file              | 行內 Base64，無需 Files API。            |
+| Chat PDF 輸入                         | POST /v1/chat/completions + type=file         | 使用 Chat 的 file 物件，不是 Responses 結構。 |
+| [Files API](/simidoc/zh-Hant/apps/api/pending/files)       | /v1/files                                     | 閘道未實現；官方原生上傳能力不代表本站開放。             |
+| [Gemini 媒體理解](/simidoc/zh-Hant/apps/api/chat/gemini-media) | POST /v1beta/models/\{model}\:generateContent | inlineData 或適用的 fileData。          |
+
+## 呼叫方式
+
+行內識別可同步回傳 JSON，也可串流回傳文字事件；均屬於一次模型請求。官方某些上傳或檔案預處理流程需要等待資源可用，屬於資源生命週期，不等於模型自動背景執行。多檔案可以在一個支援的請求里提交，也可以分成平行請求；兩種方式的上下文、費用和總大小限制不同。
+
+上傳敏感檔案前確認處理授權與服務商資料政策。大型文件宜按任務選擇相關頁或片段，不要為追求一次完成無限增加輸入。識別輸出必須保留不確定性，關鍵金額、編號與法律醫療結論應人工複核。
+
+## 模擬呼叫
+
+行內識別一次請求即可完成，檔案以 Base64 放在 `input_file` 裡：
+
+```json
+{
+  "model": "gpt-5.5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        { "type": "input_text", "text": "总结这份合同的付款条款。" },
+        { "type": "input_file", "filename": "contract.pdf", "file_data": "data:application/pdf;base64,JVBERi0xLjQK..." }
+      ]
+    }
+  ]
+}
+```
+
+回應是普通的模型訊息，識別結果在 `output_text` 中：
+
+```json
+{
+  "status": "completed",
+  "output": [
+    {
+      "type": "message",
+      "content": [
+        { "type": "output_text", "text": "（示意）合同约定分三期付款……" }
+      ]
+    }
+  ]
+}
+```
+
+整個過程中沒有上傳步驟，也沒有可重複使用的 file\_id；同一個檔案要再問一次，需要重新提交 Base64 或改用官方檔案資源。
+
+## 官方參考
+
+* [OpenAI 檔案輸入](https\://developers.openai.com/api/docs/guides/file-inputs)
+* [OpenAI Files API](https\://developers.openai.com/api/reference/resources/files/methods/create)
+* [Google 檔案輸入](https\://ai.google.dev/gemini-api/docs/file-input-methods)
 
 # 函式工具呼叫
 
@@ -10128,435 +10559,6 @@ OpenAI 原生錯誤通常包含 `error.message`、`error.type`、`error.param`�
 * [OpenAI 網路搜尋](https\://developers.openai.com/api/docs/guides/tools-web-search)
 * [OpenAI Responses API](https\://developers.openai.com/api/reference/resources/responses/methods/create)
 * [OpenAI 錯誤處理](https\://developers.openai.com/api/docs/guides/error-codes)
-
-# 檔案內容識別
-
-## 介面說明
-
-`POST /v1/responses` 的 input\_file 內容項可以把檔案交給支援該格式的模型處理。檔案識別不是檔案儲存服務，也不等於 OCR 已保證完整正確。
-
-串接位址為 `https://api.dwchainless.com`，請求標頭使用 `Authorization: Bearer $SIMIROUTER_API_KEY`。OpenAI 官方直連為 `https://api.openai.com`，同樣使用 Bearer 身分驗證，但必須換成 OpenAI 的 Key。 模型名稱應選用帳戶可存取且支援目標能力的模型。
-
-閘道的 `/v1/files` 上傳、查詢和刪除端點未實現；本頁使用 Base64 行內 PDF，不依賴 Files API。官方直連還可先上傳檔案再用 file\_id 引用，但不能把官方 file\_id 自動當作閘道可存取資源。
-
-## 請求參數
-
-| 欄位                       | 型別      | 必填 | 說明                                                                                                   |
-| ------------------------ | ------- | -- | ---------------------------------------------------------------------------------------------------- |
-| model                    | string  | 是  | 支援 PDF 輸入及相關視覺能力的模型 ID。                                                                              |
-| input\[].role            | string  | 是  | 此處為 user。                                                                                            |
-| input\[].content\[].type | string  | 是  | 問題用 input\_text，檔案用 input\_file。                                                                     |
-| input\_text.text         | string  | 是  | 對檔案提出的任務，如總結、提取欄位或問答。                                                                                |
-| input\_file.filename     | string  | 條件 | 行內資料的檔名，保留真實副檔名。                                                                                     |
-| input\_file.file\_data   | string  | 條件 | PDF 的 Base64 資料；本頁程式碼使用 data\:application/pdf;base64,... 前綴。官方規範只要求 Base64，通路不接受前綴時請去掉 data\:... 部分。 |
-| input\_file.file\_id     | string  | 條件 | 官方上傳後得到的檔案 ID；依賴對應服務的 Files 支援。                                                                      |
-| input\_file.file\_url    | string  | 條件 | 廠商可存取的檔案 URL；與行內資料選擇一種來源。                                                                            |
-| max\_output\_tokens      | integer | 否  | 模型輸出上限。                                                                                              |
-| stream                   | boolean | 否  | true 使用 Responses SSE。                                                                               |
-
-不要傳送本機路徑作為 file\_url，也不要同時填滿 file\_data、file\_id 和 file\_url。單次請求大小必須同時滿足閘道限制與官方檔案輸入限制；Base64 比原檔案更大，PDF 的頁圖還會增加模型輸入 Token。
-
-### 請求結構
-
-BASE64\_PDF\_BYTES 表示原始 PDF 的 Base64；四語言程式碼讀取 PDF\_PATH 後填入。
-
-```json
-{
-  "model": "MODEL_ID",
-  "input": [
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "input_text",
-          "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-        },
-        {
-          "type": "input_file",
-          "filename": "document.pdf",
-          "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-        }
-      ]
-    }
-  ],
-  "max_output_tokens": 1024,
-  "stream": false
-}
-```
-
-## 回傳值
-
-檔案輸入不會回傳獨立檔案任務 ID；回傳標準 Responses 物件。
-
-| 欄位                                                   | 型別               | 說明                                                                                  |
-| ---------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------- |
-| id / object                                          | string           | 回應 ID；object=response。                                                              |
-| created\_at / model                                  | integer / string | 建立時間（Unix 秒）與模型。                                                                    |
-| status                                               | string           | completed、incomplete、failed、queued、in\_progress、cancelled；串流與背景回應都可能出現這些狀態。         |
-| output\[]                                            | array            | 有型別的輸出項，可能混合 message、reasoning、function\_call、web\_search\_call 等；不可固定讀 output\[0]。 |
-| output\[].type / id / status                         | string           | 輸出項型別、ID 和項狀態（視型別出現）。                                                               |
-| output\[].role                                       | string           | 訊息輸出通常為 assistant。                                                                  |
-| output\[].content\[]                                 | array            | 訊息內容項，文字為 type=output\_text；拒絕為 type=refusal。                                       |
-| output\[].content\[].text / annotations              | string / array   | 本文與引用等注釋。                                                                           |
-| output\[].call\_id / name / arguments                | string           | function\_call 的關聯 ID、函式名、JSON 字串參數。                                                |
-| error                                                | object / null    | 失敗資訊；正常完成時通常為 null。                                                                 |
-| incomplete\_details                                  | object / null    | 不完整原因，如 max\_output\_tokens，不應當作完整成功。                                               |
-| usage.input\_tokens / output\_tokens / total\_tokens | integer          | 輸入、輸出和總 Token。                                                                      |
-| usage.\*\_tokens\_details                            | object           | 選用快取和推理等用量明細。                                                                       |
-
-```json
-{
-  "id": "resp_file_example",
-  "object": "response",
-  "status": "completed",
-  "error": null,
-  "incomplete_details": null,
-  "output": [
-    {
-      "id": "msg_file_example",
-      "type": "message",
-      "role": "assistant",
-      "status": "completed",
-      "content": [
-        {
-          "type": "output_text",
-          "text": "这份文档主要讨论项目背景、实施步骤和风险。部分扫描页较模糊，无法确认细小文字。",
-          "annotations": []
-        }
-      ]
-    }
-  ],
-  "usage": {
-    "input_tokens": 1800,
-    "output_tokens": 75,
-    "total_tokens": 1875
-  }
-}
-```
-
-Chat Completions 也支援 `type=file`、嵌套 file.filename/file\_data 的 PDF 輸入，但結構與 Responses 的 input\_file 不同。不要把任意 TXT、表格或壓縮包的 Base64 當成所有介面都支援的檔案格式；文字可由應用解碼後作為文字傳送，其他檔案型別應先核對廠商與模型能力。
-
-## 程式碼範例
-
-設定 `SIMIROUTER_API_KEY`、`SIMIROUTER_FILE_MODEL`；`SIMIROUTER_BASE_URL` 可覆蓋預設閘道位址，不要在末尾追加 `/v1`。 `PDF_PATH` 指向已有的本機檔案。 Python 3、Node.js 18+ 和 Go 範例只使用標準函式庫；curl 範例的 JSON 由 Python 3 安全編碼。
-
-<Tabs items={["Python","Node.js","curl","Go"]}>
-  <Tab value="Python">
-    ```python
-    import json, os, sys, urllib.request, urllib.error
-    import base64
-    from pathlib import Path
-    if not os.environ.get("SIMIROUTER_API_KEY"): raise RuntimeError("请设置 SIMIROUTER_API_KEY")
-    if not os.environ.get("SIMIROUTER_FILE_MODEL"): raise RuntimeError("请设置 SIMIROUTER_FILE_MODEL")
-    base = os.environ.get("SIMIROUTER_BASE_URL", "https://api.dwchainless.com").rstrip("/")
-    body = json.loads(r'''{
-      "model": "MODEL_ID",
-      "input": [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "input_text",
-              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-            },
-            {
-              "type": "input_file",
-              "filename": "document.pdf",
-              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-            }
-          ]
-        }
-      ],
-      "max_output_tokens": 1024,
-      "stream": false
-    }''')
-    body["model"] = os.environ["SIMIROUTER_FILE_MODEL"]
-    p = Path(os.environ["PDF_PATH"])
-    if not p.is_file(): raise FileNotFoundError(p)
-    mime = {'.pdf': 'application/pdf'}.get(p.suffix.lower())
-    if not mime: raise ValueError("不支持的文件扩展名")
-    data = p.read_bytes()
-    if not data: raise ValueError("输入文件为空")
-    encoded = base64.b64encode(data).decode("ascii")
-    body["input"][0]["content"][1].update({"filename": p.name, "file_data": "data:" + mime + ";base64," + encoded})
-    path = '/v1/responses'
-    request = urllib.request.Request(base + path, data=json.dumps(body).encode("utf-8"), method="POST",
-        headers={"Authorization": "Bearer " + os.environ["SIMIROUTER_API_KEY"], "Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(request, timeout=120) as response:
-            result = json.load(response)
-    except urllib.error.HTTPError as error:
-        print(f"HTTP {error.code}: {error.read().decode()}", file=sys.stderr)
-        raise SystemExit(1)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-    ```
-  </Tab>
-
-  <Tab value="Node.js">
-    ```javascript
-    async function main() {
-      const fs = require("node:fs");
-      const path = require("node:path");
-      if (!process.env.SIMIROUTER_API_KEY) throw new Error("请设置 SIMIROUTER_API_KEY");
-      if (!process.env.SIMIROUTER_FILE_MODEL) throw new Error("请设置 SIMIROUTER_FILE_MODEL");
-      const base = (process.env.SIMIROUTER_BASE_URL || "https://api.dwchainless.com").replace(/\/$/, "");
-      const body = {
-      "model": "MODEL_ID",
-      "input": [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "input_text",
-              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-            },
-            {
-              "type": "input_file",
-              "filename": "document.pdf",
-              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-            }
-          ]
-        }
-      ],
-      "max_output_tokens": 1024,
-      "stream": false
-    };
-      body.model = process.env.SIMIROUTER_FILE_MODEL;
-      const filename = process.env.PDF_PATH;
-      if (!filename) throw new Error("请设置 PDF_PATH");
-      const mime = {".pdf": "application/pdf"}[path.extname(filename).toLowerCase()];
-      if (!mime) throw new Error("不支持的文件扩展名");
-      const data = fs.readFileSync(filename);
-      if (!data.length) throw new Error("输入文件为空");
-      const encoded = data.toString("base64");
-      Object.assign(body.input[0].content[1], { filename: path.basename(filename), file_data: `data:${mime};base64,${encoded}` });
-      const endpoint = "/v1/responses";
-      const response = await fetch(base + endpoint, { method: "POST",
-        headers: { Authorization: `Bearer ${process.env.SIMIROUTER_API_KEY}`, "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-        signal: AbortSignal.timeout(120000) });
-      const result = await response.text();
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${result}`);
-      console.log(JSON.stringify(JSON.parse(result), null, 2));
-    }
-    main().catch(error => { console.error(error); process.exitCode = 1; });
-    ```
-  </Tab>
-
-  <Tab value="curl">
-    ```bash
-    set -eu
-    : "${SIMIROUTER_API_KEY:?请设置 SIMIROUTER_API_KEY}"
-    : "${SIMIROUTER_FILE_MODEL:?请设置 SIMIROUTER_FILE_MODEL}"
-    BASE_URL="${SIMIROUTER_BASE_URL:-https://api.dwchainless.com}"
-    BODY=$(python3 - <<'PYBODY'
-    import json, os
-    import base64
-    from pathlib import Path
-    body = json.loads(r'''{
-      "model": "MODEL_ID",
-      "input": [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "input_text",
-              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-            },
-            {
-              "type": "input_file",
-              "filename": "document.pdf",
-              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-            }
-          ]
-        }
-      ],
-      "max_output_tokens": 1024,
-      "stream": false
-    }''')
-    body["model"] = os.environ["SIMIROUTER_FILE_MODEL"]
-    p = Path(os.environ["PDF_PATH"])
-    if not p.is_file(): raise FileNotFoundError(p)
-    mime = {'.pdf': 'application/pdf'}.get(p.suffix.lower())
-    if not mime: raise ValueError("不支持的文件扩展名")
-    data = p.read_bytes()
-    if not data: raise ValueError("输入文件为空")
-    encoded = base64.b64encode(data).decode("ascii")
-    body["input"][0]["content"][1].update({"filename": p.name, "file_data": "data:" + mime + ";base64," + encoded})
-    print(json.dumps(body, ensure_ascii=False))
-    PYBODY
-    )
-    curl "${BASE_URL%/}/v1/responses" \
-      --fail-with-body \
-      --max-time 120 \
-      -X POST \
-      -H "Authorization: Bearer $SIMIROUTER_API_KEY" \
-      -H "Content-Type: application/json" \
-      --data-binary "$BODY"
-    ```
-  </Tab>
-
-  <Tab value="Go">
-    ```go
-    package main
-
-    import (
-      "bytes"
-      "fmt"
-      "io"
-      "log"
-      "net/http"
-      "os"
-      "strings"
-      "time"
-      "encoding/json"
-      "encoding/base64"
-      "path/filepath"
-    )
-
-    func main() {
-      key := os.Getenv("SIMIROUTER_API_KEY"); if key == "" { log.Fatal("请设置 SIMIROUTER_API_KEY") }
-      model := os.Getenv("SIMIROUTER_FILE_MODEL"); if model == "" { log.Fatal("请设置 SIMIROUTER_FILE_MODEL") }
-      base := strings.TrimRight(os.Getenv("SIMIROUTER_BASE_URL"), "/"); if base == "" { base = "https://api.dwchainless.com" }
-      var body map[string]any
-      if err := json.Unmarshal([]byte(`{
-      "model": "MODEL_ID",
-      "input": [
-        {
-          "role": "user",
-          "content": [
-            {
-              "type": "input_text",
-              "text": "请总结PDF的主要内容，并标注无法可靠读取的部分。"
-            },
-            {
-              "type": "input_file",
-              "filename": "document.pdf",
-              "file_data": "data:application/pdf;base64,BASE64_PDF_BYTES"
-            }
-          ]
-        }
-      ],
-      "max_output_tokens": 1024,
-      "stream": false
-    }`), &body); err != nil { log.Fatal(err) }
-      body["model"] = model
-      filename := os.Getenv("PDF_PATH"); if filename == "" { log.Fatal("请设置 PDF_PATH") }
-      mime := map[string]string{".pdf":"application/pdf"}[strings.ToLower(filepath.Ext(filename))]
-      if mime == "" { log.Fatal("不支持的文件扩展名") }
-      data, err := os.ReadFile(filename); if err != nil { log.Fatal(err) }; if len(data) == 0 { log.Fatal("输入文件为空") }
-      encoded := base64.StdEncoding.EncodeToString(data)
-      item := body["input"].([]any)[0].(map[string]any)["content"].([]any)[1].(map[string]any); item["filename"] = filepath.Base(filename); item["file_data"] = "data:" + mime + ";base64," + encoded
-      endpoint := "/v1/responses"
-      payload, err := json.Marshal(body); if err != nil { log.Fatal(err) }
-      req, err := http.NewRequest("POST", base + endpoint, bytes.NewReader(payload)); if err != nil { log.Fatal(err) }
-      req.Header.Set("Authorization", "Bearer " + key); req.Header.Set("Content-Type", "application/json")
-      client := &http.Client{Timeout: 120 * time.Second}
-      response, err := client.Do(req); if err != nil { log.Fatal(err) }; defer response.Body.Close()
-      result, err := io.ReadAll(response.Body); if err != nil { log.Fatal(err) }
-      if response.StatusCode >= 400 { log.Fatalf("HTTP %d: %s", response.StatusCode, result) }
-      fmt.Println(string(result))
-    }
-    ```
-  </Tab>
-</Tabs>
-
-## 錯誤碼
-
-| HTTP 狀態   | 含義或廠商錯誤型別    | 處理方式                       |
-| --------- | ------------ | -------------------------- |
-| 400       | 請求無效         | 檢查必填欄位、JSON、模型參數和上下文長度。    |
-| 401       | 驗證失敗         | 檢查 Key 是否存在、有效及歸屬正確。       |
-| 403 / 404 | 無權存取 / 資源不存在 | 檢查模型權限、資源 ID 和 URL。        |
-| 429       | 速率或配額限制      | 結合回應主體區分限流與額度不足，後者不能靠重試解決。 |
-| 500 / 503 | 服務錯誤 / 暫時不可用 | 保留請求識別碼，對暫時故障做有限次數退避。      |
-
-OpenAI 原生錯誤通常包含 `error.message`、`error.type`、`error.param`、`error.code`；`param`、`code` 可為 `null`，不能假定其始終存在或等於 HTTP 狀態碼。 閘道可能在請求到達廠商前回傳驗證、路由或額度錯誤；不得僅憑 HTTP 數字判定錯誤來自上游。 檔案損壞、密碼保護、超限或模型不支援該檔案格式，應修正輸入；不要重試同一錯誤檔案並偽造識別成功。
-
-## 官方參考
-
-* [OpenAI 檔案輸入](https\://developers.openai.com/api/docs/guides/file-inputs)
-* [OpenAI Responses API](https\://developers.openai.com/api/reference/resources/responses/methods/create)
-* [OpenAI Files API](https\://developers.openai.com/api/reference/resources/files/methods/create)
-* [OpenAI 錯誤處理](https\://developers.openai.com/api/docs/guides/error-codes)
-
-# 檔案與內容識別
-
-檔案相關流程有兩層：上傳 API 管理檔案資源，模型輸入 API 讀取檔案內容並生成答案。把檔案附加到生成請求不等於將它儲存為可重複使用的檔案資源。
-
-## 概覽
-
-| 你要做的事        | 輸入方式                 | 檔案去哪     | 是否需要先上傳         |
-| ------------ | -------------------- | -------- | --------------- |
-| 讓模型讀一份 PDF   | 請求行內 Base64 或可存取 URL | 只存在於本次請求 | 否               |
-| 在多輪請求中重複使用檔案 | file\_id 或廠商檔案引用     | 廠商檔案資源   | 是（官方 Files API） |
-| 批次或超長檔案預處理   | 上傳後等待處理完成            | 廠商檔案資源   | 是，且有生命週期        |
-
-## 核心概念
-
-* **行內輸入**：檔案編碼進請求體隨訊息發送，請求結束即結束，沒有 file\_id，也沒有後續刪除步驟。
-* **檔案資源**：先上傳取得 id，再在多次請求中引用；資源有歸屬、有效期和配額，需要顯式刪除。
-* **生命週期**：上傳完成不等於文字抽取完成，也不等於模型已經理解；輪詢到可處理狀態後才能推理。
-* **大小與格式**：限制按檔案大小、頁數、時長分別設定；壓縮圖片不會轉換檔案類型，掃描版 PDF 還需要 OCR 能力。
-* **資料保留**：各廠商對檔案內容與識別結果的保留策略不同，敏感材料先確認授權與刪除方式。
-
-## 請求與能力
-
-| 用途                                  | 請求                                            | 邊界                                 |
-| ----------------------------------- | --------------------------------------------- | ---------------------------------- |
-| [PDF 內容識別](/simidoc/zh-Hant/apps/api/upload/file-recognition)      | POST /v1/responses + input\_file              | 行內 Base64，無需 Files API。            |
-| Chat PDF 輸入                         | POST /v1/chat/completions + type=file         | 使用 Chat 的 file 物件，不是 Responses 結構。 |
-| [Files API](/simidoc/zh-Hant/apps/api/pending/files)       | /v1/files                                     | 閘道未實現；官方原生上傳能力不代表本站開放。             |
-| [Gemini 媒體理解](/simidoc/zh-Hant/apps/api/chat/gemini-media) | POST /v1beta/models/\{model}\:generateContent | inlineData 或適用的 fileData。          |
-
-## 呼叫方式
-
-行內識別可同步回傳 JSON，也可串流回傳文字事件；均屬於一次模型請求。官方某些上傳或檔案預處理流程需要等待資源可用，屬於資源生命週期，不等於模型自動背景執行。多檔案可以在一個支援的請求里提交，也可以分成平行請求；兩種方式的上下文、費用和總大小限制不同。
-
-上傳敏感檔案前確認處理授權與服務商資料政策。大型文件宜按任務選擇相關頁或片段，不要為追求一次完成無限增加輸入。識別輸出必須保留不確定性，關鍵金額、編號與法律醫療結論應人工複核。
-
-## 模擬呼叫
-
-行內識別一次請求即可完成，檔案以 Base64 放在 `input_file` 裡：
-
-```json
-{
-  "model": "gpt-5.5",
-  "input": [
-    {
-      "role": "user",
-      "content": [
-        { "type": "input_text", "text": "总结这份合同的付款条款。" },
-        { "type": "input_file", "filename": "contract.pdf", "file_data": "data:application/pdf;base64,JVBERi0xLjQK..." }
-      ]
-    }
-  ]
-}
-```
-
-回應是普通的模型訊息，識別結果在 `output_text` 中：
-
-```json
-{
-  "status": "completed",
-  "output": [
-    {
-      "type": "message",
-      "content": [
-        { "type": "output_text", "text": "（示意）合同约定分三期付款……" }
-      ]
-    }
-  ]
-}
-```
-
-整個過程中沒有上傳步驟，也沒有可重複使用的 file\_id；同一個檔案要再問一次，需要重新提交 Base64 或改用官方檔案資源。
-
-## 官方參考
-
-* [OpenAI 檔案輸入](https\://developers.openai.com/api/docs/guides/file-inputs)
-* [OpenAI Files API](https\://developers.openai.com/api/reference/resources/files/methods/create)
-* [Google 檔案輸入](https\://ai.google.dev/gemini-api/docs/file-input-methods)
 
 # 影片
 

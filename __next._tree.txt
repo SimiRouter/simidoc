@@ -1,5 +1,4 @@
-:HL["/simidoc/_next/static/chunks/29--_xkit9eal.css","style"]
-:HC["/",""]
-2:[["children",{"s":"__PAGE__","h":128}]]
-1:[["children",{"s":"(entry)","h":48,"c":"$Q2"}]]
-0:{"b":"0K9ZuT3sJA4sXcVSgvwXa","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+:HL["/simidoc/_next/static/css/78be9d45d7e35a92.css","style"]
+2:[["children",{"s":"__PAGE__","h":160}]]
+1:[["children",{"s":"(entry)","h":112,"c":"$Q2"}]]
+0:{"b":"zj0U54NhuVf0arXLhwFuO","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

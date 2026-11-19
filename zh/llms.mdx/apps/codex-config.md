@@ -17,13 +17,15 @@
 
 仓库提供 Bash 和 PowerShell 脚本。运行前请确保已安装并启动过 Codex CLI 或 Codex 桌面端；先下载并审阅脚本，再执行本地文件。
 
-* [下载 Bash 脚本](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
-* [下载 PowerShell 脚本](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [下载 Bash 脚本（CDN）](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [下载 Bash 脚本（GitHub Raw 备用）](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.sh)
+* [下载 PowerShell 脚本（CDN）](https\://cdn.jsdelivr.net/gh/SimiRouter/simidoc@cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
+* [下载 PowerShell 脚本（GitHub Raw 备用）](https\://raw.githubusercontent.com/SimiRouter/simidoc/cfec21a766129af49914f80da19529b9ff5d12e1/scripts/codex-simirouter-setup.ps1)
 
 macOS / Linux 用户在终端中执行：
 
 <Callout type="warn" title="">
-  以下步骤会从当前文档站点下载脚本，但不会直接把网络响应交给解释器。下载后请审阅文件内容并确认备份目录，再运行本地副本。若站点尚未发布这些文件，请从仓库 `public/scripts/` 取得同一版本，或使用下面的手动配置。
+  以下步骤会从上方的 CDN 或 GitHub Raw 链接下载脚本，但不会直接把网络响应交给解释器。下载后请审阅本地文件内容并确认备份目录，再运行本地副本。
   脚本会把 API 密钥写入 `experimental_bearer_token`（位于 `config.toml`）；不会创建或修改 `auth.json`。该文件包含明文密钥，请勿提交或分享。
 </Callout>
 
